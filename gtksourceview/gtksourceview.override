@@ -196,7 +196,7 @@ _wrap_gtk_source_language_get_mime_types (PyGObject *self)
 {
     GSList *source;
     PyObject *dest;
-    source = gtk_source_language_get_tags (GTK_SOURCE_LANGUAGE(self->obj));
+    source = gtk_source_language_get_mime_types (GTK_SOURCE_LANGUAGE(self->obj));
     dest = _gslist_to_pylist_strs(source);
     g_slist_free(source);
     return dest;

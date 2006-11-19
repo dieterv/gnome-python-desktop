@@ -1,3 +1,8 @@
+2006-11-19  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview/gtksourceview.override: make get_mime_types()
+	returns the proper list. Fixes #351367.
+
 === 2.17.1 ===
 2006-10-15  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
