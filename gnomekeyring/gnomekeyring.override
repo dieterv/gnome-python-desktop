@@ -92,6 +92,36 @@ pygnome_keyring_access_control_get_type(void)
 }
 #endif /* #ifndef GNOME_KEYRING_ACCESS_CONTROL_TYPE */
 
+#ifndef GNOME_KEYRING_TYPE_FOUND
+# define GNOME_KEYRING_TYPE_FOUND pygnome_keyring_found_get_type()
+GnomeKeyringFound *
+pygnome_keyring_found_copy (GnomeKeyringFound *found)
+{
+    GnomeKeyringFound *copy;
+
+    copy = g_new (GnomeKeyringFound, 1);
+    memcpy (copy, found, sizeof (GnomeKeyringFound));
+
+    copy->keyring = g_strdup (copy->keyring);
+    copy->attributes = gnome_keyring_attribute_list_copy (copy->attributes);
+    copy->secret = g_strdup (copy->secret);
+
+    return copy;
+}
+
+static GType
+pygnome_keyring_found_get_type(void)
+{
+    static GType our_type = 0;
+  
+    if (our_type == 0)
+        our_type = g_boxed_type_register_static("PyGnomeKeyringFound",
+                                                (GBoxedCopyFunc)pygnome_keyring_found_copy,
+                                                (GBoxedFreeFunc)gnome_keyring_found_free);
+    return our_type;
+}
+#endif /* #ifndef GNOME_KEYRING_ACCESS_CONTROL_TYPE */
+
 static GnomeKeyringAttributeList *
 pygnome_keyring_attribute_list_from_pyobject(PyObject *py_attrlist)
 {
@@ -546,8 +576,8 @@ _wrap_gnome_keyring_find_items_sync(PyObject *self, PyObject *args, PyObject *kw
     GnomeKeyringItemType type;
     gint ret;
     PyObject * py_attributes;
-    GList *ids = NULL, *l;
-    PyObject *py_ids;
+    GList *found = NULL, *l;
+    PyObject *py_found;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwargs,"OO:find_items_sync", kwlist, &py_type, &py_attributes))
         return NULL;
@@ -557,23 +587,22 @@ _wrap_gnome_keyring_find_items_sync(PyObject *self, PyObject *args, PyObject *kw
     if (!attributes)
         return NULL;
     pyg_begin_allow_threads;
-    ret = gnome_keyring_find_items_sync(type, attributes, &ids);
+    ret = gnome_keyring_find_items_sync(type, attributes, &found);
     pyg_end_allow_threads;
     gnome_keyring_attribute_list_free(attributes);
 
-    py_ids = PyList_New(0);
-    for (l = ids; l; l = l->next)
+    py_found = PyList_New(0);
+    for (l = found; l; l = l->next)
     {
-        PyObject *item;
-        item = PyLong_FromUnsignedLong(GPOINTER_TO_UINT(l->data));
-        PyList_Append(py_ids, item);
+        PyObject *item = pyg_boxed_new(GNOME_KEYRING_TYPE_FOUND, l->data, FALSE, TRUE);
+        PyList_Append(py_found, item);
         Py_DECREF(item);
     }
-    g_list_free(ids);
+    g_list_free(found);
 
     if (pygnomekeyring_result_check(ret))
         return NULL;
-    return py_ids;
+    return py_found;
 }
 
 %%

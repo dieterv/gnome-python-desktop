@@ -88,6 +88,17 @@
   (gtype-id "GNOME_KEYRING_TYPE_APPLICATION_REF")
 )
 
+(define-boxed Found
+  (in-module "Gnome")
+  (c-name "GnomeKeyringFound")
+  (gtype-id "GNOME_KEYRING_TYPE_FOUND")
+  (fields
+   '("gchar*"                     "keyring")
+   '("guint"                      "item_id")
+   '("GnomeKeyringAttributeList*" "attributes")
+   '("gchar*"                     "secret"))
+)
+
 ;; From /opt/gnome-devel/include/gnome-keyring-1/gnome-keyring.h
 
 (define-method append_string

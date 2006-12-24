@@ -10,6 +10,9 @@ class AttrList(argtypes.ArgType):
             % vars())
         info.arglist.append(pname)
         info.codeafter.append("    gnome_keyring_attribute_list_free(%(pname)s);\n" % vars())
+    def write_return(self, ptype, ownsreturn, info):
+        info.varlist.add('GnomeKeyringAttributeList*', 'ret')
+        info.codeafter.append('return pygnome_keyring_attribute_list_as_pyobject(ret);')
 
 argtypes.matcher.register('GnomeKeyringAttributeList*', AttrList())
 
