@@ -1,3 +1,8 @@
+2007-01-03  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* metacity/metacity.c: Remove reference to META_MENU_OP_UNABOVE
+	since that has been removed from metacity recently. Fixes build.
+
 2006-12-24  Lukás Lalinský  <lalinsky@gmail.com>
 
 	reviewed by: Gustavo J. A. M. Carneiro  <gjc@gnome.org>
