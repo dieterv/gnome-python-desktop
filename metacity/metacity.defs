@@ -54,7 +54,7 @@
     '("move" "META_MENU_OP_MOVE")
     '("resize" "META_MENU_OP_RESIZE")
     '("above" "META_MENU_OP_ABOVE")
-    '("unabove" "META_MENU_OP_UNABOVE")
+;    '("unabove" "META_MENU_OP_UNABOVE")
     '("move-left" "META_MENU_OP_MOVE_LEFT")
     '("move-right" "META_MENU_OP_MOVE_RIGHT")
     '("move-up" "META_MENU_OP_MOVE_UP")

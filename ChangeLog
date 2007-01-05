@@ -1,3 +1,8 @@
+2007-01-05  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* metacity/metacity.defs (MenuOp): META_MENU_OP_UNABOVE removed,
+	Closes #393198.
+
 2007-01-03  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* metacity/metacity.c: Remove reference to META_MENU_OP_UNABOVE
