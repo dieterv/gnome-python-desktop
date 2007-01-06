@@ -9,8 +9,8 @@ m4_define(gnome_python_desktop_version, gnome_python_desktop_major_version.gnome
 
 dnl required versions of other packages
 m4_define(pygtk_required_major_version, 2)
-m4_define(pygtk_required_minor_version, 4)
-m4_define(pygtk_required_micro_version, 0)
+m4_define(pygtk_required_minor_version, 10)
+m4_define(pygtk_required_micro_version, 3)
 m4_define(pygtk_required_version, pygtk_required_major_version.pygtk_required_minor_version.pygtk_required_micro_version)
 m4_define(glib_required_version,              2.6.0)
 m4_define(gtk_required_version,               2.4.0)

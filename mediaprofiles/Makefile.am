@@ -23,6 +23,7 @@ CLEANFILES = mediaprofiles.c
 	(cd $(srcdir)\
 	 && $(PYGTK_CODEGEN) \
 		--override $*.override \
+	    --py_ssize_t-clean \
 	    --register $(PYGTK_DEFSDIR)/gdk-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gtk-types.defs \
 	    --register $(GNOMEPYTHON_DEFSDIR)/gconf.defs \

@@ -1,5 +1,21 @@
 2007-01-06  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* gnomeapplet/Makefile.am:
+	* gnomedesktop/Makefile.am:
+	* gnomekeyring/Makefile.am:
+	* gtksourceview/Makefile.am:
+	* mediaprofiles/Makefile.am:
+	* metacity/Makefile.am:
+	* nautilusburn/Makefile.am:
+	* rsvg/Makefile.am:
+	* totem/Makefile.am:
+	* wnck/Makefile.am: Use --py_ssize_t-clean in codegen.
+
+	* rsvg/rsvg.override: Py_ssize_t fixes.
+
+	* configure.ac: Depend on PyGTK 2.10.3, for the new
+	--py_ssize_t-clean option.
+
 	* gtksourceview/gtksourceview.override
 	(_wrap_gtk_source_language_tp_repr): Add custom tp_repr function
 	that includes the language id. Closes #351567.

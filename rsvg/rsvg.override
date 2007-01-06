@@ -80,7 +80,7 @@ _wrap_rsvg_handle_write(PyGObject *self, PyObject *args, PyObject *kwargs)
     static char *kwlist[] = { "buffer", NULL };
     GError *error = NULL;
     const guchar *buffer;
-    gsize len;
+    Py_ssize_t len;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwargs,
                                      "s#:Handle.write",
@@ -172,8 +172,9 @@ _wrap_rsvg_handle_new(PyGObject *self, PyObject *args, PyObject *kwargs)
     static char *kwlist[] = { "file", "data", NULL };
     GError *error = NULL;
     RsvgHandle *handle;
-    guint8 *data = NULL, *file = NULL;
-    gsize data_len;
+    char *file = NULL;
+    guint8 *data = NULL;
+    Py_ssize_t data_len;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwargs,
                                      "|zs#:Handle.__init__",

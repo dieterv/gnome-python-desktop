@@ -24,6 +24,7 @@ plparser_la_LIBADD =				\
 	(cd $(srcdir)					\
 	 && $(PYGTK_CODEGEN)				\
 	    --override $*.override			\
+	    --py_ssize_t-clean \
 	    --register $(PYGTK_DEFSDIR)/gtk-types.defs	\
 	    --register $(PYGTK_DEFSDIR)/gdk-types.defs	\
 	    --prefix py$* $*.defs) > gen-$*.c		\

@@ -28,6 +28,7 @@ wnck.c: wnck.defs wnck.override
 .defs.c:
 	(cd $(srcdir) \
 	 && $(PYGTK_CODEGEN) \
+	    --py_ssize_t-clean \
             --register $(PYGTK_DEFSDIR)/gtk-types.defs \
             --register $(PYGTK_DEFSDIR)/gdk-types.defs \
 	    --override $*.override \

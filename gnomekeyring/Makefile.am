@@ -29,6 +29,7 @@ gnomekeyring.c: gnomekeyring.defs gnomekeyring.override gnomekeyring-argtypes.py
 	(cd $(srcdir) \
 	 && $(PYGTK_CODEGEN) \
 	    --load-types gnomekeyring-argtypes.py \
+	    --py_ssize_t-clean \
             --register $(PYGTK_DEFSDIR)/gtk-types.defs \
             --register $(PYGTK_DEFSDIR)/gdk-types.defs \
 	    --override $*.override \

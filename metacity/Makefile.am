@@ -30,6 +30,7 @@ metacity.c: metacity.defs metacity.override
 	 && $(PYGTK_CODEGEN) \
             --register $(PYGTK_DEFSDIR)/gtk-types.defs \
             --register $(PYGTK_DEFSDIR)/gdk-types.defs \
+	    --py_ssize_t-clean \
 	    --override $*.override \
 	    --prefix py$* $*.defs) > gen-$*.c \
 	&& cp gen-$*.c $*.c \

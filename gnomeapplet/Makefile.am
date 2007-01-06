@@ -33,6 +33,7 @@ applet.c: applet.defs applet.override
 	(cd $(srcdir) \
 	 && $(PYGTK_CODEGEN) \
 	    --load-types $(GNOME_PYTHON_ARGTYPES_DIR)/bonobo-arg-types.py \
+	    --py_ssize_t-clean \
 	    --register $(PYGTK_DEFSDIR)/pango-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gdk-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gtk-types.defs \

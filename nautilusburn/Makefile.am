@@ -24,6 +24,7 @@ nautilus_burn.c: nautilus_burn.defs nautilus_burn.override
 	(cd $(srcdir) \
 	 && $(PYGTK_CODEGEN) \
 	    --override $*.override \
+	    --py_ssize_t-clean \
 	    --register $(PYGTK_DEFSDIR)/gtk-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gdk-types.defs \
 	    --prefix $* $*.defs) > gen-$*.c \
