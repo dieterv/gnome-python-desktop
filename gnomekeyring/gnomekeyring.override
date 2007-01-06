@@ -126,7 +126,7 @@ static GnomeKeyringAttributeList *
 pygnome_keyring_attribute_list_from_pyobject(PyObject *py_attrlist)
 {
     GnomeKeyringAttributeList *attrlist;
-    int iter = 0;
+    Py_ssize_t iter = 0;
     PyObject *key, *value;
     
     if (!PyDict_Check(py_attrlist)) {
