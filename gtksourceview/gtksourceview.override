@@ -522,3 +522,18 @@ _wrap_gtk_source_style_scheme_get_default_deprecated(PyObject *self)
     /* pygobject_new handles NULL checking */
     return pygobject_new((GObject *)ret);
 }
+
+%%
+override-slot GtkSourceLanguage.tp_repr
+
+static PyObject *
+_wrap_gtk_source_language_tp_repr (PyGObject *self)
+{
+    PyObject *repr;
+    char *id = gtk_source_language_get_id(GTK_SOURCE_LANGUAGE(self->obj));
+    repr = PyString_FromFormat("<gtksourceview.SourceLanguage (id=\"%s\") at 0x%lx",
+                               id, (long) self);
+    g_free(id);
+    return repr;
+}
+
