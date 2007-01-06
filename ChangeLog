@@ -1,5 +1,7 @@
 2007-01-06  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* wnck/wnckmodule.c: Add missing prototype for pywnck_add_constants.
+
 	* gnomeprint/__init__.py: Add a warning stating that gnomeprint is
 	now deprecated in favour of cairo and gtk.
 

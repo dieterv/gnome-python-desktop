@@ -12,6 +12,8 @@
 #include <pygtk/pygtk.h>
 
 void pywnck_register_classes(PyObject *d);
+void pywnck_add_constants(PyObject *module, const gchar *strip_prefix);
+
 extern PyMethodDef pywnck_functions[];
 
 DL_EXPORT(void)
