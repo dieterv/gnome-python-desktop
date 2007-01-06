@@ -1,5 +1,11 @@
 2007-01-06  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* configure.ac: Require totem 1.4 for the custom_title parameter.
+
+	* totem/plparser.override (_pl_parser_iter_func): Handle the new
+	 (actually one year old but only noticed now) 'custom_title'
+	parameter.
+
 	* wnck/wnckmodule.c: Add missing prototype for pywnck_add_constants.
 
 	* gnomeprint/__init__.py: Add a warning stating that gnomeprint is

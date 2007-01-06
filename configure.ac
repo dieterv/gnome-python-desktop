@@ -28,6 +28,7 @@ m4_define(metacity_required_version,          2.17.0)
 m4_define(rsvg_required_version,              2.13.93)
 m4_define(gnomekeyring_required_version,      0.5.0)
 m4_define(gnomedesktop_required_version,      2.10.0)
+m4_define(totem_required_version,             1.4.0)
 
 
 AC_INIT(gnome-python-desktop, gnome_python_desktop_version,
@@ -182,7 +183,7 @@ fi
 
 dnl should we build the totem.plparser module?
 build_totem_plparser=false
-PKG_CHECK_MODULES(TOTEM_PLPARSER, [totem-plparser pygtk-2.0 >= pygtk_required_version],
+PKG_CHECK_MODULES(TOTEM_PLPARSER, [totem-plparser >= totem_required_version  pygtk-2.0 >= pygtk_required_version],
   build_totem_plparser=true,
   build_totem_plparser=false)
 AM_CONDITIONAL(BUILD_TOTEM_PLPARSER, $build_totem_plparser)

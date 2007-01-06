@@ -27,12 +27,13 @@ typedef struct {
 
 static void
 _pl_parser_iter_func (GtkTreeModel *model, GtkTreeIter *iter, char **uri, char **title,
-		      gpointer user_data)
+		      gboolean *custom_title, gpointer user_data)
 {
 	PyObject *args = NULL;
 	PyObject *result = NULL;
 	char *tmp_uri = NULL, *tmp_title = NULL;
 	PyPlParserIterFuncData *data = user_data;
+	PyObject *py_custom_title = NULL;
 
 	if (data->has_error)
 		return;
@@ -65,17 +66,19 @@ _pl_parser_iter_func (GtkTreeModel *model, GtkTreeIter *iter, char **uri, char *
 			data->has_error = TRUE;
 		}
 	} else if (!PyTuple_Check (result) ||
-		   !PyArg_ParseTuple (result, "ss", &tmp_uri, &tmp_title))
+		   !PyArg_ParseTuple (result, "ss|O", &tmp_uri, &tmp_title, &py_custom_title))
 	{
 		PyErr_SetString (PyExc_TypeError,
 				 "Callback function must return one "
-				 "string or a tuple of two strings.");
+				 "string or a tuple of two strings,"
+				 " or two strings and a boolean.");
 		data->has_error = TRUE;
 	}
 	
 	/* g_strdup handles NULL case for us */
 	*uri = g_strdup (tmp_uri);
 	*title = g_strdup (tmp_title);
+	*custom_title = py_custom_title? PyObject_IsTrue(py_custom_title) : FALSE;
 	
 	Py_DECREF (result);
 }
