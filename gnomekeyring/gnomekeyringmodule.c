@@ -20,7 +20,7 @@ static PyObject *PyGKExc_IOError; /* GNOME_KEYRING_RESULT_IO_ERROR */
 static PyObject *PyGKExc_CancelledError; /* GNOME_KEYRING_RESULT_CANCELLED */
 static PyObject *PyGKExc_AlreadyExistsError; /* GNOME_KEYRING_RESULT_ALREADY_EXISTS */
 
-inline PyObject *
+PyObject *
 pygnomekeyring_result_to_exception(GnomeKeyringResult result)
 {
     switch(result)
