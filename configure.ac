@@ -270,6 +270,21 @@ if test -n "$export_dynamic"; then
   GNOMEDESKTOP_LIBS=`echo $GNOMEDESKTOP_LIBS | sed -e "s/$export_dynamic//"`
 fi
 
+dnl Check for bug-buddy
+enable_bugbuddy=false
+AC_PATH_PROG(BUG_BUDDY, bug-buddy, x)
+if test "$BUG_BUDDY" != "x"; then 
+  AC_MSG_CHECKING([whether bug-buddy >= 2.16])
+  if $BUG_BUDDY --version | $PYTHON -c ["import sys; sys.exit([int(s) for s in sys.stdin.read().split()[2].split('.')] < [2,16])"]; then
+    AC_MSG_RESULT([yes])
+    enable_bugbuddy=true
+  else
+    AC_MSG_RESULT([no])
+    enable_bugbuddy=false
+  fi
+fi
+AM_CONDITIONAL(BUILD_BUGBUDDY, $enable_bugbuddy)
+
 dnl add required cflags ...
 JH_ADD_CFLAG([-Wall])
 JH_ADD_CFLAG([-std=c9x])
@@ -315,6 +330,7 @@ $build_metacity          && echo     metacity
 $build_rsvg              && echo     rsvg
 $build_gnomekeyring      && echo     gnomekeyring
 $build_gnomedesktop      && echo     gnomedesktop
+$build_bugbuddy          && echo     bugbuddy
 echo
 
 echo "The following modules will NOT be built:"
@@ -332,3 +348,4 @@ $build_metacity          || echo     metacity
 $build_rsvg              || echo     rsvg
 $build_gnomekeyring      || echo     gnomekeyring
 $build_gnomedesktop      || echo     gnomedesktop
+$build_bugbuddy          || echo     bugbuddy

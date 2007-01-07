@@ -54,6 +54,12 @@ SUBDIRS +=  tests
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gnome-python-desktop-2.0.pc
 
+## Install the bugbuddy module
+pkgpyexecdir = $(pyexecdir)/gtk-2.0
+if BUILD_BUGBUDDY
+  pkgpyexec_PYTHON = bugbuddy.py
+endif
+
 
 EXTRA_DIST = \
   MAINTAINERS \
