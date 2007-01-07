@@ -34,8 +34,6 @@ for item in modules:
     except ImportError, ex:
         if ex.args[0].startswith("No module named"):
             print "not found"
-        else:
-            raise
     else:
         print "ok."
 

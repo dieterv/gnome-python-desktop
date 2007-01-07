@@ -1,3 +1,19 @@
+Overview of Changes from 2.17.1 to 2.17.2
+==============================================================================
+* totem.plparser
+ - Fix to update to new/old totem.plparser.write API change (Gustavo)
+* bugbuddy
+ - New bug-buddy integration module (#346106, Fernando Herrara, Gustavo)
+* gtksourceview
+ - Improve repr() of gtksourceview.SourceLanguage (#351567)
+ - make get_mime_types() returns the proper list (#351367, Paolo Borelli)
+* gnomekeyring
+ - Fix build with Sun Forte compiler (#368364, Damien Carbery)
+ - implementation of gnomekeyring.find_items_sync (#386366, Lukás Lalinský)
+* general
+ - Py_ssize_t fixes, for python 2.5 + 64 bits (#338492)
+
+
 Overview of Changes from 2.16.0 to 2.17.1
 ==============================================================================
 * gnomekeyring
