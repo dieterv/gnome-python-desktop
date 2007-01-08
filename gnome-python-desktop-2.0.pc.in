@@ -1,8 +1,8 @@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 includedir=@includedir@
-datadir=@datadir@
 datarootdir=@datarootdir@
+datadir=@datadir@
 
 Name: GNOME-python
 Description: Python bindings for GNOME libraries
