@@ -271,19 +271,19 @@ if test -n "$export_dynamic"; then
 fi
 
 dnl Check for bug-buddy
-enable_bugbuddy=false
-AC_PATH_PROG(BUG_BUDDY, bug-buddy, x)
-if test "$BUG_BUDDY" != "x"; then 
+build_bugbuddy=false
+AC_PATH_PROG(BUG_BUDDY, bug-buddy)
+if test "x$BUG_BUDDY" != "x"; then 
   AC_MSG_CHECKING([whether bug-buddy >= 2.16])
   if $BUG_BUDDY --version | $PYTHON -c ["import sys; sys.exit([int(s) for s in sys.stdin.read().split()[2].split('.')] < [2,16])"]; then
     AC_MSG_RESULT([yes])
-    enable_bugbuddy=true
+    build_bugbuddy=true
   else
     AC_MSG_RESULT([no])
-    enable_bugbuddy=false
+    build_bugbuddy=false
   fi
 fi
-AM_CONDITIONAL(BUILD_BUGBUDDY, $enable_bugbuddy)
+AM_CONDITIONAL(BUILD_BUGBUDDY, $build_bugbuddy)
 
 dnl add required cflags ...
 JH_ADD_CFLAG([-Wall])
