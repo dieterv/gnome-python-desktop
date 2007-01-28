@@ -1,3 +1,8 @@
+2007-01-28  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* totem/Makefile.am (plparser_la_CFLAGS): Fix erroneous "-I"
+	before $(TOTEM_PLPARSER_CFLAGS).  Closes #401760.
+
 2007-01-20  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* configure.ac: Fix bugbuddy detection.  Closes #398305.

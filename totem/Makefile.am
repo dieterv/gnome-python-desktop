@@ -12,7 +12,7 @@ nodist_plparser_la_SOURCES = plparser.c
 plparser.c: plparser.defs plparser.override
 
 plparser_la_CFLAGS =				\
-	-I$(TOTEM_PLPARSER_CFLAGS)		\
+	$(TOTEM_PLPARSER_CFLAGS)		\
 	$(PYTHON_INCLUDES)
 
 plparser_la_LDFLAGS = -module -avoid-version  -export-symbols-regex initplparser
