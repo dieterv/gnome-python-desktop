@@ -1,3 +1,11 @@
+2007-02-11  Paul  <ephraim_owns@hotmail.com>
+
+	reviewed by: Gustavo Carneiro
+
+	* gnomekeyring/gnomekeyring.override,
+	* rsvg/rsvg.override: Bug #405328: PyGObject_API multiply defined
+	on darwin.
+
 2007-01-28  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* totem/Makefile.am (plparser_la_CFLAGS): Fix erroneous "-I"
