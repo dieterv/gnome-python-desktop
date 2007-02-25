@@ -1,5 +1,5 @@
 
-SUBDIRS =  docs tests
+SUBDIRS =  docs
 
 if BUILD_GNOMEPRINT
   SUBDIRS += gnomeprint

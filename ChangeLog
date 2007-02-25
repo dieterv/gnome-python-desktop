@@ -1,3 +1,7 @@
+2007-02-25  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* Makefile.am (SUBDIRS): Remove duplicate appearance of 'tests'.
+
 2007-02-18  Marc-Andre Lureau  <marcandre.lureau@gmail.com>
 
 	reviewed by: Gustavo Carneiro
