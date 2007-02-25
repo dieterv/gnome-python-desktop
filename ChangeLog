@@ -1,5 +1,7 @@
 2007-02-25  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* configure.ac: Version 2.17.92.
+
 	* Makefile.am (SUBDIRS): Remove duplicate appearance of 'tests'.
 
 2007-02-18  Marc-Andre Lureau  <marcandre.lureau@gmail.com>
