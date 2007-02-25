@@ -1,3 +1,16 @@
+Overview of Changes from 2.17.3 to 2.17.92
+==============================================================================
+* metacity
+ - Follow metacity API changes (Marc-Andre Lureau)
+* gnomekeyring
+ - Fix build on darwin (Paul)
+* rsvg
+ - Fix build on darwin (Paul)
+* totem
+ - Fix typo in makefile causing a build failure (Gustavo)
+* bugbuddy
+ - Fix configure bugbuddy detection (Gustavo)
+
 Overview of Changes from 2.17.2 to 2.17.3
 ==============================================================================
 * general
