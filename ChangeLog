@@ -1,4 +1,7 @@
+=== 2.17.93 ===
 2007-02-27  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* NEWS: Update.
 
 	* configure.ac: Don't build metacity bindings by default (they're
 	not API stable); add --enable-metacity configure option.
