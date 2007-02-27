@@ -131,18 +131,16 @@
   )
 )
 
-(define-enum ActionTitlebar
+(define-enum ActionDoubleClickTitlebar
   (in-module "Meta")
-  (c-name "MetaActionTitlebar")
+  (c-name "MetaActionDoubleClickTitlebar")
 ;   (gtype-id "META_TYPE_ACTION_TITLEBAR")
   (values
-    '("toggle-shade" "META_ACTION_TITLEBAR_TOGGLE_SHADE")
-    '("toggle-maximize" "META_ACTION_TITLEBAR_TOGGLE_MAXIMIZE")
-    '("minimize" "META_ACTION_TITLEBAR_MINIMIZE")
-    '("none" "META_ACTION_TITLEBAR_NONE")
-    '("lower" "META_ACTION_TITLEBAR_LOWER")
-    '("menu" "META_ACTION_TITLEBAR_MENU")
-    '("last" "META_ACTION_TITLEBAR_LAST")
+    '("toggle-shade" "META_ACTION_DOUBLE_CLICK_TITLEBAR_TOGGLE_SHADE")
+    '("toggle-maximize" "META_ACTION_DOUBLE_CLICK_TITLEBAR_TOGGLE_MAXIMIZE")
+    '("minimize" "META_ACTION_DOUBLE_CLICK_TITLEBAR_MINIMIZE")
+    '("none" "META_ACTION_DOUBLE_CLICK_TITLEBAR_NONE")
+    '("last" "META_ACTION_DOUBLE_CLICK_TITLEBAR_LAST")
   )
 )
 

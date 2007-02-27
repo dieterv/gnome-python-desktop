@@ -1,3 +1,8 @@
+2007-02-27  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* metacity/metacity.defs (ActionDoubleClickTitlebar): Follow
+	metacity API changes *again*.
+
 === 2.17.92 ===
 2007-02-25  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
