@@ -239,14 +239,19 @@ fi
 
 
 dnl should we build the metacity module
-build_metacity=false
-PKG_CHECK_MODULES(METACITY, libmetacity-private >= metacity_required_version,
-  build_metacity=true,
-  build_metacity=false)
-AM_CONDITIONAL(BUILD_METACITY, $build_metacity)
-if test -n "$export_dynamic"; then
-  METACITY_LIBS=`echo $METACITY_LIBS | sed -e "s/$export_dynamic//"`
+AC_ARG_ENABLE([metacity],
+             AC_HELP_STRING([--enable-metacity],
+                            [build metacity bindings (default is NO)]),
+             [build_metacity=true], [build_metacity=false])
+if $build_metacity; then
+    PKG_CHECK_MODULES(METACITY, libmetacity-private >= metacity_required_version,
+      build_metacity=true,
+      build_metacity=false)
+    if test -n "$export_dynamic"; then
+      METACITY_LIBS=`echo $METACITY_LIBS | sed -e "s/$export_dynamic//"`
+    fi
 fi
+AM_CONDITIONAL(BUILD_METACITY, $build_metacity)
 
 dnl should we build the gnomekeyring module
 build_gnomekeyring=false

@@ -1,5 +1,8 @@
 2007-02-27  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* configure.ac: Don't build metacity bindings by default (they're
+	not API stable); add --enable-metacity configure option.
+
 	* metacity/metacity.defs (ActionDoubleClickTitlebar): Follow
 	metacity API changes *again*.
 
