@@ -2,6 +2,7 @@
 
 	* configure.ac: Don't build metacity bindings by default (they're
 	not API stable); add --enable-metacity configure option.
+	Require metacity 2.17.8.
 
 	* metacity/metacity.defs (ActionDoubleClickTitlebar): Follow
 	metacity API changes *again*.
