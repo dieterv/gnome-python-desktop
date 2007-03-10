@@ -567,7 +567,7 @@ _wrap_gnome_keyring_list_item_ids_sync(PyObject *self, PyObject *args, PyObject 
 }
 
 %%
-override gnome_keyring_find_items_sync
+override gnome_keyring_find_items_sync kwargs
 static PyObject *
 _wrap_gnome_keyring_find_items_sync(PyObject *self, PyObject *args, PyObject *kwargs)
 {
