@@ -1,4 +1,4 @@
-The kind of license that applies to gnome-python-extras varies for
+The kind of license that applies to gnome-python-desktop varies for
 each python module.  Some are LGPL (see COPYING.LGPL), while others
 are GPL (see COPYING.GPL).
 
@@ -6,17 +6,16 @@ The following table summarises the licenses of individual modules:
 
 Module name		License
 --------------------------------
-gtkhtml2		LGPL
 gnomeapplet		LGPL
+gnomedesktop		LGPL
+gnomekeyring		LGPL
 gnomeprint		LGPL
 gnomeprint.ui		LGPL
 gtksourceview		GPL
-egg.trayicon		LGPL
-egg.recent		GPL?
-wnck			LGPL
-gtkmozembed		LGPL
-gtkspell		GPL
-gdl			GPL
-totem.plparser		LGPL
 gtop			GPL
-nautilusburn            GPL
+mediaprofiles		LGPL
+metacity		GPL
+nautilusburn		GPL
+rsvg			LGPL
+totem.plparser		LGPL
+wnck			LGPL

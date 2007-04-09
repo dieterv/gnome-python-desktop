@@ -1,3 +1,9 @@
+2007-04-09  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* COPYING: Update package names and their licences.
+
+	* autogen.sh: Fix package name, desktop instead of extras.
+
 === 2.18.0 ===
 2007-03-12  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
