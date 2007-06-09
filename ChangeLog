@@ -1,3 +1,10 @@
+2007-06-09  Joseph Sacco  <jsacco@gnome.org>
+
+	reviewed by: Gustavo J. A. M. Carneiro
+
+	* metacity/metacity.defs: Bug 428697 – The metacity API has
+	changed in 2.19.x.
+
 2007-04-09  Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* COPYING: Update package names and their licences.
