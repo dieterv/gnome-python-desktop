@@ -15,6 +15,7 @@ modulename wnck
 import gobject.GObject as PyGObject_Type
 import gtk.Container as PyGtkContainer_Type
 import gtk.Window as PyGtkWindow_Type
+import gtk.MenuBar as PyGtkMenuBar_Type
 %%
 ignore-glob
  _*

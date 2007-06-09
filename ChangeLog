@@ -1,5 +1,9 @@
 2007-06-09  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* configure.ac: Update required wnck version to 2.19.3.
+
+	* wnck/wnck.defs: Wrap WnckSelector.
+
 	* configure.ac: Require metacity 2.19.8 due to API changes.
 
 2007-06-09  Joseph Sacco  <jsacco@gnome.org>

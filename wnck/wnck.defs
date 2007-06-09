@@ -49,6 +49,13 @@
   (gtype-id "WNCK_TYPE_WORKSPACE")
 )
 
+(define-object Selector
+  (in-module "Wnck")
+  (parent "GtkMenuBar")
+  (c-name "WnckSelector")
+  (gtype-id "WNCK_TYPE_SELECTOR")
+)
+
 ;; Enumerations and flags ...
 
 (define-enum PagerDisplayMode
@@ -1208,4 +1215,17 @@
   (return-type "gboolean")
 )
 
+
+;; From selector.h
+
+(define-function selector_new
+  (c-name "wnck_selector_new")
+  (is-constructor-of "WnckSelector")
+  (return-type "GtkWidget*")
+)
+
+(define-function selector_get_type
+  (c-name "wnck_selector_get_type")
+  (return-type "GType")
+)
 
