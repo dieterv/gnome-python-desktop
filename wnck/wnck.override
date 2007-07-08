@@ -9,6 +9,9 @@ headers
 #include <libwnck/libwnck.h>
 #include <libwnck/class-group.h>
 #include <libwnck/window-action-menu.h>
+
+#include "config.h"
+
 %%
 modulename wnck
 %%

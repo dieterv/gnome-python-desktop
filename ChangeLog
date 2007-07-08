@@ -9,6 +9,8 @@
 	* mediaprofiles/mediaprofiles.override:
 	* metacity/metacity.override:
 	* nautilusburn/nautilus_burn.override:
+	* totem/plparser.override:
+	* wnck/wnck.override:
 	* rsvg/rsvg.override: #include "config.h" to get a __version__
 	attribute on the module when compiling with newer (pygtk trunk)
 	codegen.
