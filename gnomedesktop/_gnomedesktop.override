@@ -7,6 +7,8 @@ headers
 #include "pygobject.h"
 #include <libgnome/gnome-desktop-item.h>
 
+#include "config.h"
+
 /*
  This wrapper does not free the string in the list, just the list itself
  */

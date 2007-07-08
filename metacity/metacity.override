@@ -10,6 +10,8 @@ headers
 /* #include <metacity-private/enum-types.h> */
 #include <metacity-private/theme-parser.h>
 
+#include "config.h"
+
 GType
 meta_theme_get_type(void)
 {

@@ -1,3 +1,18 @@
+2007-07-08  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* gnomeapplet/applet.override:
+	* gnomedesktop/_gnomedesktop.override:
+	* gnomekeyring/gnomekeyring.override:
+	* gnomeprint/print.override:
+	* gnomeprint/printui.override:
+	* gtksourceview/gtksourceview.override:
+	* mediaprofiles/mediaprofiles.override:
+	* metacity/metacity.override:
+	* nautilusburn/nautilus_burn.override:
+	* rsvg/rsvg.override: #include "config.h" to get a __version__
+	attribute on the module when compiling with newer (pygtk trunk)
+	codegen.
+
 === 2.19.1 ===
 2007-07-07  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 

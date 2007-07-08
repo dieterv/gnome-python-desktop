@@ -16,6 +16,8 @@ headers
 #include <gtksourceview/gtksourceview.h>
 #include <gtksourceview/gtksourceview-typebuiltins.h>
 
+#include "config.h"
+
 static PyObject *
 _gslist_to_pylist_objs (const GSList *source)
 {

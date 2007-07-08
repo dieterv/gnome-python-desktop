@@ -7,6 +7,10 @@ headers
 
 #define NO_IMPORT_PYGOBJECT
 #include "pygobject.h"
+
+#include "config.h"
+
+
 %%
 modulename gnome.applet
 %%

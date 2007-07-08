@@ -11,6 +11,7 @@ headers
 # include <libgnomeprint/gnome-print-pango.h>
 #endif
 #include "art-gtype.h"
+#include "config.h"
 
 gboolean pygnomeprint_check_error (GnomePrintReturnCode error);
 

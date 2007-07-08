@@ -5,6 +5,7 @@ headers
 #define NO_IMPORT_PYGOBJECT
 #include <pygobject.h>
 #include <gnome-keyring.h>
+#include "config.h"
 
 gboolean  pygnomekeyring_result_check        (GnomeKeyringResult result);
 PyObject* pygnomekeyring_result_to_exception (GnomeKeyringResult result);

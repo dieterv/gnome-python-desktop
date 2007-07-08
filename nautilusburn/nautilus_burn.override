@@ -6,6 +6,9 @@ headers
 #include <nautilus-burn.h>
 /* #include "nb_typebuiltins.h" */
 #include "nb_track.h"
+
+#include "config.h"
+
 %%
 modulename nautilusburn
 %%

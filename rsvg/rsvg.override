@@ -11,6 +11,9 @@ extern Pycairo_CAPI_t *Pycairo_CAPI;
 #include <glib.h>
 #include <librsvg/rsvg.h>
 #include <librsvg/rsvg-cairo.h>
+
+#include "config.h"
+
 %%
 modulename rsvg
 %%

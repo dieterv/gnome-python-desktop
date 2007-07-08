@@ -13,6 +13,8 @@ headers
 #include <libgnomeprintui/gnome-print-paper-selector.h>
 #include <libgnomeprintui/gnome-print-unit-selector.h>
 
+#include "config.h"
+
     /* This should (and will) be in gnome-print-config.h */
 #define GNOME_TYPE_PRINT_CONFIG         (gnome_print_config_get_type ())
 #define GNOME_PRINT_CONFIG(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GNOME_TYPE_PRINT_CONFIG, GnomePrintConfig))
