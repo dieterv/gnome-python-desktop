@@ -1,3 +1,10 @@
+2007-07-15  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* gnomekeyring/gnomekeyring.defs,
+	* gnomekeyring/gnomekeyring.override: Allow keyring parameters to
+	be None/NULL everywhere, since NULL means the default keyring in
+	the GnomeKeyring API, at least since GNOME 2.19.x.
+
 2007-07-08  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* gnomeapplet/applet.override:

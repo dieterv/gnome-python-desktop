@@ -284,7 +284,7 @@ _wrap_gnome_keyring_item_get_attributes_sync(PyObject *self, PyObject *args, PyO
     GnomeKeyringAttributeList *attrlist = NULL;
     PyObject *py_attrlist;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"sk:item_get_attributes_sync", kwlist, &keyring, &id))
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zk:item_get_attributes_sync", kwlist, &keyring, &id))
         return NULL;
 
     pyg_begin_allow_threads;
@@ -311,7 +311,7 @@ _wrap_gnome_keyring_set_network_password_sync(PyObject *self, PyObject *args, Py
     gint ret;
     guint32 item_id;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"sssssssks:set_network_password_sync", kwlist,
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zssssssks:set_network_password_sync", kwlist,
                                      &keyring, &user, &domain, &server, &object, &protocol,
                                      &authtype, &port, &password))
         return NULL;
@@ -400,7 +400,7 @@ _wrap_gnome_keyring_get_info_sync(PyObject *self, PyObject *args, PyObject *kwar
     gint ret;
     GnomeKeyringInfo *info = NULL;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"s:get_info_sync", kwlist, &keyring))
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"z:get_info_sync", kwlist, &keyring))
         return NULL;
 
     pyg_begin_allow_threads;
@@ -427,7 +427,7 @@ _wrap_gnome_keyring_item_create_sync(PyObject *self, PyObject *args, PyObject *k
     gint ret;
     guint32 item_id = 0;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"sOsOsi:item_create_sync", kwlist, &keyring, &py_type, &display_name, &py_attributes, &secret, &update_if_exists))
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zOsOsi:item_create_sync", kwlist, &keyring, &py_type, &display_name, &py_attributes, &secret, &update_if_exists))
         return NULL;
     if (pyg_enum_get_value(G_TYPE_NONE, py_type, (gint *)&type))
         return NULL;
@@ -454,7 +454,7 @@ _wrap_gnome_keyring_item_get_info_sync(PyObject *self, PyObject *args, PyObject 
     gint ret;
     GnomeKeyringItemInfo *info = NULL;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"sk:item_get_info_sync", kwlist, &keyring, &id))
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zk:item_get_info_sync", kwlist, &keyring, &id))
         return NULL;
     pyg_begin_allow_threads;
     ret = gnome_keyring_item_get_info_sync(keyring, id, &info);
@@ -477,7 +477,7 @@ _wrap_gnome_keyring_item_set_acl_sync(PyObject *self, PyObject *args, PyObject *
     PyObject *pyacl;
     GList *acl = NULL;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"skO!:item_set_acl_sync", kwlist, &keyring, &id,
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zkO!:item_set_acl_sync", kwlist, &keyring, &id,
                                      &PyList_Type, &pyacl))
         return NULL;
 
@@ -517,7 +517,7 @@ _wrap_gnome_keyring_item_get_acl_sync(PyObject *self, PyObject *args, PyObject *
     GList *acl, *l;
     PyObject *pyacl;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"sk:item_get_acl_sync", kwlist, &keyring, &id))
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zk:item_get_acl_sync", kwlist, &keyring, &id))
         return NULL;
     pyg_begin_allow_threads;
     ret = gnome_keyring_item_get_acl_sync(keyring, id, &acl);
@@ -547,7 +547,7 @@ _wrap_gnome_keyring_list_item_ids_sync(PyObject *self, PyObject *args, PyObject 
     GList *ids = NULL, *l;
     PyObject *py_ids;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"s:list_item_ids_sync", kwlist, &keyring))
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"z:list_item_ids_sync", kwlist, &keyring))
         return NULL;
     pyg_begin_allow_threads;
     ret = gnome_keyring_list_item_ids_sync(keyring, &ids);
@@ -646,7 +646,7 @@ _wrap_gnome_keyring_item_create(PyObject *self, PyObject *args, PyObject *kwargs
     PyObject *func, *data = NULL;
     PyGtkCustomNotify *cb_data;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"sisOsiO|O:item_create", kwlist,
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zisOsiO|O:item_create", kwlist,
                                      &keyring, &type, &display_name, &py_attributes,
                                      &secret, &update_if_exists, &func, &data))
         return NULL;
@@ -705,7 +705,7 @@ _wrap_gnome_keyring_item_get_info(PyObject *self, PyObject *args, PyObject *kwar
     PyObject *func, *data = NULL;
     PyGtkCustomNotify *cb_data;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"skO|O:item_get_info", kwlist,
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zkO|O:item_get_info", kwlist,
                                      &keyring, &id, &func, &data))
         return NULL;
 

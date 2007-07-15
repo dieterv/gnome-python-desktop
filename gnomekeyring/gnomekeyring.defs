@@ -172,7 +172,7 @@
   (c-name "gnome_keyring_set_default_keyring")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringOperationDoneCallback" "callback")
     '("gpointer" "data")
     '("GDestroyNotify" "destroy_data")
@@ -184,7 +184,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
   )
 )
 
@@ -203,7 +203,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("char**" "keyring")
+    '("char**" "keyring" (null-ok))
   )
 )
 
@@ -268,7 +268,7 @@
   (c-name "gnome_keyring_unlock")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("const-char*" "password")
     '("GnomeKeyringOperationDoneCallback" "callback")
     '("gpointer" "data")
@@ -281,7 +281,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("const-char*" "password")
   )
 )
@@ -290,7 +290,7 @@
   (c-name "gnome_keyring_lock")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringOperationDoneCallback" "callback")
     '("gpointer" "data")
     '("GDestroyNotify" "destroy_data")
@@ -302,7 +302,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
   )
 )
 
@@ -310,7 +310,7 @@
   (c-name "gnome_keyring_delete")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringOperationDoneCallback" "callback")
     '("gpointer" "data")
     '("GDestroyNotify" "destroy_data")
@@ -322,7 +322,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
   )
 )
 
@@ -330,7 +330,7 @@
   (c-name "gnome_keyring_change_password")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("const-char*" "original")
     '("const-char*" "password")
     '("GnomeKeyringOperationDoneCallback" "callback")
@@ -344,7 +344,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("const-char*" "original")
     '("const-char*" "password")
   )
@@ -354,7 +354,7 @@
   (c-name "gnome_keyring_get_info")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringOperationGetKeyringInfoCallback" "callback")
     '("gpointer" "data")
     '("GDestroyNotify" "destroy_data")
@@ -366,7 +366,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringInfo**" "info")
   )
 )
@@ -375,7 +375,7 @@
   (c-name "gnome_keyring_set_info")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringInfo*" "info")
     '("GnomeKeyringOperationDoneCallback" "callback")
     '("gpointer" "data")
@@ -388,7 +388,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringInfo*" "info")
   )
 )
@@ -397,7 +397,7 @@
   (c-name "gnome_keyring_list_item_ids")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringOperationGetListCallback" "callback")
     '("gpointer" "data")
     '("GDestroyNotify" "destroy_data")
@@ -409,7 +409,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
 ;    '("GList**" "ids")
   )
 )
@@ -533,7 +533,7 @@
   (c-name "gnome_keyring_item_create")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringItemType" "type")
     '("const-char*" "display_name")
     '("GnomeKeyringAttributeList*" "attributes")
@@ -550,7 +550,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("GnomeKeyringItemType" "type")
     '("const-char*" "display_name")
     '("GnomeKeyringAttributeList*" "attributes")
@@ -564,7 +564,7 @@
   (c-name "gnome_keyring_item_delete")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringOperationDoneCallback" "callback")
     '("gpointer" "data")
@@ -577,7 +577,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
   )
 )
@@ -586,7 +586,7 @@
   (c-name "gnome_keyring_item_get_info")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringOperationGetItemInfoCallback" "callback")
     '("gpointer" "data")
@@ -599,7 +599,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringItemInfo**" "info")
   )
@@ -609,7 +609,7 @@
   (c-name "gnome_keyring_item_set_info")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringItemInfo*" "info")
     '("GnomeKeyringOperationDoneCallback" "callback")
@@ -623,7 +623,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringItemInfo*" "info")
   )
@@ -633,7 +633,7 @@
   (c-name "gnome_keyring_item_get_attributes")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringOperationGetAttributesCallback" "callback")
     '("gpointer" "data")
@@ -646,7 +646,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringAttributeList**" "attributes")
   )
@@ -656,7 +656,7 @@
   (c-name "gnome_keyring_item_set_attributes")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringAttributeList*" "attributes")
     '("GnomeKeyringOperationDoneCallback" "callback")
@@ -670,7 +670,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringAttributeList*" "attributes")
   )
@@ -680,7 +680,7 @@
   (c-name "gnome_keyring_item_get_acl")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GnomeKeyringOperationGetListCallback" "callback")
     '("gpointer" "data")
@@ -693,7 +693,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GList**" "acl")
   )
@@ -703,7 +703,7 @@
   (c-name "gnome_keyring_item_set_acl")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GList*" "acl")
     '("GnomeKeyringOperationDoneCallback" "callback")
@@ -717,7 +717,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("guint32" "id")
     '("GList*" "acl")
   )
@@ -956,7 +956,7 @@
   (c-name "gnome_keyring_set_network_password")
   (return-type "gpointer")
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("const-char*" "user")
     '("const-char*" "domain")
     '("const-char*" "server")
@@ -976,7 +976,7 @@
   (return-type "GnomeKeyringResult")
   (unblock-threads #t)
   (parameters
-    '("const-char*" "keyring")
+    '("const-char*" "keyring" (null-ok))
     '("const-char*" "user")
     '("const-char*" "domain")
     '("const-char*" "server")
