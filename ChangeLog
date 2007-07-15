@@ -4,6 +4,8 @@
 	* gnomekeyring/gnomekeyring.override: Allow keyring parameters to
 	be None/NULL everywhere, since NULL means the default keyring in
 	the GnomeKeyring API, at least since GNOME 2.19.x.
+	(_wrap_gnome_keyring_get_default_keyring_sync): Handle NULL return
+	value, map it to None. Closes #455379.
 
 2007-07-08  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 

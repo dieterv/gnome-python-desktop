@@ -244,7 +244,12 @@ _wrap_gnome_keyring_get_default_keyring_sync(PyObject *self)
     pyg_end_allow_threads;
     if (pygnomekeyring_result_check(ret))
         return NULL;
-    return PyString_FromString(keyring);
+    if (ret)
+        return PyString_FromString(keyring);
+    else {
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
 }
 
 %%
