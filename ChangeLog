@@ -4,6 +4,8 @@
 	(gnome_keyring_set_network_password_sync)
 	(gnome_keyring_find_network_password_sync): Allow most parameters to
 	be None/NULL.
+	(gnome_keyring_set_network_password_sync): All parameters except
+	password are now optional.
 	(gnome_keyring_find_network_password_sync): All parameters are now
 	optional.
 

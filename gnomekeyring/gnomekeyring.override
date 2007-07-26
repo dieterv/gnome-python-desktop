@@ -311,15 +311,27 @@ _wrap_gnome_keyring_set_network_password_sync(PyObject *self, PyObject *args, Py
 {
     static char *kwlist[] = { "keyring", "user", "domain", "server", "object",
                               "protocol", "authtype", "port", "password", NULL };
-    char *keyring, *user, *domain, *server, *object, *protocol, *authtype, *password;
-    unsigned long port;
+    char *keyring = NULL;
+    char *user = NULL;
+    char *domain = NULL;
+    char *server = NULL;
+    char *object = NULL;
+    char *protocol = NULL;
+    char *authtype = NULL;
+    char *password = NULL;
+    unsigned long port = 0;
     gint ret;
     guint32 item_id;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zzzzzzzks:set_network_password_sync", kwlist,
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"|zzzzzzzks:set_network_password_sync", kwlist,
                                      &keyring, &user, &domain, &server, &object, &protocol,
                                      &authtype, &port, &password))
         return NULL;
+
+    if (!password) {
+        PyErr_SetString(PyExc_TypeError, "set_network_password_sync() argument 'password' must be supplied");
+        return NULL;
+    }
 
     pyg_begin_allow_threads;
     ret = gnome_keyring_set_network_password_sync(keyring, user, domain, server, object,
