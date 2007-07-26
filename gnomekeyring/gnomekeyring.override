@@ -316,7 +316,7 @@ _wrap_gnome_keyring_set_network_password_sync(PyObject *self, PyObject *args, Py
     gint ret;
     guint32 item_id;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zssssssks:set_network_password_sync", kwlist,
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zzzzzzzks:set_network_password_sync", kwlist,
                                      &keyring, &user, &domain, &server, &object, &protocol,
                                      &authtype, &port, &password))
         return NULL;
@@ -343,7 +343,7 @@ _wrap_gnome_keyring_find_network_password_sync(PyObject *self, PyObject *args, P
     GList *result = NULL, *l;
     PyObject *py_result;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"ssssssk:find_network_password_sync", kwlist,
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zzzzzzk:find_network_password_sync", kwlist,
                                      &user, &domain, &server, &object, &protocol, &authtype, &port))
         return NULL;
 

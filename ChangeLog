@@ -1,3 +1,10 @@
+2007-07-26  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* gnomekeyring/gnomekeyring.override
+	(gnome_keyring_set_network_password_sync)
+	(gnome_keyring_find_network_password_sync): Allow most parameters to
+	be None/NULL.
+
 2007-07-15  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* gnomekeyring/gnomekeyring.defs,
