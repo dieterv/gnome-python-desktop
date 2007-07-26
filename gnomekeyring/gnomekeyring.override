@@ -337,13 +337,18 @@ static PyObject *
 _wrap_gnome_keyring_find_network_password_sync(PyObject *self, PyObject *args, PyObject *kwargs)
 {
     static char *kwlist[] = { "user", "domain", "server", "object", "protocol", "authtype", "port", NULL };
-    char *user, *domain, *server, *object, *protocol, *authtype;
-    unsigned long port;
+    char *user = NULL;
+    char *domain = NULL;
+    char *server = NULL;
+    char *object = NULL;
+    char *protocol = NULL;
+    char *authtype = NULL;
+    unsigned long port = 0l;
     gint ret;
     GList *result = NULL, *l;
     PyObject *py_result;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"zzzzzzk:find_network_password_sync", kwlist,
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"|zzzzzzk:find_network_password_sync", kwlist,
                                      &user, &domain, &server, &object, &protocol, &authtype, &port))
         return NULL;
 
