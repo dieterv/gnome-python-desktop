@@ -1,3 +1,10 @@
+Overview of Changes from 2.19.1 to 2.19.2
+==============================================================================
+* general
+ - With recent pygtk, add a __version__ attribute to modules (Gustavo)
+* gnomekeyring
+ - Allow some parameters to be None (Sebastian Rittau, Gustavo)
+
 Overview of Changes from 2.18.0 to 2.19.1
 ==============================================================================
 * Update to metacity API changes (Joseph Sacco, #428697)
