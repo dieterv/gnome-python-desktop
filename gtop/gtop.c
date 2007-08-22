@@ -835,7 +835,7 @@ static PyObject* gtop_proclist(PyObject *self, PyObject *args)
 {
 	glibtop_proclist buf;
 	PyObject *list;
-	unsigned *pids;
+	pid_t *pids;
 	guint64 which = GLIBTOP_KERN_PROC_ALL;
 	guint64 arg = 0;
 
@@ -918,9 +918,9 @@ static PyObject* gtop_cpu(PyObject *self, PyObject *args)
 	my_dict_add_and_decref(d, "irq",	PyL_ULL(buf.irq));
 	my_dict_add_and_decref(d, "sofr_irq",	PyL_ULL(buf.softirq));
 
-	smp = PyTuple_New(glibtop_global_server->ncpu);
+	smp = PyTuple_New(1 + glibtop_global_server->ncpu);
 
-	for(i = 0; i < glibtop_global_server->ncpu; ++i)
+	for(i = 0; i <= glibtop_global_server->ncpu; ++i)
 	{
 		PyObject *a;
 		a = get_smp_cpu(&buf, i);
@@ -1152,9 +1152,9 @@ static PyObject* gtop_proc_time(PyObject *self, PyObject *args)
 	my_dict_add_and_decref(d, "it_real_value",	PyL_ULL(buf.it_real_value));
 	my_dict_add_and_decref(d, "frequency",		PyL_ULL(buf.frequency));
 
-	smp = PyTuple_New(glibtop_global_server->ncpu);
+	smp = PyTuple_New(1 + glibtop_global_server->ncpu);
 
-	for(i = 0; i < glibtop_global_server->ncpu; ++i)
+	for(i = 0; i <= glibtop_global_server->ncpu; ++i)
 	{
 		PyObject *a;
 		a = get_smp_time(&buf, i);
