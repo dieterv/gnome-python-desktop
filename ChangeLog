@@ -1,3 +1,8 @@
+2007-11-24  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	* wnck/wnck.defs:
+	Bug 483529 – No bindings for wnck_set_client_type and WnckClientType.
+
 === 2.20.0 ===
 2007-09-16  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 

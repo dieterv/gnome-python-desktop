@@ -58,6 +58,15 @@
 
 ;; Enumerations and flags ...
 
+(define-enum ClientType
+  (in-module "Wnck")
+  (c-name "WnckClientType")
+  (values
+   '("application" "WNCK_CLIENT_TYPE_APPLICATION")
+   '("pager" "WNCK_CLIENT_TYPE_PAGER")
+  )
+)
+
 (define-enum PagerDisplayMode
   (in-module "Wnck")
   (c-name "WnckPagerDisplayMode")
@@ -646,6 +655,13 @@
 
 
 ;; From /usr/include/libwnck-1.0/libwnck/util.h
+
+(define-function set_client_type
+  (c-name "wnck_set_client_type")
+  (return-type "none")
+  (parameters
+    '("WnckClientType" "ewmh_sourceindication_client_type")
+  ))
 
 (define-function gtk_window_set_dock_type
   (c-name "wnck_gtk_window_set_dock_type")
