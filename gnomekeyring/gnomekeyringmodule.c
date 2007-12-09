@@ -44,8 +44,10 @@ pygnomekeyring_result_to_exception(GnomeKeyringResult result)
         return Py_None;
 
     default:
-        g_assert_not_reached();
-        return NULL;
+        g_warning("unhandled GnomeKeyringResult code %i => "
+                  "http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-python-desktop",
+                  result);
+        return PyGKExc_Error;
     }
 }
 
