@@ -2,6 +2,7 @@
 
 	* gnomekeyring/gnomekeyringmodule.c (pygnomekeyring_result_to_exception):
 	Handle unknown GnomeKeyringResult codes more gracefully.
+	Handle the GnomeKeyringResult code 'GNOME_KEYRING_RESULT_NO_MATCH'.
 
 2007-11-24  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
