@@ -1,3 +1,17 @@
+2007-12-10  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	* docs/gnomeprint/wscript:
+	* docs/gnomeprintui/wscript:
+	* docs/gtksourceview/gtksourceview-classes.xml:
+	* docs/gtksourceview/wscript:
+	* docs/pygtk-ref-docs.make:
+	* gnomeapplet/wscript:
+	* gnomedesktop/wscript:
+	* gnomekeyring/wscript:
+	* gnomeprint/wscript:
+	* wscript:
+	Adding WAF build support; work in progress.
+
 2007-12-09  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* gnomekeyring/gnomekeyringmodule.c (pygnomekeyring_result_to_exception):

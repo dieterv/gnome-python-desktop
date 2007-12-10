@@ -21,8 +21,8 @@ REFERENCE_DEVHELP = $(REFERENCE_MAIN_FILE:.xml=.devhelp)
 html.stamp: ${XSL_FILES} $(REFERENCE_XML_FILES) $(REFERENCE_MAIN_FILE)
 	@echo '*** Building HTML ***'
 	@-chmod -R u+w $(srcdir)
-	rm -rf $(srcdir)/html 
-	mkdir $(srcdir)/html
+	rm -rf $(srcdir)/html/* 
+	@-mkdir $(srcdir)/html
 	xsltproc --nonet --xinclude -o $(srcdir)/html/				\
                  --stringparam gtkdoc.bookname $(REFERENCE_DOC_NAME)		\
                  --stringparam gtkdoc.version $(VERSION)			\
@@ -47,9 +47,8 @@ tarball: $(DOC_MODULE).tar.bz2
 
 CLEANFILES = $(REFERENCE_FO) $(REFERENCE_PDF) *.aux *.log *.out output
 
-clean-local:
-	-rm -rf html html.stamp
-
+maintainer-clean:
+	-rm -rf html/* html.stamp
 
 
 install-data-local:
@@ -66,3 +65,11 @@ install-data-local:
 
 uninstall-local:
 	rm -f $(DESTDIR)$(TARGET_DIR)/*
+
+
+dist-hook: dist-hook-local html.stamp
+	mkdir $(distdir)/html
+	cp $(srcdir)/html/* $(distdir)/html
+	cp $(srcdir)/html.stamp $(distdir)
+
+.PHONY : dist-hook-local

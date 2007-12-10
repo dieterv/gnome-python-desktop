@@ -20,7 +20,7 @@
   </toc>
 
 
-  <chapter id="gtksourcesview-class-reference" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <chapter id="gtksourceview-class-reference" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>The GtkSourceView Class Reference</title>
 
     <!-- GTKSOURCEVIEW OBJECTS -->

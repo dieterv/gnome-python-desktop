@@ -1,0 +1,44 @@
+# -*- python -*-
+import os
+import Common
+import glob
+
+
+def build(bld):
+    reference_doc_name = 'pygnomeprintui'
+
+    d = bld.m_curdirnode.find_dir('html').abspath()
+    if bld.env()['XSLTPROC'] and not os.path.exists(os.path.join(d, 'index.html')):
+        doc_module = 'pygnomeprintui'
+        html_dir = os.path.join(bld.env()['DATADIR'], 'gtk-doc', 'html')
+        target_dir = os.path.join('html_dir', reference_doc_name)
+
+        reference_main_file = 'gnomeprintui-classes.xml'
+
+        cmd = bld.create_obj('command-output')
+        cmd.hidden_outputs = ['html/index.html']
+        cmd.command = bld.env()['XSLTPROC']
+        cmd.command_is_external = True
+        cmd.argv = ['--nonet', '--xinclude',
+                    '-o', cmd.output_dir('html', template='%s/'),
+                    '--stringparam', 'gtkdoc.bookname', reference_doc_name,
+                    '--stringparam', 'gtkdoc.version', bld.env()['VERSION'],
+                    '--stringparam', 'chunker.output.encoding', 'UTF-8',
+                    cmd.input_file('../ref-html-style.xsl'),
+                    cmd.input_file(reference_main_file),
+                    ]
+        cmd.prio = 100
+
+        cmd = bld.create_obj('command-output')
+        cmd.prio = 110
+        cmd.hidden_inputs = ['html/index.html']
+        cmd.hidden_outputs = ['html/gnomeprintui-class-reference.html']
+        cmd.command = 'gtkdoc-fixxref'
+        cmd.command_is_external = True
+        cmd.argv = [cmd.input_dir('html', template='--module-dir=%s'),
+                    ('--html-dir=%s' % html_dir)]
+
+    html_files = glob.glob(os.path.join(bld.m_curdirnode.find_build('html').abspath(bld.env()), '*'))
+    html_files += glob.glob(os.path.join(bld.m_curdirnode.find_build('html').abspath(), '*'))
+    Common.install_files('DATADIR', os.path.join('gtk-doc', 'html', reference_doc_name),
+                         html_files)
