@@ -1,3 +1,9 @@
+2007-12-10  John Stowers  <john.stowers@gmail.com>
+
+	* evolution/*
+	* examples/evolution/*
+	Bug #501924: Add basic evolution bindings via libebook and libical
+
 2007-12-10  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
 	* docs/gnomeprint/wscript:
