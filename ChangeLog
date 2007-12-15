@@ -1,3 +1,8 @@
+2007-12-15  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* mediaprofiles/mediaprofilesmodule.c:
+	Avoid the error hiding anti-pattern.
+
 2007-12-15  John Stowers  <john.stowers@gmail.com>
 
 	reviewed by: Gustavo Carneiro
