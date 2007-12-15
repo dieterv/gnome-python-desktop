@@ -49,6 +49,10 @@ if BUILD_GNOMEDESKTOP
   SUBDIRS += gnomedesktop
 endif
 
+if BUILD_EVOLUTION
+  SUBDIRS += evolution
+endif
+
 SUBDIRS +=  tests
 
 pkgconfigdir = $(libdir)/pkgconfig

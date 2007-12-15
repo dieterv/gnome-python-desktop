@@ -45,10 +45,15 @@ initebook(void)
     pyebook_add_constants(m, "E_");
 
     PyModule_AddObject(m, "__version__",
-                       Py_BuildValue("iii",
-                                     EVOLUTION_MAJOR_VERSION,
-                                     EVOLUTION_MINOR_VERSION,
-                                     EVOLUTION_PATCH_VERSION));
+#ifdef HAVE_CONFIG_H
+                        Py_BuildValue("iii",
+                            GNOME_PYTHON_DESKTOP_MAJOR_VERSION,
+                            GNOME_PYTHON_DESKTOP_MAJOR_VERSION,
+                            GNOME_PYTHON_DESKTOP_MAJOR_VERSION)
+#else
+                        Py_BuildValue("iii",0,0,0)
+#endif
+                        );
     
     PyModule_AddObject(m, "EBookQuery", (PyObject *)&PyEBookQuery_Type);
 

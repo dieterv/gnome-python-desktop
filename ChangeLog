@@ -1,3 +1,14 @@
+2007-12-15  John Stowers  <john.stowers@gmail.com>
+
+	reviewed by: Gustavo Carneiro
+
+	* Makefile.am:
+	* configure.ac:
+	* evolution/Makefile.am:
+	* evolution/ebookmodule.c (initebook):
+	* evolution/ecalmodule.c (initecal):
+	Build and install evolution bindings.
+
 2007-12-10  John Stowers  <john.stowers@gmail.com>
 
 	* evolution/*

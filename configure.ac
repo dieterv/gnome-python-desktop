@@ -29,7 +29,8 @@ m4_define(rsvg_required_version,              2.13.93)
 m4_define(gnomekeyring_required_version,      0.5.0)
 m4_define(gnomedesktop_required_version,      2.10.0)
 m4_define(totem_required_version,             1.4.0)
-
+m4_define(libecal_required_version,           1.4.0)
+m4_define(libebook_required_version,          1.4.0)
 
 AC_INIT(gnome-python-desktop, gnome_python_desktop_version,
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-python])
@@ -290,11 +291,48 @@ if test "x$BUG_BUDDY" != "x"; then
 fi
 AM_CONDITIONAL(BUILD_BUGBUDDY, $build_bugbuddy)
 
+dnl should we build the evolution module
+AC_ARG_ENABLE(evolution,
+  AC_HELP_STRING([--enable-evolution], [Enable Evolution support]),
+  enable_evolution=$enableval, enable_evolution=yes)
+
+dnl can also build without ecal support (desirable for maemo)
+AC_ARG_ENABLE(evolution-ecal,
+  AC_HELP_STRING([--enable-evolution-ecal], [Enable Evolution ECal support]),
+  enable_evolution_ecal=$enableval, enable_evolution_ecal=yes)
+
+build_evolution=false
+build_evolution_ecal=false
+if test "$enable_evolution" = yes; then
+    PKG_CHECK_MODULES(EVOLUTION_EBOOK, [libebook-1.2 >= libebook_required_version
+                                        pygobject-2.0
+                                        gdk-pixbuf-2.0
+                                        pango],
+    build_evolution=true,
+    build_evolution=false)
+    if test -n "$export_dynamic"; then
+        EVOLUTION_EBOOK_LIBS=`echo $EVOLUTION_EBOOK_LIBS | sed -e "s/$export_dynamic//"`
+    fi
+    
+    if test "$enable_evolution_ecal" = yes; then
+        PKG_CHECK_MODULES(EVOLUTION_ECAL,  [libecal-1.2 >= libecal_required_version
+                                            pygobject-2.0
+                                            gdk-pixbuf-2.0
+                                            pango],
+        build_evolution_ecal=true,
+        build_evolution_ecal=false)
+        if test -n "$export_dynamic"; then
+            EVOLUTION_ECAL_LIBS=`echo $EVOLUTION_ECAL_LIBS | sed -e "s/$export_dynamic//"`
+        fi
+    fi
+fi
+AM_CONDITIONAL(BUILD_EVOLUTION, $build_evolution)
+AM_CONDITIONAL(BUILD_EVOLUTION_ECAL, $build_evolution_ecal)
+
 dnl add required cflags ...
 JH_ADD_CFLAG([-Wall])
 JH_ADD_CFLAG([-std=c9x])
 JH_ADD_CFLAG([-fno-strict-aliasing])
-
 
 AC_CONFIG_FILES(
   Makefile
@@ -310,6 +348,7 @@ AC_CONFIG_FILES(
   rsvg/Makefile
   gnomekeyring/Makefile
   gnomedesktop/Makefile
+  evolution/Makefile
   gnome-python-desktop-2.0.pc
   tests/Makefile
   docs/Makefile
@@ -336,6 +375,8 @@ $build_rsvg              && echo     rsvg
 $build_gnomekeyring      && echo     gnomekeyring
 $build_gnomedesktop      && echo     gnomedesktop
 $build_bugbuddy          && echo     bugbuddy
+$build_evolution         && echo     evolution
+$build_evolution_ecal    && echo     evolution ecal support
 echo
 
 echo "The following modules will NOT be built:"
@@ -354,3 +395,7 @@ $build_rsvg              || echo     rsvg
 $build_gnomekeyring      || echo     gnomekeyring
 $build_gnomedesktop      || echo     gnomedesktop
 $build_bugbuddy          || echo     bugbuddy
+$build_evolution         || echo     evolution
+$build_evolution_ecal    || echo     evolution ecal support
+
+
