@@ -1,3 +1,9 @@
+2007-12-15  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	reviewed by: <delete if not using a buddy>
+
+	* wscript:
+
 2006-03-20  Benoît Dejean  <benoit@placenet.org>
 
 	* gtop.c: (hash_table_to_dict_cb), (gtop_sysinfo):

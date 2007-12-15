@@ -5,9 +5,9 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_GNOMEAPPLET'] = bool(conf.check_pkg(
-            'libpanelapplet-2.0 >= 2.13.4 pygobject-2.0 ',
-            destvar='GNOMEAPPLET', mandatory=False))
+    conf.env['ENABLE_WNCK'] = bool(conf.check_pkg(
+            'libwnck-1.0 >= 2.20 pygobject-2.0',
+            destvar='WNCK', mandatory=False))
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -15,12 +15,9 @@ def codegen(bld, module):
     cmd.command_is_external = True
     cmd.argv = [
         '--py_ssize_t-clean',
-        '--load-types', os.path.join(cmd.env['GNOME_PYTHON_ARG_TYPES_DIR'], 'bonobo-arg-types.py'),
         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'pango-types.defs'),
         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gdk-types.defs'),
         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gtk-types.defs'),
-        '--register', os.path.join(cmd.env['GNOME_PYTHON_DEFSDIR'], 'bonobo-types.defs'),
-        '--register', os.path.join(cmd.env['GNOME_PYTHON_DEFSDIR'], 'bonoboui-types.defs'),
         '--prefix', 'py'+module,
         '--override', cmd.input_file("%s.override" % module),
         cmd.input_file("%s.defs" % module),
@@ -31,15 +28,16 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_GNOMEAPPLET']:
-        codegen(bld, 'applet')
+    if bld.env()['ENABLE_WNCK']:
+        codegen(bld, 'wnck')
         pyext = bld.create_obj('cc', 'shlib', 'pyext')
-        pyext.source = 'appletmodule.c applet.c'
-        pyext.target = 'gnomeapplet'
-        pyext.uselib = 'GNOMEAPPLET'
+        pyext.env.append_value('CCDEFINES', 'WNCK_I_KNOW_THIS_IS_UNSTABLE')
+        pyext.source = 'wnckmodule.c wnck.c'
+        pyext.target = 'wnck'
+        pyext.uselib = 'WNCK'
         pyext.install_var = 'PYTHONDIR'
         pyext.install_subdir = 'gtk-2.0'
 
         defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
-                                       ['applet.defs'])
+                                       ['wnck.defs'])
 

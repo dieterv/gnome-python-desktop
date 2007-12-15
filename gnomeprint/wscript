@@ -36,7 +36,7 @@ def build(bld):
     if bld.env()['ENABLE_GNOMEPRINT']:
         codegen(bld, 'print')
         pyext = bld.create_obj('cc', 'shlib', 'pyext')
-        pyext.source = 'printmodule.c print.c'
+        pyext.source = 'printmodule.c print.c art-gtype.c'
         pyext.target = '_print'
         pyext.uselib = 'GNOMEPRINT'
         pyext.install_var = 'PYTHONDIR'

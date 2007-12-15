@@ -3,11 +3,23 @@
 
 import os
 import Common
+import Params
 
+def set_options(opt):
+    opt.add_option('--enable-metacity',
+                   help=('Enable metacity bindings.'
+                         ' WARNING: these bindings are not very well maintained '
+                         'and may not work or even compile.'),
+                   action="store_true", default=False,
+                   dest='enable_metacity')
+    
 def configure(conf):
-    conf.env['ENABLE_GNOMEAPPLET'] = bool(conf.check_pkg(
-            'libpanelapplet-2.0 >= 2.13.4 pygobject-2.0 ',
-            destvar='GNOMEAPPLET', mandatory=False))
+    if Params.g_options.enable_metacity:
+        conf.env['ENABLE_METACITY'] = bool(conf.check_pkg(
+                'libmetacity-private >= 2.19.8 pygobject-2.0 ',
+                destvar='METACITY', mandatory=False))
+    else:
+        conf.env['ENABLE_METACITY'] = False
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -15,12 +27,9 @@ def codegen(bld, module):
     cmd.command_is_external = True
     cmd.argv = [
         '--py_ssize_t-clean',
-        '--load-types', os.path.join(cmd.env['GNOME_PYTHON_ARG_TYPES_DIR'], 'bonobo-arg-types.py'),
         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'pango-types.defs'),
         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gdk-types.defs'),
         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gtk-types.defs'),
-        '--register', os.path.join(cmd.env['GNOME_PYTHON_DEFSDIR'], 'bonobo-types.defs'),
-        '--register', os.path.join(cmd.env['GNOME_PYTHON_DEFSDIR'], 'bonoboui-types.defs'),
         '--prefix', 'py'+module,
         '--override', cmd.input_file("%s.override" % module),
         cmd.input_file("%s.defs" % module),
@@ -31,15 +40,15 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_GNOMEAPPLET']:
-        codegen(bld, 'applet')
+    if bld.env()['ENABLE_METACITY']:
+        codegen(bld, 'metacity')
         pyext = bld.create_obj('cc', 'shlib', 'pyext')
-        pyext.source = 'appletmodule.c applet.c'
-        pyext.target = 'gnomeapplet'
-        pyext.uselib = 'GNOMEAPPLET'
+        pyext.source = 'metacitymodule.c metacity.c'
+        pyext.target = 'metacity'
+        pyext.uselib = 'METACITY'
         pyext.install_var = 'PYTHONDIR'
         pyext.install_subdir = 'gtk-2.0'
 
         defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
-                                       ['applet.defs'])
+                                       ['metacity.defs'])
 

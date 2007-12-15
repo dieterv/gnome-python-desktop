@@ -42,5 +42,5 @@ def build(bld):
         py.source = "__init__.py"
 
         defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
-                                       ['gnomedesktop.defs'])
+                                       ['_gnomedesktop.defs'])
 

@@ -1,5 +1,22 @@
 2007-12-15  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* configure.ac: Bump to version 2.21.1.
+	
+	* evolution/wscript:
+	* gnomeapplet/wscript:
+	* gnomedesktop/wscript:
+	* gnomeprint/wscript:
+	* gtksourceview/wscript:
+	* mediaprofiles/wscript:
+	* metacity/wscript:
+	* nautilusburn/wscript:
+	* rsvg/rsvgmodule.c:
+	* rsvg/wscript:
+	* totem/wscript:
+	* wnck/wscript:
+	* wscript:
+	Finish the WAF port.
+	
 	* mediaprofiles/mediaprofilesmodule.c:
 	Avoid the error hiding anti-pattern.
 

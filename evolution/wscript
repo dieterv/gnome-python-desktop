@@ -1,0 +1,76 @@
+# -*- python -*-
+# encoding: utf-8
+
+import os
+import Common
+
+def configure(conf):
+    conf.env['ENABLE_EVOLUTION_EBOOK'] = bool(conf.check_pkg(
+            'libebook-1.2 >= 1.4'
+            ' pygobject-2.0 gdk-pixbuf-2.0 pango',
+            destvar='EVOLUTION_EBOOK', mandatory=False))
+
+    conf.env['ENABLE_EVOLUTION_ECAL'] = bool(conf.check_pkg(
+            'libecal-1.2 >= 1.4'
+            ' pygobject-2.0 gdk-pixbuf-2.0 pango',
+            destvar='EVOLUTION_ECAL', mandatory=False))
+
+
+def codegen(bld, module):
+    cmd = bld.create_obj('command-output')
+    cmd.command = 'pygtk-codegen-2.0'
+    cmd.command_is_external = True
+    cmd.argv = [
+        #'--py_ssize_t-clean',
+        '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'pango-types.defs'),
+        '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gdk-types.defs'),
+        '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gtk-types.defs'),
+        '--prefix', 'py'+module,
+        '--override', cmd.input_file("%s.override" % module),
+        cmd.input_file("%s.defs" % module),
+        ]
+    cmd.stdout = '%s.c' % module
+    return cmd
+
+
+def build(bld):
+    
+    if bld.env()['ENABLE_EVOLUTION_EBOOK']:
+        codegen(bld, 'ebook')
+        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
+        pyext.source = '''
+	ebookmodule.c
+	override_common.c
+	evo-ebook-environment.c
+	evo-contact.c
+	evo-addressbook.c
+	ebook-enums.c
+'''
+        pyext.target = 'ebook'
+        pyext.uselib = 'EVOLUTION_EBOOK'
+        pyext.install_var = 'PYTHONDIR'
+        pyext.install_subdir = os.path.join('gtk-2.0', 'evolution')
+
+    if bld.env()['ENABLE_EVOLUTION_ECAL']:
+        codegen(bld, 'ecal')
+        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
+        pyext.source = '''
+	ecalmodule.c
+	override_common.c
+	evo-ecal-environment.c
+	evo-calendar.c
+'''
+        pyext.target = 'ecal'
+        pyext.uselib = 'EVOLUTION_ECAL'
+        pyext.install_var = 'PYTHONDIR'
+        pyext.install_subdir = os.path.join('gtk-2.0', 'evolution')
+
+    py = bld.create_obj('py')
+    py.inst_dir = os.path.join('gtk-2.0', 'evolution')
+    py.source = "__init__.py"
+
+    defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
+                                   ['ebook.defs', 'ecal.defs'])
+

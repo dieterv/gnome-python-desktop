@@ -3,7 +3,7 @@
 import Params
 Params.g_autoconfig = True
 
-VERSION = '2.21.0'
+VERSION = '2.21.1'
 APPNAME = 'gnome-python-desktop'
 srcdir = '.'
 blddir = 'build'
@@ -25,6 +25,7 @@ def dist_hook():
 def set_options(opt):
     opt.tool_options('compiler_cc')
     opt.tool_options('gnome')
+    opt.sub_options('metacity')
 
 
 def configure(conf):
@@ -38,9 +39,9 @@ def configure(conf):
     conf.define('VERSION', VERSION)
 
     version = [int(s) for s in VERSION.split('.')]
-    conf.define('GNOME_PYTHON_MAJOR_VERSION', version[0])
-    conf.define('GNOME_PYTHON_MINOR_VERSION', version[1])
-    conf.define('GNOME_PYTHON_MICRO_VERSION', version[2])
+    conf.define('GNOME_PYTHON_DESKTOP_MAJOR_VERSION', version[0])
+    conf.define('GNOME_PYTHON_DESKTOP_MINOR_VERSION', version[1])
+    conf.define('GNOME_PYTHON_DESKTOP_MICRO_VERSION', version[2])
 
     # Define pygtk required version, for runtime check
     pygtk_version = [2, 10, 3]
@@ -66,6 +67,15 @@ def configure(conf):
     conf.sub_config('gnomeapplet')
     conf.sub_config('gnomedesktop')
     conf.sub_config('gnomeprint')
+    conf.sub_config('evolution')
+    conf.sub_config('gtksourceview')
+    conf.sub_config('gtop')
+    conf.sub_config('mediaprofiles')
+    conf.sub_config('metacity')
+    conf.sub_config('nautilusburn')
+    conf.sub_config('rsvg')
+    conf.sub_config('totem')
+    conf.sub_config('wnck')
 
     conf.write_config_header('config.h')
 
@@ -93,6 +103,15 @@ def build(bld):
     bld.add_subdirs('gnomeapplet')
     bld.add_subdirs('gnomedesktop')
     bld.add_subdirs('gnomeprint')
+    bld.add_subdirs('evolution')
+    bld.add_subdirs('gtksourceview')
+    bld.add_subdirs('gtop')
+    bld.add_subdirs('mediaprofiles')
+    bld.add_subdirs('metacity')
+    bld.add_subdirs('nautilusburn')
+    bld.add_subdirs('rsvg')
+    bld.add_subdirs('totem')
+    bld.add_subdirs('wnck')
 
     bld.add_subdirs('docs/gnomeprint')
     bld.add_subdirs('docs/gnomeprintui')

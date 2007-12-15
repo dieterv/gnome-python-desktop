@@ -9,7 +9,7 @@ Pycairo_CAPI_t *Pycairo_CAPI;
 
 void pyrsvg_register_classes(PyObject *d);
 
-extern PyMethodDef pyrsvg_functions[];
+extern const PyMethodDef pyrsvg_functions[];
 
 
 DL_EXPORT(void)
@@ -23,7 +23,7 @@ initrsvg(void)
 
     Pycairo_IMPORT;
 
-    rsvg_module = Py_InitModule3("rsvg", pyrsvg_functions,
+    rsvg_module = Py_InitModule3("rsvg", (PyMethodDef*) pyrsvg_functions,
                                  "rsvg module.");
 
     dict = PyModule_GetDict(rsvg_module);
