@@ -96,3 +96,9 @@ EXTRA_DIST = \
   examples/keyring-async.py \
   examples/rsvg/rsvg-cairo.py \
   examples/wnck_example.py
+
+
+dist-hook: dist-hook-local
+	cp `which waf` $(distdir)
+
+.PHONY : dist-hook-local

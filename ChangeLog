@@ -1,5 +1,7 @@
 2007-12-16  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* Makefile.am (dist-hook): Ship a copy of waf.
+
 	* evolution/wscript (build): Fix compilation of override_common.c
 	twice.
 
