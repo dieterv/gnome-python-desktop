@@ -1,3 +1,10 @@
+Overview of Changes from 2.20.0 to 2.21.1
+==============================================================================
+* Add WAF build support (Gustavo)
+* Better WNCK 2.20 API coverage (Gian)
+* New Evolution libebook and libecal bindings (John Stowers)
+* gnomekeyring error code handling fixes (Gustavo)
+
 Overview of Changes from 2.19.2 to 2.20.0
 ==============================================================================
 * (nothing changed)

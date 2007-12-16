@@ -19,7 +19,9 @@ static PyObject *PyGKExc_BadArgumentsError; /* GNOME_KEYRING_RESULT_BAD_ARGUMENT
 static PyObject *PyGKExc_IOError; /* GNOME_KEYRING_RESULT_IO_ERROR */
 static PyObject *PyGKExc_CancelledError; /* GNOME_KEYRING_RESULT_CANCELLED */
 static PyObject *PyGKExc_AlreadyExistsError; /* GNOME_KEYRING_RESULT_ALREADY_EXISTS */
+#if HAVE_KEYRING_2_20_1
 static PyObject *PyGKExc_NoMatchError; /* GNOME_KEYRING_RESULT_NO_MATCH */
+#endif
 
 PyObject *
 pygnomekeyring_result_to_exception(GnomeKeyringResult result)
@@ -38,7 +40,9 @@ pygnomekeyring_result_to_exception(GnomeKeyringResult result)
         keyring_result_case(IO_ERROR, IO);
         keyring_result_case(CANCELLED, Cancelled);
         keyring_result_case(ALREADY_EXISTS, AlreadyExists);
+#if HAVE_KEYRING_2_20_1
         keyring_result_case(NO_MATCH, NoMatch);
+#endif
 
 #undef keyring_result_case
 
@@ -90,7 +94,9 @@ initialize_exceptions(PyObject *d)
     register_exception(IO);
     register_exception(Cancelled);
     register_exception(AlreadyExists);
+#if HAVE_KEYRING_2_20_1
     register_exception(NoMatch);
+#endif
 
 #undef register_exception
 }

@@ -1,5 +1,11 @@
 2007-12-16  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* configure.ac, wscript, gnomekeyring/gnomekeyringmodule.c: Detect
+	gnome-keyring >= 2.20.1 and only use the NO_MATCH result code for
+	that version onward.
+
+	* NEWS: Update.
+
 	* */Makefile.am: Ship the wscript files.
 
 	* Makefile.am (dist-hook): Ship a copy of waf.

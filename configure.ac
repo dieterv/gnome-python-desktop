@@ -265,7 +265,11 @@ if test -n "$export_dynamic"; then
   GNOMEKEYRING_LIBS=`echo $GNOMEKEYRING_LIBS | sed -e "s/$export_dynamic//"`
 fi
 
-dnl should we build the gnomekeyring module
+if $PKG_CONFIG --exists "gnome-keyring-1 >= 2.20.1"; then
+  AC_DEFINE(HAVE_KEYRING_2_20_1, 1, [defined if gnomekeyring 2.20.1 API is found])
+fi
+
+dnl should we build the gnomedesktop module
 build_gnomedesktop=false
 PKG_CHECK_MODULES(GNOMEDESKTOP, [gnome-desktop-2.0 >= gnomedesktop_required_version
                                  pygobject-2.0],
