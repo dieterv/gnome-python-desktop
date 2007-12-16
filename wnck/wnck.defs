@@ -77,6 +77,18 @@
   )
 )
 
+(define-enum MotionDirection
+  (in-module "Wnck")
+  (c-name "WnckMotionDirection")
+  (gtype-id "WNCK_TYPE_MOTION_DIRECTION")
+  (values
+    '("up" "WNCK_MOTION_UP")
+    '("down" "WNCK_MOTION_DOWN")
+    '("left" "WNCK_MOTION_LEFT")
+    '("right" "WNCK_MOTION_RIGHT")
+  )
+)
+
 (define-enum TasklistGroupingType
   (in-module "Wnck")
   (c-name "WnckTasklistGroupingType")
@@ -103,6 +115,9 @@
     '("hidden" "WNCK_WINDOW_STATE_HIDDEN")
     '("fullscreen" "WNCK_WINDOW_STATE_FULLSCREEN")
     '("demands-attention" "WNCK_WINDOW_STATE_DEMANDS_ATTENTION")
+    '("urgent" "WNCK_WINDOW_STATE_URGENT")
+    '("above" "WNCK_WINDOW_STATE_ABOVE")
+    '("below" "WNCK_WINDOW_STATE_BELOW")
   )
 )
 
@@ -128,6 +143,8 @@
     '("maximize" "WNCK_WINDOW_ACTION_MAXIMIZE")
     '("unmaximize" "WNCK_WINDOW_ACTION_UNMAXIMIZE")
     '("fullscreen" "WNCK_WINDOW_ACTION_FULLSCREEN")
+    '("above" "WNCK_WINDOW_ACTION_ABOVE")
+    '("below" "WNCK_WINDOW_ACTION_BELOW")
   )
 )
 
@@ -151,7 +168,7 @@
 (define-enum WindowGravity
   (in-module "Wnck")
   (c-name "WnckWindowGravity")
-  ;(gtype-id "WNCK_TYPE_WINDOW_GRAVITY")
+  (gtype-id "WNCK_TYPE_WINDOW_GRAVITY")
   (values
     '("current" "WNCK_WINDOW_GRAVITY_CURRENT")
     '("northwest" "WNCK_WINDOW_GRAVITY_NORTHWEST")
@@ -163,13 +180,14 @@
     '("southwest" "WNCK_WINDOW_GRAVITY_SOUTHWEST")
     '("south" "WNCK_WINDOW_GRAVITY_SOUTH")
     '("southeast" "WNCK_WINDOW_GRAVITY_SOUTHEAST")
+    '("static" "WNCK_WINDOW_GRAVITY_STATIC")
   )
 )
 
 (define-flags WindowMoveResizeMask
   (in-module "Wnck")
   (c-name "WnckWindowMoveResizeMask")
-  ;(gtype-id "WNCK_TYPE_WINDOW_MOVE_RESIZE_MASK")
+  (gtype-id "WNCK_TYPE_WINDOW_MOVE_RESIZE_MASK")
   (values
     '("change-x" "WNCK_WINDOW_CHANGE_X")
     '("change-y" "WNCK_WINDOW_CHANGE_Y")
@@ -407,6 +425,12 @@
   )
 )
 
+(define-method get_number
+  (of-object "WnckScreen")
+  (c-name "wnck_screen_get_number")
+  (return-type "int")
+)
+
 (define-method get_workspace
   (of-object "WnckScreen")
   (c-name "wnck_screen_get_workspace")
@@ -416,10 +440,35 @@
   )
 )
 
+(define-method get_workspace_index
+  (of-object "WnckScreen")
+  (c-name "wnck_screen_get_workspace_index")
+  (return-type "int")
+  (parameters
+    '("WnckWorkspace*" "space")
+  )
+)
+
+(define-method get_workspace_neighbor
+  (of-object "WnckScreen")
+  (c-name "wnck_screen_get_workspace_neighbor")
+  (return-type "WnckWorkspace*")
+  (parameters
+    '("WnckWorkspace*" "space")
+    '("WnckMotionDirection" "direction")
+  )
+)
+
 (define-method get_active_workspace
   (of-object "WnckScreen")
   (c-name "wnck_screen_get_active_workspace")
   (return-type "WnckWorkspace*")
+)
+
+(define-method get_workspaces
+  (of-object "WnckScreen")
+  (c-name "wnck_screen_get_workspaces")
+  (return-type "GList*")
 )
 
 (define-method get_active_window
@@ -465,6 +514,12 @@
   (parameters
     '("int" "count")
   )
+)
+
+(define-method get_window_manager_name
+  (of-object "WnckScreen")
+  (c-name "wnck_screen_get_window_manager_name")
+  (return-type "const-char*")
 )
 
 (define-method net_wm_supports
@@ -539,6 +594,25 @@
   )
 )
 
+(define-method calc_workspace_layout
+  (of-object "WnckScreen")
+  (c-name "wnck_screen_calc_workspace_layout")
+  (return-type "none")
+  (parameters
+    '("int" "num_workspaces")
+    '("int" "space_index")
+    '("WnckWorkspaceLayout*" "layout")
+  )
+)
+
+(define-function wnck_screen_free_workspace_layout
+  (c-name "wnck_screen_free_workspace_layout")
+  (return-type "none")
+  (parameters
+    '("WnckWorkspaceLayout*" "layout")
+  )
+)
+
 
 
 ;; From /usr/include/libwnck-1.0/libwnck/tasklist.h
@@ -608,6 +682,15 @@
   (return-type "none")
   (parameters
     '("gboolean" "include_all_workspaces")
+  )
+)
+
+(define-method set_button_relief
+  (of-object "WnckTasklist")
+  (c-name "wnck_tasklist_set_button_relief")
+  (return-type "none")
+  (parameters
+    '("GtkReliefStyle" "relief")
   )
 )
 
@@ -726,10 +809,22 @@
   (return-type "WnckScreen*")
 )
 
+(define-method has_name
+  (of-object "WnckWindow")
+  (c-name "wnck_window_has_name")
+  (return-type "gboolean")
+)
+
 (define-method get_name
   (of-object "WnckWindow")
   (c-name "wnck_window_get_name")
   (return-type "const-char*")
+)
+
+(define-method has_icon_name
+  (of-object "WnckWindow")
+  (c-name "wnck_window_has_icon_name")
+  (return-type "gboolean")
 )
 
 (define-method get_icon_name
@@ -786,10 +881,34 @@
   (return-type "int")
 )
 
+(define-method get_sort_order
+  (of-object "WnckWindow")
+  (c-name "wnck_window_get_sort_order")
+  (return-type "gint")
+)
+
+(define-method set_sort_order
+  (of-object "WnckWindow")
+  (c-name "wnck_window_set_sort_order")
+  (return-type "none")
+  (parameters
+    '("gint" "order")
+  )
+)
+
 (define-method get_window_type
   (of-object "WnckWindow")
   (c-name "wnck_window_get_window_type")
   (return-type "WnckWindowType")
+)
+
+(define-method set_window_type
+  (of-object "WnckWindow")
+  (c-name "wnck_window_set_window_type")
+  (return-type "none")
+  (parameters
+    '("WnckWindowType" "wintype")
+  )
 )
 
 (define-method is_minimized
@@ -822,6 +941,18 @@
   (return-type "gboolean")
 )
 
+(define-method is_above
+  (of-object "WnckWindow")
+  (c-name "wnck_window_is_above")
+  (return-type "gboolean")
+)
+
+(define-method is_below
+  (of-object "WnckWindow")
+  (c-name "wnck_window_is_below")
+  (return-type "gboolean")
+)
+
 (define-method is_skip_pager
   (of-object "WnckWindow")
   (c-name "wnck_window_is_skip_pager")
@@ -849,6 +980,12 @@
 (define-method needs_attention
   (of-object "WnckWindow")
   (c-name "wnck_window_needs_attention")
+  (return-type "gboolean")
+)
+
+(define-method or_transient_needs_attention
+  (of-object "WnckWindow")
+  (c-name "wnck_window_or_transient_needs_attention")
   (return-type "gboolean")
 )
 
@@ -951,6 +1088,30 @@
   (return-type "none")
 )
 
+(define-method make_above
+  (of-object "WnckWindow")
+  (c-name "wnck_window_make_above")
+  (return-type "none")
+)
+
+(define-method unmake_above
+  (of-object "WnckWindow")
+  (c-name "wnck_window_unmake_above")
+  (return-type "none")
+)
+
+(define-method make_below
+  (of-object "WnckWindow")
+  (c-name "wnck_window_make_below")
+  (return-type "none")
+)
+
+(define-method unmake_below
+  (of-object "WnckWindow")
+  (c-name "wnck_window_unmake_below")
+  (return-type "none")
+)
+
 (define-method stick
   (of-object "WnckWindow")
   (c-name "wnck_window_stick")
@@ -1038,6 +1199,12 @@
   )
 )
 
+(define-method transient_is_most_recently_activated
+  (of-object "WnckWindow")
+  (c-name "wnck_window_transient_is_most_recently_activated")
+  (return-type "gboolean")
+)
+
 (define-method get_icon
   (of-object "WnckWindow")
   (c-name "wnck_window_get_icon")
@@ -1078,6 +1245,18 @@
   (of-object "WnckWindow")
   (c-name "wnck_window_get_state")
   (return-type "WnckWindowState")
+)
+
+(define-method get_client_window_geometry
+  (of-object "WnckWindow")
+  (c-name "wnck_window_get_client_window_geometry")
+  (return-type "none")
+  (parameters
+    '("int*" "xp")
+    '("int*" "yp")
+    '("int*" "widthp")
+    '("int*" "heightp")
+  )
 )
 
 (define-method get_geometry
@@ -1142,8 +1321,18 @@
   (return-type "GType")
 )
 
+(define-function wnck_motion_direction_get_type
+  (c-name "wnck_motion_direction_get_type")
+  (return-type "GType")
+)
+
 (define-function wnck_tasklist_grouping_type_get_type
   (c-name "wnck_tasklist_grouping_type_get_type")
+  (return-type "GType")
+)
+
+(define-function wnck_client_type_get_type
+  (c-name "wnck_client_type_get_type")
   (return-type "GType")
 )
 
@@ -1162,6 +1351,16 @@
   (return-type "GType")
 )
 
+
+(define-function wnck_window_gravity_get_type
+  (c-name "wnck_window_gravity_get_type")
+  (return-type "GType")
+)
+
+(define-function wnck_window_move_resize_mask_get_type
+  (c-name "wnck_window_move_resize_mask_get_type")
+  (return-type "GType")
+)
 
 
 ;; From /usr/include/libwnck-1.0/libwnck/workspace.h
@@ -1190,6 +1389,12 @@
   (parameters
     '("const-char*" "name")
   )
+)
+
+(define-method get_screen
+  (of-object "WnckWorkspace")
+  (c-name "wnck_workspace_get_screen")
+  (return-type "WnckScreen*")
 )
 
 (define-method activate
@@ -1230,6 +1435,29 @@
   (c-name "wnck_workspace_is_virtual")
   (return-type "gboolean")
 )
+
+
+(define-method get_layout_row
+  (of-object "WnckWorkspace")
+  (c-name "wnck_workspace_get_layout_row")
+  (return-type "int")
+)
+
+(define-method get_layout_column
+  (of-object "WnckWorkspace")
+  (c-name "wnck_workspace_get_layout_column")
+  (return-type "int")
+)
+
+(define-method get_neighbor
+  (of-object "WnckWorkspace")
+  (c-name "wnck_workspace_get_neighbor")
+  (return-type "WnckWorkspace*")
+  (parameters
+    '("WnckMotionDirection" "direction")
+  )
+)
+
 
 
 ;; From selector.h
