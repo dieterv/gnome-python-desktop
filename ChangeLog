@@ -1,8 +1,12 @@
+2007-12-16  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* evolution/wscript (build): Fix compilation of override_common.c
+	twice.
+
 2007-12-16  Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* wnck/wnck.defs:
 	* wnck/wnck.override: Update up to 2.20 API.
-
 
 2007-12-15  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 

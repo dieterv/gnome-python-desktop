@@ -34,6 +34,13 @@ def codegen(bld, module):
 
 
 def build(bld):
+
+    evolution_common = bld.create_obj('cc', 'objects', 'pyext')
+    evolution_common.name = 'evolution_common'
+    evolution_common.source = 'override_common.c'
+    evolution_common.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
+    evolution_common.uselib = 'PYGTK'
+    evolution_common.env.append_value('CCFLAGS', evolution_common.env['shlib_CCFLAGS'])
     
     if bld.env()['ENABLE_EVOLUTION_EBOOK']:
         codegen(bld, 'ebook')
@@ -41,12 +48,12 @@ def build(bld):
         pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
         pyext.source = '''
 	ebookmodule.c
-	override_common.c
 	evo-ebook-environment.c
 	evo-contact.c
 	evo-addressbook.c
 	ebook-enums.c
 '''
+        pyext.add_objects = 'evolution_common'
         pyext.target = 'ebook'
         pyext.uselib = 'EVOLUTION_EBOOK'
         pyext.install_var = 'PYTHONDIR'
@@ -58,10 +65,10 @@ def build(bld):
         pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
         pyext.source = '''
 	ecalmodule.c
-	override_common.c
 	evo-ecal-environment.c
 	evo-calendar.c
 '''
+        pyext.add_objects = 'evolution_common'
         pyext.target = 'ecal'
         pyext.uselib = 'EVOLUTION_ECAL'
         pyext.install_var = 'PYTHONDIR'
