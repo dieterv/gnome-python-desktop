@@ -10,3 +10,4 @@ gtop_la_LDFLAGS = -module -avoid-version -export-symbols-regex initgtop
 gtop_la_LIBADD = $(GTOP_LIBS)
 gtop_la_SOURCES = gtop.c 
 
+EXTRA_DIST = wscript

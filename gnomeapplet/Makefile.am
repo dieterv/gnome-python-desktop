@@ -46,3 +46,6 @@ applet.c: applet.defs applet.override
 
 install-exec-hook: # Remove old deprecated modules
 	-$(LIBTOOL) --mode=uninstall rm -f $(pygnomeexecdir)/applet.la
+
+EXTRA_DIST += wscript
+

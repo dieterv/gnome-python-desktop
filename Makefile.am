@@ -66,6 +66,7 @@ endif
 
 
 EXTRA_DIST = \
+  wscript \
   MAINTAINERS \
   COPYING.GPL COPYING.LGPL \
   gnome-python-desktop-2.0.pc.in \

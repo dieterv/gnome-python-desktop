@@ -35,3 +35,5 @@ metacity.c: metacity.defs metacity.override
 	    --prefix py$* $*.defs) > gen-$*.c \
 	&& cp gen-$*.c $*.c \
 	&& rm -f gen-$*.c
+
+EXTRA_DIST += wscript

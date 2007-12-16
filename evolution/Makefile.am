@@ -72,3 +72,4 @@ ecal.c: ecal.defs ecal.override
 	&& cp gen-$*.c $*.c \
 	&& rm -f gen-$*.c
 
+EXTRA_DIST += wscript

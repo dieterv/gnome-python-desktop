@@ -36,3 +36,5 @@ gnomekeyring.c: gnomekeyring.defs gnomekeyring.override gnomekeyring-argtypes.py
 	    --prefix py$* $*.defs) > gen-$*.c \
 	&& cp gen-$*.c $*.c \
 	&& rm -f gen-$*.c
+
+EXTRA_DIST += wscript

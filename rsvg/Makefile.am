@@ -27,3 +27,7 @@ CLEANFILES = rsvg.c
 		--prefix py$* $*.defs) > gen-$*.c \
 	    && cp gen-$*.c $*.c \
 	    && rm -f gen-$*.c
+
+
+EXTRA_DIST += wscript
+

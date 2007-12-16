@@ -21,3 +21,4 @@ REFERENCE_XML_FILES =                           \
 
 include $(top_srcdir)/docs/pygtk-ref-docs.make
 
+EXTRA_DIST += wscript

@@ -58,3 +58,6 @@ printui.c: printui.defs printui.override
 	&& cp gen-$*.c $*.c \
 	&& rm -f gen-$*.c
 
+
+EXTRA_DIST += wscript
+

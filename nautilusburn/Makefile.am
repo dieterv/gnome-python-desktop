@@ -30,3 +30,6 @@ nautilus_burn.c: nautilus_burn.defs nautilus_burn.override
 	    --prefix $* $*.defs) > gen-$*.c \
 	&& cp gen-$*.c $*.c \
 	&& rm -f gen-$*.c
+
+EXTRA_DIST += wscript
+
