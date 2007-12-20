@@ -1,8 +1,9 @@
 /* -*- Mode: C; c-basic-offset: 4; tab-width: 4 -*- */
 %%
 headers
-#include <time.h>
 #include <Python.h>
+#include "config.h"
+#include <time.h>
 #include "pygobject.h"
 
 #include "override_common.h"

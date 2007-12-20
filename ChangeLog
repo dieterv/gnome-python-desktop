@@ -1,3 +1,10 @@
+2007-12-20  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* evolution/ecal.override (_helper_wrap_glist_of_evo_locations), 
+	* evolution/ebook.override (_helper_wrap_glist_of_evo_locations):
+	#include "config.h" to get a __version__ attribute on the module
+	when compiling with pygtk 2.14 codegen.
+
 === 2.21.1 ===
 2007-12-16  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 

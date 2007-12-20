@@ -3,6 +3,7 @@
 headers
 #include <time.h>
 #include <Python.h>
+#include "config.h"
 #include "pygobject.h"
 
 #include "override_common.h"
