@@ -1300,7 +1300,9 @@
   (c-name "meta_theme_replace_constants")
   (return-type "char*")
   (parameters
-    '("const-char*" "expr")
+    '("MetaTheme*" "theme")
+    '("PosToken*" "tokens")
+    '("int" "n_tokens")
     '("GError**" "err")
   )
 )

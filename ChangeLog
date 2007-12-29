@@ -1,3 +1,11 @@
+2007-12-29  Koop Mast  <kwm@FreeBSD.org>
+
+	reviewed by: Gustavo J. A. M. Carneiro
+
+	* configure.ac:
+	* metacity/metacity.defs:
+	Bug 505307 – Compilation fails against metacity 2.21.
+
 2007-12-20  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* evolution/ecal.override (_helper_wrap_glist_of_evo_locations), 
