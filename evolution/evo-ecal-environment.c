@@ -24,7 +24,6 @@ evo_environment_list_cal_sources(ECalSourceType type)
     GList *paths = NULL;
 	ESourceList *sources = NULL;
 	ESource *source = NULL;
-	gboolean first = FALSE;
 	
 	if (!e_cal_get_sources(&sources, type, NULL)) {
 		return NULL;
@@ -52,7 +51,7 @@ evo_environment_list_cal_sources(ECalSourceType type)
 }
 
 ESource *
-evo_environment_find_source(ESourceList *list, char *uri)
+evo_environment_find_source(ESourceList *list, const char *uri)
 {
 	GSList *g;
 	for (g = e_source_list_peek_groups (list); g; g = g->next) {

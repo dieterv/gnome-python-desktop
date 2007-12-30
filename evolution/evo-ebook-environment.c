@@ -51,7 +51,7 @@ evo_environment_list_addressbooks(void)
 }
 
 ESource *
-evo_environment_find_source(ESourceList *list, char *uri)
+evo_environment_find_source(ESourceList *list, const char *uri)
 {
 	GSList *g;
 	for (g = e_source_list_peek_groups (list); g; g = g->next) {

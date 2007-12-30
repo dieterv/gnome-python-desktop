@@ -45,7 +45,7 @@ typedef enum evo_contact_change_type {
 } evo_change_t;
 
 GList *evo_environment_list_addressbooks(void);
-ESource *evo_environment_find_source(ESourceList *list, char *uri);
+ESource *evo_environment_find_source(ESourceList *list, const char *uri);
 EContact *evo_environment_get_self_contact(void);
 
 G_END_DECLS

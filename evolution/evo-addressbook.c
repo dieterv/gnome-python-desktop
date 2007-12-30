@@ -242,7 +242,7 @@ gboolean
 evo_addressbook_remove_contact(EBook *book, EContact *contact)
 {
     int found = FALSE;
-    char *uid = NULL;
+    const char *uid = NULL;
     GError *err = NULL;
     
     found = evo_addressbook_contact_exists(book, contact);

@@ -86,32 +86,32 @@ static PyObject *pyebook_query_copy(PyEBookQuery *self,
                                     PyObject *args);
 
 static PyMethodDef PyEBookQuery_methods[] = {
-    {"from_string", (PyCFunctionWithKeywords)pyebook_query_from_string,
+    {"from_string", (PyCFunction)pyebook_query_from_string,
         METH_KEYWORDS | METH_VARARGS | METH_CLASS,
         "Creates a new query from a string."},
-    {"field_exists", (PyCFunctionWithKeywords)pyebook_query_field_exists,
+    {"field_exists", (PyCFunction)pyebook_query_field_exists,
         METH_KEYWORDS | METH_VARARGS | METH_CLASS,
         "Replaces this query with a new query to check if the given \
         field exists"},
     {"vcard_field_exists",
-        (PyCFunctionWithKeywords)pyebook_query_vcard_field_exists,
+        (PyCFunction)pyebook_query_vcard_field_exists,
         METH_KEYWORDS | METH_VARARGS | METH_CLASS,
         "Replaces this query with a new query to check if the given \
         vcard field exists"},
-    {"field_test", (PyCFunctionWithKeywords)pyebook_query_field_test,
+    {"field_test", (PyCFunction)pyebook_query_field_test,
         METH_KEYWORDS | METH_VARARGS | METH_CLASS,
         "Replaces this query with a new query with a given test."},
     {"any_field_contains",
-        (PyCFunctionWithKeywords)pyebook_query_any_field_contains,
+        (PyCFunction)pyebook_query_any_field_contains,
         METH_KEYWORDS | METH_VARARGS | METH_CLASS,
         "Replaces this query with a new 'generic' query."},
     {"_and",
-        (PyCFunctionWithKeywords)pyebook_query_and,
+        (PyCFunction)pyebook_query_and,
         METH_KEYWORDS | METH_VARARGS,
         "Creates a new query with a 'and' operation with the given \
         query list and this query."},
      {"_or",
-        (PyCFunctionWithKeywords)pyebook_query_or,
+        (PyCFunction)pyebook_query_or,
         METH_KEYWORDS | METH_VARARGS,
         "Creates a new querywith a 'or' operation with the given \
         query list and this query."},
@@ -429,15 +429,17 @@ pyebook_query_copy(PyEBookQuery *self,
 
 /*** Types, helper functions and callbacks for EBookView ***/
 
+typedef PyObject *(*GlistToPyListConverter)(gpointer);
+
 /* Struct used to pack data passed to EBookView signals */
 struct bookview_cb_t{
-    PyObject *(*converter)(gpointer);
+    GlistToPyListConverter converter;
     PyObject *callback;
     PyObject *extra_data;
 };
 
 static PyObject *
-glist_to_pylist(GList *list, PyObject *(*converter)(gpointer))
+glist_to_pylist(GList *list, GlistToPyListConverter converter)
 {
     PyObject *pylist;
     GList *node;
@@ -483,9 +485,7 @@ contacts_list_cb(EBookView *ebookview, GList *contacts, gpointer user_data)
     /* Required for threaded code. No effect in single threads. */
     state = pyg_gil_state_ensure();
 
-    pybookview = pygobject_new(ebookview);
-    if (pybookview == NULL){
-    }
+    pybookview = pygobject_new((GObject *) ebookview);
 
     data = (struct bookview_cb_t*)user_data;
 
@@ -622,7 +622,8 @@ _wrap_e_contact_new(PyGObject *self, PyObject *args, PyObject *kwargs)
         PyErr_SetString(PyExc_RuntimeError, "could not create EContact object");
         return -1;
     } else {
-        self->obj = contact;
+        self->obj = (GObject*) contact;
+        pygobject_register_wrapper((PyObject *)self);
         return 0;
     }
 
@@ -722,14 +723,13 @@ _wrap_e_book_get_book_view(PyGObject *self, PyObject *args, PyObject *kwargs)
         for(i = 0; i < len; i++){
             PyObject *item;
             EContactField field;
-            char *name;
-            int size;
+            const char *name;
 
             item = PyList_GetItem(pyfields, i);
 
             pyg_enum_get_value(E_TYPE_CONTACT_FIELD, item, (gint *)&field);
             name = e_contact_field_name(field);
-            fields = g_list_append(fields, name);
+            fields = g_list_append(fields, (gpointer) name);
         }
     }
 
@@ -783,9 +783,9 @@ _wrap_e_book_view_set_contacts_added_cb(PyGObject *self, PyObject *args, PyObjec
     }
 
     data->extra_data = extra_args;
-    data->converter = econtact_to_pycontact;
+    data->converter = (GlistToPyListConverter) econtact_to_pycontact;
 
-    result = g_signal_connect(self->obj, "contacts-added", contacts_list_cb, data);
+    result = g_signal_connect(self->obj, "contacts-added", (GCallback) contacts_list_cb, data);
 
     return PyInt_FromLong(result);
 }
@@ -843,9 +843,9 @@ _wrap_e_book_view_set_contacts_changed_cb(PyGObject *self, PyObject *args, PyObj
     }
 
     data->extra_data = extra_args;
-    data->converter = econtact_to_pycontact;
+    data->converter = (GlistToPyListConverter) econtact_to_pycontact;
 
-    result = g_signal_connect(self->obj, "contacts-changed", contacts_list_cb, data);
+    result = g_signal_connect(self->obj, "contacts-changed", (GCallback) contacts_list_cb, data);
 
     return PyInt_FromLong(result);
 }
@@ -903,9 +903,9 @@ _wrap_e_book_view_set_contacts_removed_cb(PyGObject *self, PyObject *args, PyObj
     }
 
     data->extra_data = extra_args;
-    data->converter = PyString_FromString;
+    data->converter = (GlistToPyListConverter) PyString_FromString;
 
-    result = g_signal_connect(self->obj, "contacts-removed", contacts_list_cb, data);
+    result = g_signal_connect(self->obj, "contacts-removed", (GCallback) contacts_list_cb, data);
 
     return PyInt_FromLong(result);
 }

@@ -35,7 +35,8 @@ evo_cal_source_open_source(const char *uri, ECalSourceType type)
 
 	if (strcmp(uri, "default")) {
 	  	if (!e_cal_get_sources(&sources, type, &gerror)) {
-	  		g_warning("Unable to get sources for calendar (type %u): %s", gerror ? gerror->message : "None", type);
+                    g_warning("Unable to get sources for calendar (type %u): %s",
+                              type, gerror ? gerror->message : "None");
 			g_clear_error(&gerror);
 			return NULL;
 		}
@@ -53,7 +54,8 @@ evo_cal_source_open_source(const char *uri, ECalSourceType type)
 		}
 		
 		if(!e_cal_open(cal, FALSE, &gerror)) {
-	  		g_warning("Failed to open calendar (type %u): %s", gerror ? gerror->message : "None", type);
+	  		g_warning("Failed to open calendar (type %u): %s",
+                                  type, gerror ? gerror->message : "None");
 			g_object_unref(cal);
 			g_clear_error(&gerror);
 			return NULL;
@@ -92,7 +94,7 @@ evo_cal_source_open_new_with_absolute_uri(const char *name, const char *uri, ECa
     }
 
     if(!e_cal_open(cal, FALSE, &gerror)) {
-        g_warning("Failed to open calendar (type %u): %s", gerror ? gerror->message : "None", type);
+        g_warning("Failed to open calendar (type %u): %s", type, gerror ? gerror->message : "None");
         g_object_unref(cal);
         g_clear_error(&gerror);
         return NULL;
@@ -138,7 +140,6 @@ evo_cal_source_print_all_objects(ECal *ecal)
 {
 	GList* ical_objects = NULL;
 	GList* l = NULL;
-	gboolean ret = TRUE;
     GError *error = NULL;
     char *str = NULL;
 
@@ -183,7 +184,7 @@ evo_cal_source_get_object(ECal *ecal, const char *uid, const char *rid)
 			icalcomponent_free (icalcomp);
 		}
     } else {
-		g_warning("Could not find object (uid: %s)\n", uid, error ? error->message : "None");
+		g_warning("Could not find object (uid: %s): %s\n", uid, error ? error->message : "None");
 	    g_clear_error (&error);
 	}
 

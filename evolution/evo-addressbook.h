@@ -24,11 +24,24 @@
 G_BEGIN_DECLS
 
 /* Public */
-EBook *evo_addressbook_open(const char *uri);
-GList *evo_addressbook_get_all_contacts(EBook *addressbook);
-gboolean evo_addressbook_get_changed_contacts(EBook *addressbook, GList **added, GList **modified, GList **deleted, char *change_id);
-GList *evo_addressbook_free_text_search(EBook *book, const char *query);
-EContact *evo_addressbook_get_contact(EBook *book, const char *uid);
+EBook*    evo_addressbook_open                 (const char  *uri);
+GList*    evo_addressbook_get_all_contacts     (EBook       *addressbook);
+gboolean  evo_addressbook_get_changed_contacts (EBook       *addressbook,
+                                                GList      **added,
+                                                GList      **modified,
+                                                GList      **deleted,
+                                                char        *change_id);
+GList*    evo_addressbook_free_text_search     (EBook       *book,
+                                                const char  *query);
+EContact* evo_addressbook_get_contact          (EBook       *book,
+                                                const char  *uid);
+gboolean  evo_addressbook_contact_exists       (EBook       *book,
+                                                EContact    *contact);
+char *    evo_addressbook_add_contact          (EBook       *book,
+                                                EContact    *contact);
+gboolean  evo_addressbook_remove_contact       (EBook       *book,
+                                                EContact    *contact);
+
 
 G_END_DECLS
 

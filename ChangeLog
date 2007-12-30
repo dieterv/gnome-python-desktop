@@ -1,3 +1,19 @@
+2007-12-30  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	* evolution/ebook.override:
+	* evolution/evo-addressbook.c (evo_addressbook_remove_contact):
+	* evolution/evo-addressbook.h:
+	* evolution/evo-calendar.c (evo_cal_source_open_source),
+	(evo_cal_source_open_new_with_absolute_uri),
+	(evo_cal_source_print_all_objects, evo_cal_source_get_object):
+	* evolution/evo-calendar.h:
+	* evolution/evo-ebook-environment.c (evo_environment_find_source):
+	* evolution/evo-ebook-environment.h:
+	* evolution/evo-ecal-environment.c:
+	(evo_environment_list_cal_sources, evo_environment_find_source):
+	* evolution/evo-ecal-environment.h:
+	Fix a lot of compilation warnings, and a missing pyg_register_wrapper.
+
 2007-12-30  Paul  <ephraim_owns@hotmail.com>
 
 	reviewed by: Gustavo Carneiro.
