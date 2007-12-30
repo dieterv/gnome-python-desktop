@@ -4,6 +4,7 @@ headers
 #include <time.h>
 #include <Python.h>
 #include "config.h"
+#define NO_IMPORT_PYGOBJECT
 #include "pygobject.h"
 
 #include "override_common.h"

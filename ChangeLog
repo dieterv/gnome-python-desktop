@@ -1,3 +1,13 @@
+2007-12-30  Paul  <ephraim_owns@hotmail.com>
+
+	reviewed by: Gustavo Carneiro.
+
+	* evolution/ebook.override:
+	* evolution/ecal.override:
+
+	Bug 506401 – evolution *.override files need NO_IMPORT_PYGOBJECT
+	defined to avoid multiply defined symbols at link time.
+
 2007-12-29  Koop Mast  <kwm@FreeBSD.org>
 
 	reviewed by: Gustavo J. A. M. Carneiro
