@@ -126,7 +126,7 @@ _wrap_e_cal_component_new(PyGObject *self, PyObject *args, PyObject *kwargs)
         PyErr_SetString(PyExc_RuntimeError, "could not create ECalComponent object");
         return -1;
     } else {
-        self->obj = comp;
+        self->obj = (GObject*) comp;
         return 0;
     }
 

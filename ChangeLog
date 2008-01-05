@@ -1,8 +1,27 @@
 2008-01-05  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
-	* evolution/wscript (build): Fix stupid error in the WAF build.
+	* evolution/ecal.defs,
+	* evolution/evo-calendar.h,
+	* evolution/evo-calendar.c (evo_cal_component_get_status),
+	(evo_cal_component_set_status): Wrap get_set_status (#505305)
 
-2007-12-30  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+	* evolution/ebook.override:
+	* evolution/ecal.override: Fix some compilation warnings.
+	
+	* evolution/wscript:
+	* gnomeapplet/wscript:
+	* gnomedesktop/wscript:
+	* gnomekeyring/wscript:
+	* gnomeprint/wscript:
+	* gtksourceview/wscript:
+	* mediaprofiles/wscript:
+	* metacity/wscript:
+	* nautilusburn/wscript:
+	* rsvg/wscript:
+	* totem/wscript:
+	* wnck/wscript: Fix more WAF build problems.
+
+2007-12-30  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* evolution/ebook.override:
 	* evolution/evo-addressbook.c (evo_addressbook_remove_contact):

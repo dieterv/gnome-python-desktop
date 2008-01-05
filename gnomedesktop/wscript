@@ -23,6 +23,7 @@ def codegen(bld, module):
         cmd.input_file("%s.defs" % module),
         ]
     cmd.stdout = '%s.c' % module
+    cmd.prio = 5
     return cmd
 
 

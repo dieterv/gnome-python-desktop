@@ -54,7 +54,9 @@ void           evo_cal_component_set_description         (ECalComponent  *obj,
 int            evo_cal_component_get_priority            (ECalComponent  *comp);
 void           evo_cal_component_set_priority            (ECalComponent  *comp,
                                                           int             priority);
-
+icalproperty_status evo_cal_component_get_status         (ECalComponent  *obj);
+void           evo_cal_component_set_status              (ECalComponent  *obj,
+                                                          icalproperty_status status);
 
 
 G_END_DECLS

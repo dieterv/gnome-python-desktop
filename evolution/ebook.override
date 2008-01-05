@@ -144,7 +144,7 @@ PyTypeObject PyEBookQuery_Type = {
 	0,                  /* tp_as_mapping */
 	(hashfunc)0,    /* tp_hash */
 	(ternaryfunc)0,         /* tp_call */
-	pyebook_query_str,            /* tp_str */
+	(reprfunc) pyebook_query_str,            /* tp_str */
 	(getattrofunc)0,            /* tp_getattro */
 	(setattrofunc)0,            /* tp_setattro */
 	0,                  /* tp_as_buffer */

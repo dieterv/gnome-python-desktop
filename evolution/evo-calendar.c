@@ -227,6 +227,21 @@ evo_cal_component_set_modified(ECalComponent *obj, glong seconds)
     e_cal_component_set_last_modified(obj, &tt);
 }
 
+icalproperty_status
+evo_cal_component_get_status(ECalComponent *obj)
+{
+    icalproperty_status status;
+
+    e_cal_component_get_status(obj, &status);
+    return status;
+}
+
+void
+evo_cal_component_set_status(ECalComponent *obj, icalproperty_status status)
+{
+    e_cal_component_set_status(obj, status);
+}
+
 int
 evo_cal_component_get_priority(ECalComponent *comp)
 {

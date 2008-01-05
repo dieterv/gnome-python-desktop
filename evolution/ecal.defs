@@ -28,6 +28,22 @@
   )
 )
 
+(define-enum icalproperty_status
+  (in-module "ECal")
+  (c-name "icalproperty_status")
+  (values
+   '("x" "ICAL_STATUS_X")
+   '("tentative" "ICAL_STATUS_TENTATIVE")
+   '("confirmed" "ICAL_STATUS_CONFIRMED")
+   '("completed" "ICAL_STATUS_COMPLETED")
+   '("needsaction" "ICAL_STATUS_NEEDSACTION")
+   '("cancelled" "ICAL_STATUS_CANCELLED")
+   '("inprocess" "ICAL_STATUS_INPROCESS")
+   '("draft" "ICAL_STATUS_DRAFT")
+   '("final" "ICAL_STATUS_FINAL")
+   '("none" "ICAL_STATUS_NONE")
+))
+
 ;;------------------------------------------------------------------------------
 ;; Object Definitions
 ;;------------------------------------------------------------------------------
@@ -251,6 +267,23 @@
   (return-type "none")
   (parameters
     '("const-char*" "summary")
+  )
+)
+
+(define-method get_status
+  (of-object "ECalComponent")
+  (c-name "evo_cal_component_get_status")
+  (return-type "icalproperty_status")
+  (parameters
+  )
+)
+
+(define-method set_status
+  (of-object "ECalComponent")
+  (c-name "evo_cal_component_set_status")
+  (return-type "none")
+  (parameters
+    '("icalproperty_status" "status")
   )
 )
 
