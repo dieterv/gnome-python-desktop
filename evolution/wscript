@@ -48,6 +48,7 @@ def build(bld):
         pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
         pyext.source = '''
 	ebookmodule.c
+	ebook.c
 	evo-ebook-environment.c
 	evo-contact.c
 	evo-addressbook.c
@@ -65,6 +66,7 @@ def build(bld):
         pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
         pyext.source = '''
 	ecalmodule.c
+	ecal.c
 	evo-ecal-environment.c
 	evo-calendar.c
 '''
