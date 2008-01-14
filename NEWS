@@ -1,3 +1,11 @@
+Overview of Changes from 2.21.1 to 2.21.2
+==============================================================================
+* Wrap evo_cal_component_[gs]et_status (Gustavo, #505305)
+* Fix WAF build problems (Gustavo)
+* In evolution modules avoid multiply defined symbols (Paul, #506401)
+* Bug 505307 – Compilation fails against metacity 2.21 (Koop Mast)
+* Make sure the evolution modules get a __version__ attribute (Gustavo)
+
 Overview of Changes from 2.20.0 to 2.21.1
 ==============================================================================
 * Add WAF build support (Gustavo)

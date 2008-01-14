@@ -1,3 +1,10 @@
+=== 2.21.2 ===
+2008-01-14  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* NEWS: Update.
+
+	* configure.ac, wscript: Bump version to 2.21.2.
+
 2008-01-05  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* evolution/ecal.defs,
