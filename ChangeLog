@@ -1,3 +1,8 @@
+2008-02-03  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* wscript (configure): Check for the 'gnome' tool first, to make
+	python use LIBDIR (if running waf trunk).
+
 === 2.21.2 ===
 2008-01-14  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 

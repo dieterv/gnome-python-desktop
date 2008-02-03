@@ -31,10 +31,10 @@ def set_options(opt):
 def configure(conf):
     conf.check_tool('misc')
     conf.check_tool('compiler_cc')
+    conf.check_tool('gnome')
     conf.check_tool('python')
     conf.check_python_version((2,4))
     conf.check_python_headers()
-    conf.check_tool('gnome')
     conf.find_program('xsltproc', var='XSLTPROC')
     conf.define('VERSION', VERSION)
 
