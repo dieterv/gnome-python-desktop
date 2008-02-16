@@ -36,7 +36,7 @@ def build(bld):
     
     if bld.env()['ENABLE_GNOMEPRINT']:
         codegen(bld, 'print')
-        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext = bld.create_obj('cc', 'plugin', 'pyext')
         pyext.source = 'printmodule.c print.c art-gtype.c'
         pyext.target = '_print'
         pyext.uselib = 'GNOMEPRINT'
@@ -46,7 +46,7 @@ def build(bld):
 
     if bld.env()['ENABLE_GNOMEPRINTUI']:
         codegen(bld, 'printui')
-        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext = bld.create_obj('cc', 'plugin', 'pyext')
         pyext.source = 'printuimodule.c printui.c'
         pyext.target = 'ui'
         pyext.uselib = 'GNOMEPRINTUI'

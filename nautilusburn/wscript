@@ -31,7 +31,7 @@ def build(bld):
     
     if bld.env()['ENABLE_NAUTILUSBURN']:
         codegen(bld, 'nautilus_burn')
-        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext = bld.create_obj('cc', 'plugin', 'pyext')
         pyext.source = 'nb_module.c nautilus_burn.c nb_track.c'
         pyext.env.append_value('CPPPATH', '../nautilusburn') # work around possible WAF bug
         pyext.target = 'nautilusburn'

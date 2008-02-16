@@ -32,7 +32,7 @@ def build(bld):
     
     if bld.env()['ENABLE_GTKSOURCEVIEW']:
         codegen(bld, 'gtksourceview')
-        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext = bld.create_obj('cc', 'plugin', 'pyext')
         pyext.source = 'gtksourceviewmodule.c gtksourceview.c'
         pyext.target = 'gtksourceview'
         pyext.uselib = 'GTKSOURCEVIEW'

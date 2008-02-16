@@ -45,7 +45,7 @@ def build(bld):
     
     if bld.env()['ENABLE_EVOLUTION_EBOOK']:
         codegen(bld, 'ebook')
-        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext = bld.create_obj('cc', 'plugin', 'pyext')
         pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
         pyext.source = '''
 	ebookmodule.c
@@ -63,7 +63,7 @@ def build(bld):
 
     if bld.env()['ENABLE_EVOLUTION_ECAL']:
         codegen(bld, 'ecal')
-        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext = bld.create_obj('cc', 'plugin', 'pyext')
         pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
         pyext.source = '''
 	ecalmodule.c

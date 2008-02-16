@@ -34,7 +34,7 @@ def build(bld):
     
     if bld.env()['ENABLE_GNOMEAPPLET']:
         codegen(bld, 'applet')
-        pyext = bld.create_obj('cc', 'shlib', 'pyext')
+        pyext = bld.create_obj('cc', 'plugin', 'pyext')
         pyext.source = 'appletmodule.c applet.c'
         pyext.target = 'gnomeapplet'
         pyext.uselib = 'GNOMEAPPLET'
