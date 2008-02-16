@@ -1,3 +1,10 @@
+2008-02-16  Justin Mazzola Paluska
+
+	* gnomekeyring/gnomekeyring.override
+	(pygnome_keyring_attribute_list_as_pyobject): Bug 516788 –
+	gnomekeyring: find_network_password_sync returns None instead of
+	results.
+
 2008-02-03  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* wscript (configure): Check for the 'gnome' tool first, to make

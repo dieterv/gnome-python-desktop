@@ -408,8 +408,7 @@ _wrap_gnome_keyring_find_network_password_sync(PyObject *self, PyObject *args, P
     gnome_keyring_network_password_list_free(result);
     if (pygnomekeyring_result_check(ret))
         return NULL;
-    Py_INCREF(Py_None);
-    return Py_None;
+    return py_result;
 }
 
 %%
