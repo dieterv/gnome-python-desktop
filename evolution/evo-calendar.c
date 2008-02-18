@@ -36,7 +36,7 @@ evo_cal_source_open_source(const char *uri, ECalSourceType type)
 	if (strcmp(uri, "default")) {
 	  	if (!e_cal_get_sources(&sources, type, &gerror)) {
                     g_warning("Unable to get sources for calendar (type %u): %s",
-                              type, gerror ? gerror->message : "None");
+                              type, gerror && gerror->message ? gerror->message : "None");
 			g_clear_error(&gerror);
 			return NULL;
 		}
@@ -55,14 +55,15 @@ evo_cal_source_open_source(const char *uri, ECalSourceType type)
 		
 		if(!e_cal_open(cal, FALSE, &gerror)) {
 	  		g_warning("Failed to open calendar (type %u): %s",
-                                  type, gerror ? gerror->message : "None");
+                      type, gerror && gerror->message? gerror->message : "None");
 			g_object_unref(cal);
 			g_clear_error(&gerror);
 			return NULL;
 		}
 	} else {
 		if (!e_cal_open_default (&cal, type, NULL, NULL, &gerror)) {
-	  		g_warning("Failed to open default calendar: %s", gerror ? gerror->message : "None");
+	  		g_warning("Failed to open default calendar: %s",
+                      gerror && gerror->message ? gerror->message : "None");
 			g_clear_error(&gerror);
 			return NULL;
 		}
@@ -94,7 +95,8 @@ evo_cal_source_open_new_with_absolute_uri(const char *name, const char *uri, ECa
     }
 
     if(!e_cal_open(cal, FALSE, &gerror)) {
-        g_warning("Failed to open calendar (type %u): %s", type, gerror ? gerror->message : "None");
+        g_warning("Failed to open calendar (type %u): %s", type,
+                  gerror && gerror->message ? gerror->message : "None");
         g_object_unref(cal);
         g_clear_error(&gerror);
         return NULL;

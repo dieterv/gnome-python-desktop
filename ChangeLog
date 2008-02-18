@@ -1,3 +1,9 @@
+2008-02-18  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* evolution/evo-calendar.c (evo_cal_source_open_source)
+	(evo_cal_source_open_new_with_absolute_uri): Fix potential NULL
+	strings inside g_warnings (bug #505647).
+
 2008-02-16  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
 	* evolution/wscript:
