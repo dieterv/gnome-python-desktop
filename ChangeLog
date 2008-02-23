@@ -1,3 +1,8 @@
+2008-02-23  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* configure.ac: Add autotools deprecation warning and WAF build
+	instructions.
+
 2008-02-18  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* evolution/evo-calendar.c (evo_cal_source_open_source)

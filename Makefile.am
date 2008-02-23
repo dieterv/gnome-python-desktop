@@ -66,6 +66,7 @@ endif
 
 
 EXTRA_DIST = \
+  INSTALL.WAF \
   wscript \
   MAINTAINERS \
   COPYING.GPL COPYING.LGPL \

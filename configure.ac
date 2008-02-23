@@ -403,3 +403,8 @@ $build_evolution         || echo     evolution
 $build_evolution_ecal    || echo     evolution ecal support
 
 
+echo "*****************************************************************************"
+echo "*** WARNING: You are using a deprecated build system (autotools)."
+echo "***          You should be using WAF instead; see the file INSTALL.WAF."
+echo "***          The autotools build system will be removed in a future version."
+echo "*****************************************************************************"
