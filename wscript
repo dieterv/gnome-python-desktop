@@ -90,7 +90,7 @@ def build(bld):
         'prefix': bld.env()['PREFIX'],
         'exec_prefix': bld.env()['PREFIX'],
         'libdir': bld.env()['LIBDIR'],
-        'includedir': os.path.join(bld.env()['PREFIX'], 'usr', 'include'),
+        'includedir': os.path.join(bld.env()['PREFIX'], 'include'),
         'datadir': bld.env()['DATADIR'],
         'datarootdir': bld.env()['DATADIR'],
         }
