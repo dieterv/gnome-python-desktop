@@ -1,5 +1,7 @@
 2008-02-23  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
+	* NEWS: Update.
+
 	* configure.ac: Add autotools deprecation warning and WAF build
 	instructions.
 

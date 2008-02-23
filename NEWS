@@ -1,3 +1,10 @@
+Overview of Changes from 2.21.2 to 2.21.3
+==============================================================================
+* WAF build fixes
+* evo calendar bug fixes
+* Fix gnomekeyring.find_network_password_sync erroneously returning None
+  (Justin Mazzola Paluska, #516788)
+
 Overview of Changes from 2.21.1 to 2.21.2
 ==============================================================================
 * Wrap evo_cal_component_[gs]et_status (Gustavo, #505305)
