@@ -3,7 +3,7 @@
 import Params
 Params.g_autoconfig = True
 
-VERSION = '2.21.3'
+VERSION = '2.22.0'
 APPNAME = 'gnome-python-desktop'
 srcdir = '.'
 blddir = 'build'
