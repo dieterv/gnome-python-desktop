@@ -3,7 +3,7 @@ AC_PREREQ(2.52)
 
 dnl the gnome-python version number
 m4_define(gnome_python_desktop_major_version, 2)
-m4_define(gnome_python_desktop_minor_version, 22)
+m4_define(gnome_python_desktop_minor_version, 23)
 m4_define(gnome_python_desktop_micro_version, 0)
 m4_define(gnome_python_desktop_version, gnome_python_desktop_major_version.gnome_python_desktop_minor_version.gnome_python_desktop_micro_version)
 
