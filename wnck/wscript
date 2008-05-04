@@ -31,7 +31,7 @@ def build(bld):
     
     if bld.env()['ENABLE_WNCK']:
         codegen(bld, 'wnck')
-        pyext = bld.create_obj('cc', 'plugin', 'pyext')
+        pyext = bld.create_pyext()
         pyext.env.append_value('CCDEFINES', 'WNCK_I_KNOW_THIS_IS_UNSTABLE')
         pyext.source = 'wnckmodule.c wnck.c'
         pyext.target = 'wnck'

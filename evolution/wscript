@@ -35,7 +35,6 @@ def codegen(bld, module):
 
 
 def build(bld):
-
     evolution_common = bld.create_obj('cc', 'objects', 'pyext')
     evolution_common.name = 'evolution_common'
     evolution_common.source = 'override_common.c'
@@ -45,7 +44,7 @@ def build(bld):
     
     if bld.env()['ENABLE_EVOLUTION_EBOOK']:
         codegen(bld, 'ebook')
-        pyext = bld.create_obj('cc', 'plugin', 'pyext')
+        pyext = bld.create_pyext()
         pyext.includes = '.'
         pyext.source = '''
 	ebookmodule.c
@@ -63,7 +62,7 @@ def build(bld):
 
     if bld.env()['ENABLE_EVOLUTION_ECAL']:
         codegen(bld, 'ecal')
-        pyext = bld.create_obj('cc', 'plugin', 'pyext')
+        pyext = bld.create_pyext()
         pyext.includes = '.'
         pyext.source = '''
 	ecalmodule.c

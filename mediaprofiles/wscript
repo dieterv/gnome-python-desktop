@@ -31,7 +31,7 @@ def build(bld):
     
     if bld.env()['ENABLE_MEDIAPROFILES']:
         codegen(bld, 'mediaprofiles')
-        pyext = bld.create_obj('cc', 'plugin', 'pyext')
+        pyext = bld.create_pyext()
         pyext.source = 'mediaprofilesmodule.c mediaprofiles.c'
         pyext.target = 'mediaprofiles'
         pyext.uselib = 'MEDIAPROFILES'

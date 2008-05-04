@@ -43,7 +43,7 @@ def build(bld):
     
     if bld.env()['ENABLE_METACITY']:
         codegen(bld, 'metacity')
-        pyext = bld.create_obj('cc', 'plugin', 'pyext')
+        pyext = bld.create_pyext()
         pyext.source = 'metacitymodule.c metacity.c'
         pyext.target = 'metacity'
         pyext.uselib = 'METACITY'

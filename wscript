@@ -13,6 +13,8 @@ import os
 import shutil
 import glob
 import sys
+import types
+
 
 def dist_hook():
     for docs_module in ['gnomeprint', 'gnomeprintui', 'gtksourceview']:
@@ -81,8 +83,20 @@ def configure(conf):
 
 
 def build(bld):
+
+    ## cater for WAF API change between 1.3 and 1.4
+    waf_version = [int (s) for s in Params.g_version.split('.')]
+    if waf_version >= [1,4]:
+        def create_pyext(bld):
+            return bld.create_obj('cc', 'shlib', 'pyext')
+    else:
+        def create_pyext(bld):
+            return bld.create_obj('cc', 'plugin', 'pyext')
+    bld.create_pyext = types.MethodType(create_pyext, bld)
+
+
     ## generate and install the .pc file
-    obj=bld.create_obj('subst')
+    obj = bld.create_obj('subst')
     obj.source = 'gnome-python-desktop-2.0.pc.in'
     obj.target = 'gnome-python-desktop-2.0.pc'
     obj.dict = {

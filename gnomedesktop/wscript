@@ -31,7 +31,7 @@ def build(bld):
     
     if bld.env()['ENABLE_GNOMEDESKTOP']:
         codegen(bld, '_gnomedesktop')
-        pyext = bld.create_obj('cc', 'plugin', 'pyext')
+        pyext = bld.create_pyext()
         pyext.source = '_gnomedesktopmodule.c _gnomedesktop.c'
         pyext.target = '_gnomedesktop'
         pyext.uselib = 'GNOMEDESKTOP'

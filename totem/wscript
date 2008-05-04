@@ -31,7 +31,7 @@ def build(bld):
     
     if bld.env()['ENABLE_PLPARSER']:
         codegen(bld, 'plparser')
-        pyext = bld.create_obj('cc', 'plugin', 'pyext')
+        pyext = bld.create_pyext()
         pyext.source = 'plparsermodule.c plparser.c'
         pyext.target = 'plparser'
         pyext.uselib = 'PLPARSER'
