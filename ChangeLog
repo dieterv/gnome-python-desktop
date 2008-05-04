@@ -1,3 +1,10 @@
+2008-05-04  Marcin Banasiak  <megabajt@pld-linux.org>
+
+	reviewed by: Gustavo Carneiro
+
+	* gnomekeyring/gnomekeyring.override: Bug 531254 –
+	gnomekeyring.get_default_keyring_sync() always returns None.
+
 2008-04-12  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* wscript, configure.ac: Bump version to 2.23.0.
