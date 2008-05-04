@@ -1,3 +1,22 @@
+2008-05-04  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	* docs/gnomeprint/wscript:
+	* docs/gnomeprintui/wscript:
+	* docs/gtksourceview/wscript:
+	* evolution/wscript:
+	* gnomeapplet/wscript:
+	* gnomedesktop/wscript:
+	* gnomekeyring/wscript:
+	* gnomeprint/wscript:
+	* gtksourceview/wscript:
+	* mediaprofiles/wscript:
+	* metacity/wscript:
+	* nautilusburn/wscript:
+	* rsvg/wscript:
+	* totem/wscript:
+	* wnck/wscript:
+	* wscript: Fixes for the upcoming WAF 1.4.1 (but still also works with WAF 1.3.2).
+
 2008-05-04  Marcin Banasiak  <megabajt@pld-linux.org>
 
 	reviewed by: Gustavo Carneiro

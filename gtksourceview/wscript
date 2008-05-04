@@ -36,8 +36,8 @@ def build(bld):
         pyext.source = 'gtksourceviewmodule.c gtksourceview.c'
         pyext.target = 'gtksourceview'
         pyext.uselib = 'GTKSOURCEVIEW'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = 'gtk-2.0'
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = 'gtk-2.0'
 
         defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
                                        ['gtksourceview.defs'])

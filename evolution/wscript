@@ -39,14 +39,14 @@ def build(bld):
     evolution_common = bld.create_obj('cc', 'objects', 'pyext')
     evolution_common.name = 'evolution_common'
     evolution_common.source = 'override_common.c'
-    evolution_common.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
+    evolution_common.includes = '.'
     evolution_common.uselib = 'PYGTK'
     evolution_common.env.append_value('CCFLAGS', evolution_common.env['shlib_CCFLAGS'])
     
     if bld.env()['ENABLE_EVOLUTION_EBOOK']:
         codegen(bld, 'ebook')
         pyext = bld.create_obj('cc', 'plugin', 'pyext')
-        pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
+        pyext.includes = '.'
         pyext.source = '''
 	ebookmodule.c
 	ebook.c
@@ -58,13 +58,13 @@ def build(bld):
         pyext.add_objects = 'evolution_common'
         pyext.target = 'ebook'
         pyext.uselib = 'EVOLUTION_EBOOK'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = os.path.join('gtk-2.0', 'evolution')
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = os.path.join('gtk-2.0', 'evolution')
 
     if bld.env()['ENABLE_EVOLUTION_ECAL']:
         codegen(bld, 'ecal')
         pyext = bld.create_obj('cc', 'plugin', 'pyext')
-        pyext.env.append_value('CPPPATH', '../evolution') # work around possible WAF bug
+        pyext.includes = '.'
         pyext.source = '''
 	ecalmodule.c
 	ecal.c
@@ -74,8 +74,8 @@ def build(bld):
         pyext.add_objects = 'evolution_common'
         pyext.target = 'ecal'
         pyext.uselib = 'EVOLUTION_ECAL'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = os.path.join('gtk-2.0', 'evolution')
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = os.path.join('gtk-2.0', 'evolution')
 
     py = bld.create_obj('py')
     py.inst_dir = os.path.join('gtk-2.0', 'evolution')

@@ -35,8 +35,8 @@ def build(bld):
         pyext.source = '_gnomedesktopmodule.c _gnomedesktop.c'
         pyext.target = '_gnomedesktop'
         pyext.uselib = 'GNOMEDESKTOP'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = os.path.join('gtk-2.0', 'gnomedesktop')
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = os.path.join('gtk-2.0', 'gnomedesktop')
 
         py = bld.create_obj('py')
         py.inst_dir = os.path.join('gtk-2.0', 'gnomedesktop')

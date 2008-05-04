@@ -35,8 +35,8 @@ def build(bld):
         pyext.source = 'plparsermodule.c plparser.c'
         pyext.target = 'plparser'
         pyext.uselib = 'PLPARSER'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = os.path.join('gtk-2.0', 'totem')
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = os.path.join('gtk-2.0', 'totem')
 
         py = bld.create_obj('py')
         py.inst_dir = os.path.join('gtk-2.0', 'totem')

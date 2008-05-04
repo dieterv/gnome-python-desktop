@@ -95,8 +95,8 @@ def build(bld):
         'datarootdir': bld.env()['DATADIR'],
         }
     obj.fun = misc.subst_func
-    obj.install_var = 'LIBDIR'
-    obj.install_subdir = 'pkgconfig'
+    obj.inst_var = 'LIBDIR'
+    obj.inst_dir = 'pkgconfig'
 
     ## subdirs
     bld.add_subdirs('gnomekeyring')

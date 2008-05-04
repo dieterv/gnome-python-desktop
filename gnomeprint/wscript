@@ -40,9 +40,9 @@ def build(bld):
         pyext.source = 'printmodule.c print.c art-gtype.c'
         pyext.target = '_print'
         pyext.uselib = 'GNOMEPRINT'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = os.path.join('gtk-2.0', 'gnomeprint')
-        pyext.env.append_value('CPPPATH', '../gnomeprint') # work around possible WAF bug
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = os.path.join('gtk-2.0', 'gnomeprint')
+        pyext.includes = '.'
 
     if bld.env()['ENABLE_GNOMEPRINTUI']:
         codegen(bld, 'printui')
@@ -50,9 +50,9 @@ def build(bld):
         pyext.source = 'printuimodule.c printui.c'
         pyext.target = 'ui'
         pyext.uselib = 'GNOMEPRINTUI'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = os.path.join('gtk-2.0', 'gnomeprint')
-        pyext.env.append_value('CPPPATH', '../gnomeprint') # work around possible WAF bug
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = os.path.join('gtk-2.0', 'gnomeprint')
+        pyext.includes = '.'
 
     py = bld.create_obj('py')
     py.inst_dir = os.path.join('gtk-2.0', 'gnomeprint')

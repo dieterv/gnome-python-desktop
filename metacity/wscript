@@ -47,8 +47,8 @@ def build(bld):
         pyext.source = 'metacitymodule.c metacity.c'
         pyext.target = 'metacity'
         pyext.uselib = 'METACITY'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = 'gtk-2.0'
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = 'gtk-2.0'
 
         defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
                                        ['metacity.defs'])

@@ -33,11 +33,11 @@ def build(bld):
         codegen(bld, 'nautilus_burn')
         pyext = bld.create_obj('cc', 'plugin', 'pyext')
         pyext.source = 'nb_module.c nautilus_burn.c nb_track.c'
-        pyext.env.append_value('CPPPATH', '../nautilusburn') # work around possible WAF bug
+        pyext.includes = '.'
         pyext.target = 'nautilusburn'
         pyext.uselib = 'NAUTILUSBURN'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = 'gtk-2.0'
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = 'gtk-2.0'
 
         defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
                                        ['nautilus_burn.defs'])

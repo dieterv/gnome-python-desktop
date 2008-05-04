@@ -36,8 +36,8 @@ def build(bld):
         pyext.source = 'wnckmodule.c wnck.c'
         pyext.target = 'wnck'
         pyext.uselib = 'WNCK'
-        pyext.install_var = 'PYTHONDIR'
-        pyext.install_subdir = 'gtk-2.0'
+        pyext.inst_var = 'PYTHONDIR'
+        pyext.inst_dir = 'gtk-2.0'
 
         defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
                                        ['wnck.defs'])
