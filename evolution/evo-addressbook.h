@@ -41,7 +41,7 @@ char *    evo_addressbook_add_contact          (EBook       *book,
                                                 EContact    *contact);
 gboolean  evo_addressbook_remove_contact       (EBook       *book,
                                                 EContact    *contact);
-
+char *    evo_addressbook_get_uid              (EBook       *book);
 
 G_END_DECLS
 

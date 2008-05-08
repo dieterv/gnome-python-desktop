@@ -97,40 +97,45 @@ class Tester:
                         combobox.get_active_iter(),
                         URI_IDX)
 
-        print "Opening Addressbook: %s" % uri
-
         self.addressBook = evolution.ebook.open_addressbook(uri)
 
         if self.addressBook != None:
+            print "Opened Addressbook: %s (uid:%s)" % (uri, self.addressBook.get_uid())
             self.addressBookModel.clear()
             for c in self.addressBook.get_all_contacts():
                 self.addressBookModel.append( (c.get_uid(), c.get_name(), c.get_photo(16), c) )
+        else:
+            print "Error Opening Addressbook: %s" % uri
 
     def _open_memo_clicked(self, sender, combobox):
         model = combobox.get_model()
         uri = model.get_value(
                         combobox.get_active_iter(),
                         URI_IDX)
-        print "Opending Memo Source: %s" % uri
 
         self.memoSource = evolution.ecal.open_calendar_source(uri, evolution.ecal.CAL_SOURCE_TYPE_JOURNAL)
         if self.memoSource != None:
+            print "Opened Memo Source: %s (uid:%s)" % (uri, self.memoSource.get_uid())
             self.memoSourceModel.clear()
             for c in self.memoSource.get_all_objects():
                 self.memoSourceModel.append( (c.get_uid(), c.get_summary(), c.get_description(), c) )
+        else:
+            print "Error Opening Memo Source: %s" % uri
 
     def _open_task_clicked(self, sender, combobox):
         model = combobox.get_model()
         uri = model.get_value(
                         combobox.get_active_iter(),
                         URI_IDX)
-        print "Opending Task Source: %s" % uri
 
         self.taskSource = evolution.ecal.open_calendar_source(uri, evolution.ecal.CAL_SOURCE_TYPE_TODO)
         if self.taskSource != None:
+            print "Opened Task Source: %s (uid:%s)" % (uri, self.taskSource.get_uid())
             self.taskSourceModel.clear()
             for c in self.taskSource.get_all_objects():
                 self.taskSourceModel.append( (c.get_uid(), c.get_summary(), c.get_description(), c) )
+        else:
+            print "Error Opening Task Source: %s" % uri
 
     def _populate_combobox(self, sourceList, comboBox):
         #make a combobox with the addressbooks

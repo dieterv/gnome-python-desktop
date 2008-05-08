@@ -119,6 +119,13 @@
   )
 )
 
+(define-method get_uid
+  (of-object "ECal")
+  (c-name "evo_cal_source_get_uid")
+  (return-type "char*")
+  (parameters
+  )
+)
 
 ;;------------------------------------------------------------------------------
 ;; ECalComponent

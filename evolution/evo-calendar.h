@@ -45,6 +45,7 @@ char*          evo_cal_source_add_object                 (ECal           *ecal,
 ECalComponent* evo_cal_source_get_object                 (ECal           *ecal,
                                                           const char     *uid,
                                                           const char     *rid);
+char *         evo_cal_source_get_uid                    (ECal           *ecal);
 char *         evo_cal_component_get_url                 (ECalComponent  *obj);
 void           evo_cal_component_set_url                 (ECalComponent  *obj,
                                                           const char     *url);

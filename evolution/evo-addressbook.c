@@ -286,3 +286,17 @@ evo_addressbook_add_contact(EBook *book, EContact *contact)
 	}
     return evo_contact_get_uid(contact);
 }
+
+char *
+evo_addressbook_get_uid(EBook *book)
+{
+    ESource *source = NULL;
+    const char *uid = NULL;
+    
+    source = e_book_get_source(book);
+    if (source)
+        uid = e_source_peek_uid(source);
+        if (uid)
+            return g_strdup(uid);
+    return NULL;
+}

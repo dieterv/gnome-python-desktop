@@ -194,6 +194,20 @@ evo_cal_source_get_object(ECal *ecal, const char *uid, const char *rid)
 }
 
 char *
+evo_cal_source_get_uid(ECal *ecal)
+{
+    ESource *source = NULL;
+    const char *uid = NULL;
+    
+    source = e_cal_get_source(ecal);
+    if (source)
+        uid = e_source_peek_uid(source);
+        if (uid)
+            return g_strdup(uid);
+    return NULL;
+}
+
+char *
 evo_cal_component_get_uid(ECalComponent *obj)
 {
     const char *uid = NULL;

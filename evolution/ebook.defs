@@ -231,6 +231,14 @@
   )
 )
 
+(define-method get_uid
+  (of-object "EBook")
+  (c-name "evo_addressbook_get_uid")
+  (return-type "char*")
+  (parameters
+  )
+)
+
 (define-method get_contact
   (of-object "EBook")
   (c-name "evo_addressbook_get_contact")

@@ -1,3 +1,14 @@
+2008-05-09  John Stowers  <john.stowers@gmail.com>
+
+	* evolution/ebook.defs:
+	* evolution/ecal.defs:
+	* evolution/evo-addressbook.c (evo_addressbook_get_uid):
+	* evolution/evo-addressbook.h:
+	* evolution/evo-calendar.c (evo_cal_source_get_uid):
+	* evolution/evo-calendar.h:
+	* examples/evolution/evo-test.py: Wrap e_source_peek_uid() as
+	ebook.get_uid() and ecalsource.get_uid(). Fixes #519258
+
 2008-05-04  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
 	* docs/gnomeprint/wscript:
