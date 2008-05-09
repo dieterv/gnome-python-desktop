@@ -213,6 +213,40 @@
 ;;------------------------------------------------------------------------------
 ;; EBook
 ;;------------------------------------------------------------------------------
+(define-function new_system_addressbook
+  (c-name "e_book_new_system_addressbook")
+  (return-type "EBook*")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-function new_default_addressbook
+  (c-name "e_book_new_default_addressbook")
+  (return-type "EBook*")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-method open
+  (of-object "EBook")
+  (c-name "e_book_open")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "only_if_exists")
+    '("GError**" "error")
+  )
+)
+
+(define-function is_self
+  (c-name "e_book_is_self")
+  (return-type "gboolean")
+  (parameters
+    '("EContact*" "contact")
+  )
+)
+
 (define-function e_book_new
   (c-name "e_book_new")
   (is-constructor-of "EBook")
@@ -318,6 +352,39 @@
   (return-type "gboolean")
   (parameters
     '("EContact*" "contact")
+  )
+)
+
+(define-method is_opened
+  (of-object "EBook")
+  (c-name "e_book_is_opened")
+  (return-type "gboolean")
+)
+
+(define-method is_writable
+  (of-object "EBook")
+  (c-name "e_book_is_writable")
+  (return-type "gboolean")
+)
+
+(define-method is_online
+  (of-object "EBook")
+  (c-name "e_book_is_online")
+  (return-type "gboolean")
+)
+
+(define-method get_uri
+  (of-object "EBook")
+  (c-name "e_book_get_uri")
+  (return-type "const-char*")
+)
+
+(define-method set_default_addressbook
+  (of-object "EBook")
+  (c-name "e_book_set_default_addressbook")
+  (return-type "gboolean")
+  (parameters
+    '("GError**" "error")
   )
 )
 

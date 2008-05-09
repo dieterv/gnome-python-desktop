@@ -1,5 +1,14 @@
 2008-05-09  John Stowers  <john.stowers@gmail.com>
 
+	* evolution/ebook.defs: Wrap more addressbook functions, is_opened, 
+	is_writable, is_online, open, new_{default,system}_addressbook, get_uri,
+	set_default_addressbook.
+
+	* evolution/evo-contact.c (evo_contact_get_name): Stop warning when
+	contact doesnt have a name set.
+
+2008-05-09  John Stowers  <john.stowers@gmail.com>
+
 	* evolution/ebook.defs:
 	* evolution/ecal.defs:
 	* evolution/evo-addressbook.c (evo_addressbook_get_uid):

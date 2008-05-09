@@ -84,8 +84,9 @@ evo_contact_get_name(EContact *obj)
 	g_return_val_if_fail(E_IS_CONTACT(obj), NULL);
 	
 	EContactName *name = (EContactName *)e_contact_get(obj, E_CONTACT_NAME);
-
-	return e_contact_name_to_string (name);
+    if (name)
+    	return e_contact_name_to_string (name);
+    return NULL;
 }
 
 char *
