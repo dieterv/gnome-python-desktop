@@ -1,5 +1,9 @@
 
-SUBDIRS =  docs
+SUBDIRS=
+
+if BUILD_DOCS
+  SUBDIRS += docs
+endif
 
 if BUILD_GNOMEPRINT
   SUBDIRS += gnomeprint

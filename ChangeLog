@@ -1,3 +1,13 @@
+2008-05-24  Arun Raghavan  <arunisgod@gmail.com>
+
+	reviewed by: Gustavo Carneiro
+
+	* Makefile.am:
+	* configure.ac:
+	* docs/Makefile.am:
+	Bug 534307 – configure script could really use the ability to
+	select particular modules.
+
 2008-05-09  John Stowers  <john.stowers@gmail.com>
 
 	* evolution/ebook.defs: Wrap more addressbook functions, is_opened, 
