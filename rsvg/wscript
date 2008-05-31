@@ -5,9 +5,11 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_RSVG'] = bool(conf.check_pkg(
-            'librsvg-2.0 >= 2.14 pycairo pygobject-2.0 ',
-            destvar='RSVG', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'rsvg')
+    if 'rsvg' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('librsvg-2.0 >= 2.14 pycairo pygobject-2.0 ',
+                          destvar='RSVG', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'rsvg')
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -29,7 +31,7 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_RSVG']:
+    if 'rsvg' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'rsvg')
         pyext = bld.create_pyext()
         pyext.source = 'rsvgmodule.c rsvg.c'

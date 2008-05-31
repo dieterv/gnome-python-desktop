@@ -5,9 +5,12 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_GTKSOURCEVIEW'] = bool(conf.check_pkg(
-            'gtksourceview-1.0 >= 1.1.90 pygobject-2.0 ',
-            destvar='GTKSOURCEVIEW', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'gtksourceview')
+    if 'gtksourceview' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('gtksourceview-1.0 >= 1.1.90 pygobject-2.0 ',
+                         destvar='GTKSOURCEVIEW', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'gtksourceview')
+        
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -30,7 +33,7 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_GTKSOURCEVIEW']:
+    if 'gtksourceview' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'gtksourceview')
         pyext = bld.create_pyext()
         pyext.source = 'gtksourceviewmodule.c gtksourceview.c'

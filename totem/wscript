@@ -5,9 +5,11 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_PLPARSER'] = bool(conf.check_pkg(
-            'totem-plparser >= 1.4 pygobject-2.0 ',
-            destvar='PLPARSER', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'totem.plparser')
+    if 'totem.plparser' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('totem-plparser >= 1.4 pygobject-2.0 ',
+                          destvar='PLPARSER', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'totem.plparser')
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -28,8 +30,8 @@ def codegen(bld, module):
 
 
 def build(bld):
-    
-    if bld.env()['ENABLE_PLPARSER']:
+
+    if 'totem.plparser' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'plparser')
         pyext = bld.create_pyext()
         pyext.source = 'plparsermodule.c plparser.c'

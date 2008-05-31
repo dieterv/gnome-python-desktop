@@ -5,13 +5,17 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_GNOMEPRINT'] = bool(conf.check_pkg(
-            'libgnomeprint-2.2 >= 2.2.0 pygobject-2.0 ',
-            destvar='GNOMEPRINT', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'gnomeprint')
+    if 'gnomeprint' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('libgnomeprint-2.2 >= 2.2.0 pygobject-2.0 ',
+                          destvar='GNOMEPRINT', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'gnomeprint')
 
-    conf.env['ENABLE_GNOMEPRINTUI'] = bool(conf.check_pkg(
-            'libgnomeprintui-2.2 >= 2.2.0 pygobject-2.0 ',
-            destvar='GNOMEPRINTUI', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'gnomeprint.ui')
+    if 'gnomeprint.ui' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('libgnomeprintui-2.2 >= 2.2.0 pygobject-2.0 ',
+                          destvar='GNOMEPRINTUI', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'gnomeprint.ui')
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -34,7 +38,7 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_GNOMEPRINT']:
+    if 'gnomeprint' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'print')
         pyext = bld.create_pyext()
         pyext.source = 'printmodule.c print.c art-gtype.c'
@@ -44,7 +48,7 @@ def build(bld):
         pyext.inst_dir = os.path.join('gtk-2.0', 'gnomeprint')
         pyext.includes = '.'
 
-    if bld.env()['ENABLE_GNOMEPRINTUI']:
+    if 'gnomeprint.ui' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'printui')
         pyext = bld.create_pyext()
         pyext.source = 'printuimodule.c printui.c'

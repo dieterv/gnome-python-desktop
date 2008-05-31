@@ -1,3 +1,20 @@
+2008-05-31  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	* evolution/wscript:
+	* gnomeapplet/wscript:
+	* gnomedesktop/wscript:
+	* gnomekeyring/wscript:
+	* gnomeprint/wscript:
+	* gtksourceview/wscript:
+	* mediaprofiles/wscript:
+	* metacity/wscript:
+	* nautilusburn/wscript:
+	* rsvg/wscript:
+	* totem/wscript:
+	* wnck/wscript:
+	* wscript:  Add a WAf option to enable only selected modules, like
+	Arun Raghavan's patch for configure.ac.
+
 2008-05-24  Arun Raghavan  <arunisgod@gmail.com>
 
 	reviewed by: Gustavo Carneiro

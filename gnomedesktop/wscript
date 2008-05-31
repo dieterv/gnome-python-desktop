@@ -5,9 +5,11 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_GNOMEDESKTOP'] = bool(conf.check_pkg(
-            'gnome-desktop-2.0 >= 2.10.0 pygobject-2.0 ',
-            destvar='GNOMEDESKTOP', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'gnomedesktop')
+    if 'gnomedesktop' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('gnome-desktop-2.0 >= 2.10.0 pygobject-2.0 ',
+                          destvar='GNOMEDESKTOP', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'gnomedesktop')
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -29,7 +31,7 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_GNOMEDESKTOP']:
+    if 'gnomedesktop' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, '_gnomedesktop')
         pyext = bld.create_pyext()
         pyext.source = '_gnomedesktopmodule.c _gnomedesktop.c'

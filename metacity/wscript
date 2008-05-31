@@ -14,12 +14,11 @@ def set_options(opt):
                    dest='enable_metacity')
     
 def configure(conf):
-    if Params.g_options.enable_metacity:
-        conf.env['ENABLE_METACITY'] = bool(conf.check_pkg(
-                'libmetacity-private >= 2.19.8 pygobject-2.0 ',
-                destvar='METACITY', mandatory=False))
-    else:
-        conf.env['ENABLE_METACITY'] = False
+    conf.env.append_value('MODULES_AVAILABLE', 'metacity')
+    if 'metacity' in conf.env['ENABLE_MODULES'] or Params.g_options.enable_metacity:
+        if conf.check_pkg('libmetacity-private >= 2.19.8 pygobject-2.0 ',
+                          destvar='METACITY', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'metacity')
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -41,7 +40,7 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_METACITY']:
+    if 'metacity' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'metacity')
         pyext = bld.create_pyext()
         pyext.source = 'metacitymodule.c metacity.c'

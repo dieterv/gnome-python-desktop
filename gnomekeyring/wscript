@@ -5,14 +5,15 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_GNOMEKEYRING'] = bool(conf.check_pkg(
-            'gnome-keyring-1 >= 0.5.0 pygobject-2.0 ',
-            destvar='GNOMEKEYRING', mandatory=False))
-
-    if conf.check_pkg('gnome-keyring-1 >= 2.20.1', destvar='GNOMEKEYRING_2_20_1', mandatory=False):
-        conf.define('HAVE_KEYRING_2_20_1', 1)
-    else:
-        conf.undefine('HAVE_KEYRING_2_20_1')
+    conf.env.append_value('MODULES_AVAILABLE', 'gnomekeyring')
+    if 'gnomekeyring' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('gnome-keyring-1 >= 0.5.0 pygobject-2.0 ',
+                          destvar='GNOMEKEYRING', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'gnomekeyring')
+            if conf.check_pkg('gnome-keyring-1 >= 2.20.1', destvar='GNOMEKEYRING_2_20_1', mandatory=False):
+                conf.define('HAVE_KEYRING_2_20_1', 1)
+            else:
+                conf.undefine('HAVE_KEYRING_2_20_1')
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -35,7 +36,7 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_GNOMEKEYRING']:
+    if 'gnomekeyring' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'gnomekeyring')
         pyext = bld.create_pyext()
         pyext.source = 'gnomekeyringmodule.c gnomekeyring.c'

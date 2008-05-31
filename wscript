@@ -29,6 +29,11 @@ def set_options(opt):
     opt.tool_options('gnome')
     opt.sub_options('metacity')
 
+    opt.add_option('--enable-modules',
+                   help=('Enable only the specified modules.'),
+                   type="string", default='all', metavar="MODULES_LIST (comma separated)",
+                   dest='enable_modules')
+
 
 def configure(conf):
     conf.check_tool('misc')
@@ -64,6 +69,8 @@ def configure(conf):
     conf.env['GNOME_PYTHON_ARG_TYPES_DIR'] = values['GNOME_PYTHON_ARGTYPESDIR']
 
     conf.env.append_value('CCDEFINES', 'HAVE_CONFIG_H')
+
+    conf.env['ENABLE_MODULES'] = Params.g_options.enable_modules.split(',')
     
     conf.sub_config('gnomekeyring')
     conf.sub_config('gnomeapplet')
@@ -78,6 +85,24 @@ def configure(conf):
     conf.sub_config('rsvg')
     conf.sub_config('totem')
     conf.sub_config('wnck')
+
+    for module in conf.env['ENABLE_MODULES']:
+        if module == 'all':
+            continue
+        if module not in conf.env['MODULES_AVAILABLE']:
+            Params.warning("Requested module %r is not available in this source tree." % module)
+    if conf.env['MODULES_TO_BUILD']:
+        print "** The following modules will be built:"
+        for m in conf.env['MODULES_TO_BUILD']:
+            print "\t%s" % m
+
+    not_built = list(conf.env['MODULES_AVAILABLE'])
+    for mod in conf.env['MODULES_TO_BUILD']:
+        not_built.remove(mod)
+    if not_built:
+        print "** The following modules will NOT be built:"
+        for m in not_built:
+            print "\t%s" % m
 
     conf.write_config_header('config.h')
 

@@ -5,15 +5,19 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_EVOLUTION_EBOOK'] = bool(conf.check_pkg(
-            'libebook-1.2 >= 1.4'
-            ' pygobject-2.0 gdk-pixbuf-2.0 pango',
-            destvar='EVOLUTION_EBOOK', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'evolution.ebook')
+    if 'evolution.ebook' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('libebook-1.2 >= 1.4'
+                          ' pygobject-2.0 gdk-pixbuf-2.0 pango',
+                          destvar='EVOLUTION_EBOOK', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'evolution.ebook')
 
-    conf.env['ENABLE_EVOLUTION_ECAL'] = bool(conf.check_pkg(
-            'libecal-1.2 >= 1.4'
-            ' pygobject-2.0 gdk-pixbuf-2.0 pango',
-            destvar='EVOLUTION_ECAL', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'evolution.ecal')
+    if 'evolution.ecal' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('libecal-1.2 >= 1.4'
+                          ' pygobject-2.0 gdk-pixbuf-2.0 pango',
+                          destvar='EVOLUTION_ECAL', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'evolution.ecal')            
 
 
 def codegen(bld, module):
@@ -42,7 +46,7 @@ def build(bld):
     evolution_common.uselib = 'PYGTK'
     evolution_common.env.append_value('CCFLAGS', evolution_common.env['shlib_CCFLAGS'])
     
-    if bld.env()['ENABLE_EVOLUTION_EBOOK']:
+    if 'evolution.ebook' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'ebook')
         pyext = bld.create_pyext()
         pyext.includes = '.'
@@ -60,7 +64,7 @@ def build(bld):
         pyext.inst_var = 'PYTHONDIR'
         pyext.inst_dir = os.path.join('gtk-2.0', 'evolution')
 
-    if bld.env()['ENABLE_EVOLUTION_ECAL']:
+    if 'evolution.ecal' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'ecal')
         pyext = bld.create_pyext()
         pyext.includes = '.'

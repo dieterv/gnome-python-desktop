@@ -3,13 +3,16 @@
 
 
 def configure(conf):
-    conf.env['ENABLE_GTOP'] = bool(conf.check_pkg(
-            'libgtop-2.0 >= 2.13.0 pygobject-2.0 ',
-            destvar='GTOP', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'gtop')
+    if 'gtop' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('libgtop-2.0 >= 2.13.0 pygobject-2.0 ',
+                          destvar='GTOP', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'gtop')
+
 
 def build(bld):
     
-    if bld.env()['ENABLE_GTOP']:
+    if 'gtop' in bld.env()['MODULES_TO_BUILD']:
         pyext = bld.create_pyext()
         pyext.source = 'gtop.c'
         pyext.target = 'gtop'

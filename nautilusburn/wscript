@@ -5,9 +5,12 @@ import os
 import Common
 
 def configure(conf):
-    conf.env['ENABLE_NAUTILUSBURN'] = bool(conf.check_pkg(
-            'libnautilus-burn >= 2.15.3 pygobject-2.0 ',
-            destvar='NAUTILUSBURN', mandatory=False))
+    conf.env.append_value('MODULES_AVAILABLE', 'nautilusburn')
+    if 'nautilusburn' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
+        if conf.check_pkg('libnautilus-burn >= 2.15.3 pygobject-2.0 ',
+                          destvar='NAUTILUSBURN', mandatory=False):
+            conf.env.append_value('MODULES_TO_BUILD', 'nautilusburn')
+
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
@@ -29,7 +32,7 @@ def codegen(bld, module):
 
 def build(bld):
     
-    if bld.env()['ENABLE_NAUTILUSBURN']:
+    if 'nautilusburn' in bld.env()['MODULES_TO_BUILD']:
         codegen(bld, 'nautilus_burn')
         pyext = bld.create_pyext()
         pyext.source = 'nb_module.c nautilus_burn.c nb_track.c'
