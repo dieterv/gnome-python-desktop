@@ -1,3 +1,20 @@
+2008-08-23  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	* evolution/wscript:
+	* gnomeapplet/wscript:
+	* gnomedesktop/wscript:
+	* gnomekeyring/wscript:
+	* gnomeprint/wscript:
+	* gtksourceview/wscript:
+	* mediaprofiles/wscript:
+	* metacity/wscript:
+	* nautilusburn/wscript:
+	* rsvg/wscript:
+	* totem/wscript:
+	* wnck/wscript:
+	* wscript:
+	Bug 548535 – pygtk-codegen-2.0 -> pygobject-codegen-2.0 (WAF part).
+
 === 2.23.0 ===
 2008-06-15  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 

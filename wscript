@@ -68,6 +68,10 @@ def configure(conf):
     conf.env['GNOME_PYTHON_DEFSDIR'] = values['GNOME_PYTHON_DEFSDIR']
     conf.env['GNOME_PYTHON_ARG_TYPES_DIR'] = values['GNOME_PYTHON_ARGTYPESDIR']
 
+    if not conf.find_program('pygobject-codegen-2.0', var='CODEGEN'):
+        if not conf.find_program('pygtk-codegen-2.0', var='CODEGEN'):
+            Params.fatal("Could not find pygobject/pygtk codegen")
+
     conf.env.append_value('CCDEFINES', 'HAVE_CONFIG_H')
 
     conf.env['ENABLE_MODULES'] = Params.g_options.enable_modules.split(',')

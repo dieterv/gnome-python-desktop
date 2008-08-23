@@ -13,7 +13,7 @@ def configure(conf):
 
 def codegen(bld, module):
     cmd = bld.create_obj('command-output')
-    cmd.command = 'pygtk-codegen-2.0'
+    cmd.command = bld.env()['CODEGEN']
     cmd.command_is_external = True
     cmd.prio = 5
     cmd.argv = [
