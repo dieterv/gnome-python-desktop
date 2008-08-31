@@ -1,3 +1,11 @@
+2008-08-31  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	* totem/plparsermodule.c (_fill_metadata),
+	(_totem_metadata_from_gvalue, _totem_metadata_to_gvalue),
+	(initplparser): Add convertion functions for the type
+	TOTEM_TYPE_PL_PARSER_METADATA, if available.
+	Closes #503343.
+
 2008-08-23  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
 	* evolution/wscript:
