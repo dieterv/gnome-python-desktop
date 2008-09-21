@@ -1,3 +1,10 @@
+=== 2.24.0 ===
+2008-09-21  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* configure.ac, wscript: Bump version to 2.24.0.
+
+	* NEWS: Update.
+
 === 2.23.1 ===
 2008-08-31  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 

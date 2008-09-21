@@ -1,3 +1,12 @@
+Overview of Changes from 2.23.1 to 2.24.0
+==============================================================================
+* (nothing changed)
+
+Overview of Changes from 2.23.0 to 2.23.1
+==============================================================================
+* pygtk-codegen-2.0 -> pygobject-codegen-2.0
+* Convert TOTEM_TYPE_PL_PARSER_METADATA values to/from Python
+
 Overview of Changes from 2.22.0 to 2.23.0
 ==============================================================================
 * evolution (John Stowers)
