@@ -9,6 +9,8 @@
 #include <panel-applet.h>
 #include <bonobo/bonobo-main.h>
 #include <signal.h>
+#include <libgnome/gnome-program.h>
+#include <libgnomeui/gnome-ui-init.h>
 
 void pyapplet_register_classes (PyObject *d);
 

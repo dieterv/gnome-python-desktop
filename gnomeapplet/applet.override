@@ -4,6 +4,8 @@ headers
 #include <Python.h>
 #include <panel-applet.h>
 #include <bonobo/bonobo-ui-util.h>
+#include <libgnome/gnome-program.h>
+#include <libgnomeui/gnome-ui-init.h>
 
 #define NO_IMPORT_PYGOBJECT
 #include "pygobject.h"

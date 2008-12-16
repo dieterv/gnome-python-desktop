@@ -1,3 +1,12 @@
+2008-12-16  Luis Medinas  <lmedinas@gnome.org>
+
+	* gnomeapplet/applet.override:
+	* gnomeapplet/appletmodule.c:
+	* gnomeapplet/wscript:
+
+	Fix build error with missing libgnome/libgnomeui flags.
+	Patch from Lucas Rocha <lucasr@gnome.org> closes bgo #564525
+
 2008-10-18  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* tests/common.py: Fix a bug in the import check.
