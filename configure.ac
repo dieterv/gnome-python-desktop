@@ -62,6 +62,9 @@ GNOME_COMMON_INIT
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
+dnl when using libtool 2.x create libtool early, because it's used in configure
+m4_ifdef([LT_OUTPUT], [LT_OUTPUT])
+
 
 dnl check for python
 AM_PATH_PYTHON(2.3)
