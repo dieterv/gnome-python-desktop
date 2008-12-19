@@ -4,18 +4,6 @@
 
 	* gtop.c (build_siglist): Bug 560390 – gtop.c fails to compile.
 
-2008-05-31  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
-
-	reviewed by: <delete if not using a buddy>
-
-	* wscript:
-
-2008-05-04  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
-
-	reviewed by: <delete if not using a buddy>
-
-	* wscript:
-
 2008-02-16  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
 	* wscript: Fix waf scripts to build python extensions using the
