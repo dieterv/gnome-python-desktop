@@ -1,3 +1,9 @@
+2008-12-19   Jasper Lievisse Adriaanse
+
+	reviewed by: Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* gtop.c (build_siglist): Bug 560390 – gtop.c fails to compile.
+
 2008-05-31  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
 	reviewed by: <delete if not using a buddy>
