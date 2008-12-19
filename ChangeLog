@@ -1,7 +1,11 @@
+=== 2.24.1 ===
 2008-12-19  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
+
+	* configure.ac, wscript: Version 2.24.1.
 
 	* configure.ac: libtool-2.2 compatibility, patch by "Cygwin Ports
 	maintainer" (bug #564550).
+	
 
 2008-12-16  Luis Medinas  <lmedinas@gnome.org>
 
