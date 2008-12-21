@@ -153,7 +153,8 @@ dnl should we build the gnome.applet module?
 AC_ARG_BINDING([applet],[YES],[gnome.applet])
 if $build_applet; then
 	PKG_CHECK_MODULES(LIBPANELAPPLET, [libpanelapplet-2.0 >= libpanelapplet_required_version
-					   gnome-python-2.0 >= gnome_python_required_version],
+					   gnome-python-2.0 >= gnome_python_required_version
+                                           libgnome-2.0 libgnomeui-2.0],
 	  build_applet=true,
 	  build_applet=false)
 fi
