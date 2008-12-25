@@ -16,27 +16,30 @@ modules = [
     "rsvg",
     "gnomekeyring",
     "gnomedesktop",
+    ("evolution.ebook", "evolution"),
+    ("evolution.ecal", "evolution"),
     ]
 
-import ltihooks
-ltihooks.install()
+def run_import_tests(builddir):
+    import ltihooks
+    ltihooks.install()
 
-for item in modules:
-    if isinstance(item, tuple):
-        module, dirname = item
-    else:
-        module = item
-        dirname = item
-    sys.path.insert(0, os.path.join("..", dirname))
-    print "Trying to import module %s... " % (module,),
-    try:
-        __import__(module) # try to import the module to catch undefined symbols
-    except ImportError, ex:
-        if ex.args[0].startswith("No module named"):
-            print "not found"
+    for item in modules:
+        if isinstance(item, tuple):
+            module, dirname = item
         else:
-            raise
-    else:
-        print "ok."
+            module = item
+            dirname = item
+        sys.path.insert(0, os.path.join(builddir, dirname))
+        print "Trying to import module %s... " % (module,),
+        try:
+            __import__(module) # try to import the module to catch undefined symbols
+        except ImportError, ex:
+            if ex.args[0].startswith("No module named"):
+                print "not found"
+            else:
+                raise
+        else:
+            print "ok."
 
-ltihooks.uninstall()
+    ltihooks.uninstall()

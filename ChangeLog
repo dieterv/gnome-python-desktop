@@ -1,3 +1,9 @@
+2008-12-25  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
+
+	* tests/common.py:
+	* tests/runtests.py:
+	* wscript: Run tests from the WAF build system too.
+
 2008-12-21  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* configure.ac: Missing libgnome/libgnomeui flags, now for the

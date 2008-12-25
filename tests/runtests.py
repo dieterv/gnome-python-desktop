@@ -5,6 +5,13 @@ import sys
 import unittest
 import common
 
+if sys.argv > 1:
+    builddir = sys.argv[1]
+else:
+    builddir = '..'
+
+common.run_import_tests(builddir)
+
 SKIP_FILES = ['common', 'runtests']
 
 dir = os.path.split(os.path.abspath(__file__))[0]

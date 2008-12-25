@@ -160,3 +160,29 @@ def build(bld):
     bld.add_subdirs('docs/gnomeprintui')
     bld.add_subdirs('docs/gtksourceview')
 
+
+def shutdown():
+    env = Params.g_build.env_of_name('default')
+
+    if Params.g_commands['check']:
+        _run_tests(env)
+
+
+def _run_tests(env):
+    import pproc as subprocess
+    import shutil
+    builddir = os.path.join(blddir, env.variant())
+    # copy the __init__.py files
+    for subdir in ["evolution", "gnomedesktop", "gnomeprint", "totem"]:
+        src = os.path.join(subdir, "__init__.py")
+        dst = os.path.join(builddir, subdir)
+        shutil.copy(src, dst)
+    os_env = dict(os.environ)
+    if 'PYTHONPATH' in os_env:
+        os_env['PYTHONPATH'] = os.pathsep.join([builddir, os_env['PYTHONPATH']])
+    else:
+        os_env['PYTHONPATH'] = builddir
+    cmd = [env['PYTHON'], os.path.join('tests', 'runtests.py'), builddir]
+    retval = subprocess.Popen(cmd, env=os_env).wait()
+    if retval:
+        sys.exit(retval)
