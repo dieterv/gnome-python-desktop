@@ -5,7 +5,7 @@ import sys
 import unittest
 import common
 
-if sys.argv > 1:
+if len(sys.argv) > 1:
     builddir = sys.argv[1]
     no_import_hooks = True
 else:
