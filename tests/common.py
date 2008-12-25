@@ -20,9 +20,10 @@ modules = [
     ("evolution.ecal", "evolution"),
     ]
 
-def run_import_tests(builddir):
-    import ltihooks
-    ltihooks.install()
+def run_import_tests(builddir, no_import_hooks):
+    if not no_import_hooks:
+        import ltihooks
+        ltihooks.install()
 
     for item in modules:
         if isinstance(item, tuple):
@@ -42,4 +43,5 @@ def run_import_tests(builddir):
         else:
             print "ok."
 
-    ltihooks.uninstall()
+    if not no_import_hooks:
+        ltihooks.uninstall()

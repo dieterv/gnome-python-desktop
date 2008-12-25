@@ -7,10 +7,12 @@ import common
 
 if sys.argv > 1:
     builddir = sys.argv[1]
+    no_import_hooks = True
 else:
     builddir = '..'
+    no_import_hooks = False
 
-common.run_import_tests(builddir)
+common.run_import_tests(builddir, no_import_hooks)
 
 SKIP_FILES = ['common', 'runtests']
 

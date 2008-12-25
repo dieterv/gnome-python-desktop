@@ -3,6 +3,7 @@
 	* tests/common.py:
 	* tests/runtests.py:
 	* wscript: Run tests from the WAF build system too.
+	Don't use ltihooks in the WAF build system.  Closes #565598.
 
 2008-12-21  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
