@@ -29,6 +29,14 @@ def dist_hook():
     assert os.path.basename(sys.argv[0]) == 'waf'
     shutil.copy(os.path.join('..', sys.argv[0]), '.')
 
+    subprocess.Popen([os.path.join(srcdir, "generate-ChangeLog")],  shell=True).wait()
+    try:
+        os.chmod(os.path.join(srcdir, "ChangeLog"), 0644)
+    except OSError:
+        pass
+    shutil.copy(os.path.join(srcdir, "ChangeLog"), '.')
+
+
 def set_options(opt):
     opt.tool_options('compiler_cc')
     opt.tool_options('gnome')

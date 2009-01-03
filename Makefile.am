@@ -104,7 +104,12 @@ EXTRA_DIST = \
   examples/wnck_example.py
 
 
+ChangeLog:
+	$(srcdir)/generate-ChangeLog
+
 dist-hook: dist-hook-local
 	cp `which waf` $(distdir)
+	$(srcdir)/generate-ChangeLog
+	cp -p ChangeLog $(distdir)
 
 .PHONY : dist-hook-local

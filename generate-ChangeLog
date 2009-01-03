@@ -1,0 +1,12 @@
+#!/bin/sh
+
+## Uses the GNU ChangeLog formatter plugin:
+##   http://telecom.inescporto.pt/~gjc/gnulog.py
+
+export BZR_PLUGIN_PATH=`pwd`/bzrplugins
+
+ChangeLog=$(dirname $0)/ChangeLog
+	
+chmod u+w $ChangeLog 2> /dev/null
+bzr log -v --log-format 'gnu' -r 410..-1   > $ChangeLog
+chmod a-w $ChangeLog

@@ -15,6 +15,8 @@ REQUIRED_AUTOMAKE_VERSION=1.7
     exit 1
 }
 
+./generate-ChangeLog
+
 DIE=0
 
 # This is a bit complicated here since we can't use gnome-config yet.
