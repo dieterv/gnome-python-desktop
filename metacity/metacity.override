@@ -30,6 +30,7 @@ import gobject.GObject as PyGObject_Type
 import gtk.gdk.Pixbuf as PyGdkPixbuf_Type
 import gtk.Widget as PyGtkWidget_Type
 import gtk.Bin as PyGtkBin_Type
+import pango.Context as PyPangoContext_Type
 %%
 ignore-glob
  _*u

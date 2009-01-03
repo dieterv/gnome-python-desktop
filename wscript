@@ -1,12 +1,14 @@
 # -*- python -*-
 
-import Params
-Params.g_autoconfig = True
-
 VERSION = '2.24.1'
 APPNAME = 'gnome-python-desktop'
 srcdir = '.'
 blddir = 'build'
+
+import Options
+Options.autoconfig = True
+import Logs
+import Build
 
 import misc
 import os
@@ -40,6 +42,8 @@ def configure(conf):
     conf.check_tool('compiler_cc')
     conf.check_tool('gnome')
     conf.check_tool('python')
+    conf.check_tool('command')
+    conf.check_tool('pkgconfig')
     conf.check_python_version((2,4))
     conf.check_python_headers()
     conf.find_program('xsltproc', var='XSLTPROC')
@@ -56,25 +60,22 @@ def configure(conf):
     conf.define('PYGTK_REQUIRED_MINOR_VERSION', pygtk_version[1])
     conf.define('PYGTK_REQUIRED_MICRO_VERSION', pygtk_version[2])
 
-    values = conf.check_pkg('pygtk-2.0', destvar='PYGTK',
-                            vnum='.'.join([str(x) for x in pygtk_version]),
-                            pkgvars=['defsdir'], mandatory=True)
-    conf.env['PYGTK_DEFSDIR'] = values['PYGTK_DEFSDIR']
+    conf.pkg_check_modules('PYGTK', 'pygtk-2.0 >= %s' % ('.'.join([str(x) for x in pygtk_version]),))
+    conf.env['PYGTK_DEFSDIR'] = conf.pkg_check_module_variable('pygtk-2.0', 'defsdir')
 
     gnome_python_version = [2, 10, 0]
-    values = conf.check_pkg('gnome-python-2.0', destvar='GNOME_PYTHON',
-                            vnum='.'.join([str(x) for x in gnome_python_version]),
-                            pkgvars=['defsdir', 'argtypesdir'], mandatory=True)
-    conf.env['GNOME_PYTHON_DEFSDIR'] = values['GNOME_PYTHON_DEFSDIR']
-    conf.env['GNOME_PYTHON_ARG_TYPES_DIR'] = values['GNOME_PYTHON_ARGTYPESDIR']
+    values = conf.pkg_check_modules('GNOME_PYTHON',
+                                    'gnome-python-2.0 >= %s' % ('.'.join([str(x) for x in gnome_python_version]),))
+    conf.env['GNOME_PYTHON_DEFSDIR'] = conf.pkg_check_module_variable('gnome-python-2.0', 'defsdir')
+    conf.env['GNOME_PYTHON_ARG_TYPES_DIR'] = conf.pkg_check_module_variable('gnome-python-2.0', 'argtypesdir')
 
     if not conf.find_program('pygobject-codegen-2.0', var='CODEGEN'):
         if not conf.find_program('pygtk-codegen-2.0', var='CODEGEN'):
-            Params.fatal("Could not find pygobject/pygtk codegen")
+            Logs.error("Could not find pygobject/pygtk codegen")
 
     conf.env.append_value('CCDEFINES', 'HAVE_CONFIG_H')
 
-    conf.env['ENABLE_MODULES'] = Params.g_options.enable_modules.split(',')
+    conf.env['ENABLE_MODULES'] = Options.options.enable_modules.split(',')
     
     conf.sub_config('gnomekeyring')
     conf.sub_config('gnomeapplet')
@@ -111,35 +112,103 @@ def configure(conf):
     conf.write_config_header('config.h')
 
 
-def build(bld):
+def codegen(bld, module, local_load_types=(), register=(), local_register=(), prefix=None, py_ssize_t_clean=True):
+    cmd = bld.new_task_gen('command',
+                           source=['%s.defs' % module, '%s.override' % module],
+                           target=['%s.c' % module])
+    cmd.command = ['${CODEGEN}']
 
-    ## cater for WAF API change between 1.3 and 1.4
-    waf_version = [int (s) for s in Params.g_version.split('.')]
-    if waf_version >= [1,4]:
-        def create_pyext(bld):
-            return bld.create_obj('cc', 'shlib', 'pyext')
+    if py_ssize_t_clean:
+        cmd.command.append('--py_ssize_t-clean')
+
+    register = [os.path.join(bld.env['PYGTK_DEFSDIR'], 'pango-types.defs'),
+                os.path.join(bld.env['PYGTK_DEFSDIR'], 'gdk-types.defs'),
+                os.path.join(bld.env['PYGTK_DEFSDIR'], 'gtk-types.defs'),
+                os.path.join(bld.env['GNOME_PYTHON_DEFSDIR'], 'bonobo-types.defs'),
+                os.path.join(bld.env['GNOME_PYTHON_DEFSDIR'], 'bonoboui-types.defs'),
+                ] + list(register)
+
+    cmd.command.extend(['--load-types', os.path.join(bld.env['GNOME_PYTHON_ARG_TYPES_DIR'], 'bonobo-arg-types.py')])
+    
+    for load in local_load_types:
+        cmd.source.append(load)
+        cmd.command.extend(['--load-types', '${SRC[%i]}' % (len(cmd.source)-1)])
+    
+    for reg in local_register:
+        cmd.source.append(reg)
+        cmd.command.extend(['--register', '${SRC[%i]}' % (len(cmd.source)-1)])
+
+    for reg in register:
+        cmd.command.extend(['--register', reg])
+
+    if prefix:
+        cmd.command.extend(['--prefix', prefix])
     else:
-        def create_pyext(bld):
-            return bld.create_obj('cc', 'plugin', 'pyext')
+        cmd.command.extend(['--prefix', 'py'+module])
+
+    cmd.command.extend(['--override', "${SRC[1]}",
+                        '${SRC[0]}',
+                        '>', '${TGT[0]}'])
+
+    return cmd
+
+
+
+def build_docs_for_module(bld, module_name):
+    d = bld.path.find_dir('html').abspath()
+    if bld.env['XSLTPROC'] and not os.path.exists(os.path.join(d, 'index.html')):
+        html_dir = os.path.join(bld.env['DATADIR'], 'gtk-doc', 'html')
+        target_dir = os.path.join('html_dir', module_name)
+
+        cmd = bld.new_task_gen('command',
+                               target='html/index.html',
+                               source=('../ref-html-style.xsl %s-classes.xml' % module_name),
+                               command=(
+                '${XSLTPROC} --nonet --xinclude -o ${TGT[0].parent}/'
+                ' --stringparam gtkdoc.bookname py%s'
+                ' --stringparam gtkdoc.version ${VERSION}'
+                ' --stringparam chunker.output.encoding UTF-8'
+                ' ${SRC[0]} ${SRC[1]}' % module_name))
+
+        cmd = bld.new_task_gen('command',
+                               target=('html/%s-class-reference.html' % module_name),
+                               source='html/index.html',
+                               command='gtkdoc-fixxref --module-dir=${TGT[0].parent} --html-dir=${HTMLDIR}',
+                               variables=dict(HTMLDIR=html_dir))
+
+    html_files = glob.glob(os.path.join(bld.path.find_dir('html').abspath(bld.env), '*'))
+    html_files += glob.glob(os.path.join(bld.path.find_dir('html').abspath(), '*'))
+    bld.install_files('${DATADIR}/gtk-doc/html/py%s' % module_name, html_files)
+
+
+def build(bld):
+    env = bld.env
+
+    # Attach the 'codegen' method to the build context
+    bld.codegen = types.MethodType(codegen, bld)
+    # Generic template for building docs
+    bld.build_docs_for_module = types.MethodType(build_docs_for_module, bld)
+
+    def create_pyext(bld):
+        return bld.new_task_gen('cc', 'shlib', 'pyext')
     bld.create_pyext = types.MethodType(create_pyext, bld)
 
 
     ## generate and install the .pc file
-    obj = bld.create_obj('subst')
+    obj = bld.new_task_gen('subst')
     obj.source = 'gnome-python-desktop-2.0.pc.in'
     obj.target = 'gnome-python-desktop-2.0.pc'
     obj.dict = {
         'VERSION': VERSION,
-        'prefix': bld.env()['PREFIX'],
-        'exec_prefix': bld.env()['PREFIX'],
-        'libdir': bld.env()['LIBDIR'],
-        'includedir': os.path.join(bld.env()['PREFIX'], 'include'),
-        'datadir': bld.env()['DATADIR'],
-        'datarootdir': bld.env()['DATADIR'],
+        'prefix': env['PREFIX'],
+        'exec_prefix': env['PREFIX'],
+        'libdir': env['LIBDIR'],
+        'includedir': os.path.join(env['PREFIX'], 'include'),
+        'datadir': env['DATADIR'],
+        'datarootdir': env['DATADIR'],
         }
     obj.fun = misc.subst_func
-    obj.inst_var = 'LIBDIR'
-    obj.inst_dir = 'pkgconfig'
+    obj.install_path = '${LIBDIR}/pkgconfig'
 
     ## subdirs
     bld.add_subdirs('gnomekeyring')
@@ -162,9 +231,8 @@ def build(bld):
 
 
 def shutdown():
-    env = Params.g_build.env_of_name('default')
-
-    if Params.g_commands['check']:
+    env = Build.bld.env
+    if Options.commands['check']:
         _run_tests(env)
 
 
@@ -176,7 +244,10 @@ def _run_tests(env):
     for subdir in ["evolution", "gnomedesktop", "gnomeprint", "totem"]:
         src = os.path.join(subdir, "__init__.py")
         dst = os.path.join(builddir, subdir)
-        shutil.copy(src, dst)
+        try:
+            shutil.copy(src, dst + os.path.sep)
+        except IOError:
+            pass
     os_env = dict(os.environ)
     if 'PYTHONPATH' in os_env:
         os_env['PYTHONPATH'] = os.pathsep.join([builddir, os_env['PYTHONPATH']])

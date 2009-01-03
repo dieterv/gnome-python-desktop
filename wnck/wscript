@@ -1,47 +1,26 @@
 # -*- python -*-
 # encoding: utf-8
 
-import os
-import Common
-
 def configure(conf):
     conf.env.append_value('MODULES_AVAILABLE', 'wnck')
     if 'wnck' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
-        if conf.check_pkg('libwnck-1.0 >= 2.20 pygobject-2.0',
-                          destvar='WNCK', mandatory=False):
+        if conf.pkg_check_modules('WNCK',
+                                  'libwnck-1.0 >= 2.20 pygobject-2.0',
+                                  mandatory=False):
             conf.env.append_value('MODULES_TO_BUILD', 'wnck')
 
-
-def codegen(bld, module):
-    cmd = bld.create_obj('command-output')
-    cmd.command = bld.env()['CODEGEN']
-    cmd.command_is_external = True
-    cmd.prio = 5
-    cmd.argv = [
-        '--py_ssize_t-clean',
-        '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'pango-types.defs'),
-        '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gdk-types.defs'),
-        '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gtk-types.defs'),
-        '--prefix', 'py'+module,
-        '--override', cmd.input_file("%s.override" % module),
-        cmd.input_file("%s.defs" % module),
-        ]
-    cmd.stdout = '%s.c' % module
-    return cmd
 
 
 def build(bld):
     
-    if 'wnck' in bld.env()['MODULES_TO_BUILD']:
-        codegen(bld, 'wnck')
+    if 'wnck' in bld.env['MODULES_TO_BUILD']:
+        bld.codegen('wnck')
         pyext = bld.create_pyext()
         pyext.env.append_value('CCDEFINES', 'WNCK_I_KNOW_THIS_IS_UNSTABLE')
         pyext.source = 'wnckmodule.c wnck.c'
         pyext.target = 'wnck'
         pyext.uselib = 'WNCK'
-        pyext.inst_var = 'PYTHONDIR'
-        pyext.inst_dir = 'gtk-2.0'
+        pyext.install_path = '${PYTHONDIR}/gtk-2.0'
 
-        defsdir = Common.install_files('DATADIR', os.path.join('pygtk', '2.0', 'defs'),
-                                       ['wnck.defs'])
+        bld.install_files('${DATADIR}/pygtk/2.0/defs', 'wnck.defs')
 
