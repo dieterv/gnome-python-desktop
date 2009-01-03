@@ -6,7 +6,10 @@ srcdir = '.'
 blddir = 'build'
 
 import Options
-Options.autoconfig = True
+
+import Configure
+Configure.autoconfig = True
+
 import Logs
 import Build
 
