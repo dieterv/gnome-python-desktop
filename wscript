@@ -40,6 +40,8 @@ def dist_hook():
 def set_options(opt):
     opt.tool_options('compiler_cc')
     opt.tool_options('gnome')
+    opt.tool_options('gnu_dirs')
+
     opt.sub_options('metacity')
 
     opt.add_option('--enable-modules',
@@ -52,6 +54,7 @@ def configure(conf):
     conf.check_tool('misc')
     conf.check_tool('compiler_cc')
     conf.check_tool('gnome')
+    conf.check_tool('gnu_dirs')
     conf.check_tool('python')
     conf.check_tool('command')
     conf.check_tool('pkgconfig')
