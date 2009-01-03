@@ -27,7 +27,7 @@ def dist_hook():
             shutil.copy2(html_file, os.path.join('docs', docs_module, 'html'))
     ## Copy WAF to the distdir
     assert os.path.basename(sys.argv[0]) == 'waf'
-    shutil.copy(sys.argv[0], '.')
+    shutil.copy(os.path.join('..', sys.argv[0]), '.')
 
 def set_options(opt):
     opt.tool_options('compiler_cc')
