@@ -17,9 +17,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 
-import ebook
-
-__version__ = ebook.__version__
+try:
+    import ebook
+except ImportError:
+    ebook = None
+    __version__ = None
+else:
+    __version__ = ebook.__version__
 
 try:
     import ecal

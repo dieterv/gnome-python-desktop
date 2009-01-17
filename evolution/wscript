@@ -18,23 +18,6 @@ def configure(conf):
             conf.env.append_value('MODULES_TO_BUILD', 'evolution.ecal')            
 
 
-# def codegen(bld, module):
-#     cmd = bld.create_obj('command-output')
-#     cmd.command = bld.env()['CODEGEN']
-#     cmd.command_is_external = True
-#     cmd.prio = 5
-#     cmd.argv = [
-#         #'--py_ssize_t-clean',
-#         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'pango-types.defs'),
-#         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gdk-types.defs'),
-#         '--register', os.path.join(cmd.env['PYGTK_DEFSDIR'], 'gtk-types.defs'),
-#         '--prefix', 'py'+module,
-#         '--override', cmd.input_file("%s.override" % module),
-#         cmd.input_file("%s.defs" % module),
-#         ]
-#     cmd.stdout = '%s.c' % module
-#     return cmd
-
 
 def build(bld):
     evolution_common = bld.new_task_gen('cc', 'objects', 'pyext')
@@ -77,10 +60,11 @@ def build(bld):
         pyext.uselib = 'EVOLUTION_ECAL'
         pyext.install_path_var = '${PYTHONDIR}/gtk-2.0/evolution'
 
-    py = bld.new_task_gen('py')
-    py.install_path_var = '${PYTHONDIR}/gtk-2.0/evolution'
-    py.source = "__init__.py"
+    if 'evolution.ecal' in bld.env['MODULES_TO_BUILD'] \
+            or 'evolution.ebook' in bld.env['MODULES_TO_BUILD']:
+        py = bld.new_task_gen('py')
+        py.install_path_var = '${PYTHONDIR}/gtk-2.0/evolution'
+        py.source = "__init__.py"
 
-    bld.install_files('${DATADIR}/pygtk/2.0/defs',
-                      ['ebook.defs', 'ecal.defs'])
+    bld.install_files('${DATADIR}/pygtk/2.0/defs', ['ebook.defs', 'ecal.defs'])
 
