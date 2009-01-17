@@ -1,3 +1,9 @@
+Overview of Changes from 2.24.0 to 2.25.1
+==============================================================================
+* gtop: missing include (Jasper Lievisse Adriaanse)
+* evolution: Bug 561727: evolution still installed even if disabled
+* Upgrade to newer WAF
+
 Overview of Changes from 2.23.1 to 2.24.0
 ==============================================================================
 * (nothing changed)
