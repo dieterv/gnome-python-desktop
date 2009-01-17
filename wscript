@@ -10,6 +10,12 @@ import Options
 import Configure
 Configure.autoconfig = True
 
+import ccroot
+ccroot.USE_TOP_LEVEL = True
+
+import Task
+Task.file_deps = Task.extract_deps
+
 import Logs
 import Build
 import Utils
