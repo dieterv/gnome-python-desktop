@@ -72,6 +72,7 @@ endif
 EXTRA_DIST = \
   INSTALL.WAF \
   wscript \
+  waf \
   MAINTAINERS \
   COPYING.GPL COPYING.LGPL \
   gnome-python-desktop-2.0.pc.in \
@@ -104,12 +105,11 @@ EXTRA_DIST = \
   examples/wnck_example.py
 
 
-ChangeLog:
+
+$(srcdir)/ChangeLog:
+	-rm -f $(srcdir)/ChangeLog
 	$(srcdir)/generate-ChangeLog
 
-dist-hook: dist-hook-local
-	cp `which waf` $(distdir)
-	$(srcdir)/generate-ChangeLog
-	cp -p ChangeLog $(distdir)
+dist-hook: dist-hook-local $(srcdir)/ChangeLog
 
 .PHONY : dist-hook-local
