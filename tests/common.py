@@ -18,6 +18,7 @@ modules = [
     "gnomedesktop",
     ("evolution.ebook", "evolution"),
     ("evolution.ecal", "evolution"),
+    "evince",
     ]
 
 def run_import_tests(builddir, no_import_hooks):

@@ -1,0 +1,711 @@
+;; -*- scheme -*-
+; object definitions ...
+;; Enumerations and flags ...
+
+(define-enum SizingMode
+  (in-module "Ev")
+  (c-name "EvSizingMode")
+  (gtype-id "EV_TYPE_SIZING_MODE")
+  (values
+    '("best-fit" "EV_SIZING_BEST_FIT")
+    '("fit-width" "EV_SIZING_FIT_WIDTH")
+    '("free" "EV_SIZING_FREE")
+  )
+)
+
+
+;; From ev-view.h
+
+(define-object View
+  (in-module "Ev")
+  (c-name "EvView")
+  (parent "GtkWidget")
+  (gtype-id "EV_TYPE_VIEW")
+)
+
+(define-function ev_view_get_type
+  (c-name "ev_view_get_type")
+  (return-type "GType")
+)
+
+(define-function ev_sizing_mode_get_type
+  (c-name "ev_sizing_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function ev_view_new
+  (c-name "ev_view_new")
+  (is-constructor-of "EvView")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_document
+  (of-object "EvView")
+  (c-name "ev_view_set_document")
+  (return-type "none")
+  (parameters
+    '("EvDocument*" "document")
+  )
+)
+
+(define-method set_loading
+  (of-object "EvView")
+  (c-name "ev_view_set_loading")
+  (return-type "none")
+  (parameters
+    '("gboolean" "loading")
+  )
+)
+
+(define-method copy
+  (of-object "EvView")
+  (c-name "ev_view_copy")
+  (return-type "none")
+)
+
+;; XXX copy_link_address needs EvLinkAction
+
+(define-method select_all
+  (of-object "EvView")
+  (c-name "ev_view_select_all")
+  (return-type "none")
+)
+
+(define-method get_has_selection
+  (of-object "EvView")
+  (c-name "ev_view_get_has_selection")
+  (return-type "gboolean")
+)
+
+(define-method get_continuous
+  (of-object "EvView")
+  (c-name "ev_view_get_continuous")
+  (return-type "gboolean")
+)
+
+(define-method set_continuous
+  (of-object "EvView")
+  (c-name "ev_view_set_continuous")
+  (return-type "none")
+  (parameters
+    '("gboolean" "continuous")
+  )
+)
+
+(define-method get_dual_page
+  (of-object "EvView")
+  (c-name "ev_view_get_dual_page")
+  (return-type "gboolean")
+)
+
+(define-method set_dual_page
+  (of-object "EvView")
+  (c-name "ev_view_set_dual_page")
+  (return-type "none")
+  (parameters
+    '("gboolean" "dual_page")
+  )
+)
+
+(define-method set_fullscreen
+  (of-object "EvView")
+  (c-name "ev_view_set_fullscreen")
+  (return-type "none")
+  (parameters
+    '("gboolean" "fullscreen")
+  )
+)
+
+(define-method get_fullscreen
+  (of-object "EvView")
+  (c-name "ev_view_get_fullscreen")
+  (return-type "gboolean")
+)
+
+(define-method set_presentation
+  (of-object "EvView")
+  (c-name "ev_view_set_presentation")
+  (return-type "none")
+  (parameters
+    '("gboolean" "presentation")
+  )
+)
+
+(define-method get_presentation
+  (of-object "EvView")
+  (c-name "ev_view_get_presentation")
+  (return-type "gboolean")
+)
+
+(define-method set_sizing_mode
+  (of-object "EvView")
+  (c-name "ev_view_set_sizing_mode")
+  (return-type "none")
+  (parameters
+    '("EvSizingMode" "mode")
+  )
+)
+
+(define-method get_sizing_mode
+  (of-object "EvView")
+  (c-name "ev_view_get_sizing_mode")
+  (return-type "EvSizingMode")
+)
+
+(define-method can_zoom_in
+  (of-object "EvView")
+  (c-name "ev_view_can_zoom_in")
+  (return-type "gboolean")
+)
+
+(define-method zoom_in
+  (of-object "EvView")
+  (c-name "ev_view_zoom_in")
+  (return-type "none")
+)
+
+(define-method can_zoom_out
+  (of-object "EvView")
+  (c-name "ev_view_can_zoom_out")
+  (return-type "gboolean")
+)
+
+(define-method zoom_out
+  (of-object "EvView")
+  (c-name "ev_view_zoom_out")
+  (return-type "none")
+)
+
+(define-method set_zoom
+  (of-object "EvView")
+  (c-name "ev_view_set_zoom")
+  (return-type "none")
+  (parameters
+    '("double" "factor")
+    '("gboolean" "relative")
+  )
+)
+
+(define-method get_zoom
+  (of-object "EvView")
+  (c-name "ev_view_get_zoom")
+  (return-type "double")
+)
+
+(define-method set_screen_dpi
+  (of-object "EvView")
+  (c-name "ev_view_set_screen_dpi")
+  (return-type "none")
+  (parameters
+    '("double" "dpi")
+  )
+)
+
+(define-method set_zoom_for_size
+  (of-object "EvView")
+  (c-name "ev_view_set_zoom_for_size")
+  (return-type "none")
+  (parameters
+    '("int" "width")
+    '("int" "height")
+    '("int" "vsb_width")
+    '("int" "hsb_height")
+  )
+)
+
+(define-method rotate_left
+  (of-object "EvView")
+  (c-name "ev_view_rotate_left")
+  (return-type "none")
+)
+
+(define-method rotate_right
+  (of-object "EvView")
+  (c-name "ev_view_rotate_right")
+  (return-type "none")
+)
+
+(define-method set_rotation
+  (of-object "EvView")
+  (c-name "ev_view_set_rotation")
+  (return-type "none")
+  (parameters
+    '("int" "rotation")
+  )
+)
+
+(define-method get_rotation
+  (of-object "EvView")
+  (c-name "ev_view_get_rotation")
+  (return-type "int")
+)
+
+(define-method find_next
+  (of-object "EvView")
+  (c-name "ev_view_find_next")
+  (return-type "none")
+)
+
+(define-method find_previous
+  (of-object "EvView")
+  (c-name "ev_view_find_previous")
+  (return-type "none")
+)
+
+(define-method find_search_changed
+  (of-object "EvView")
+  (c-name "ev_view_find_search_changed")
+  (return-type "none")
+)
+
+(define-method find_set_highlight_search
+  (of-object "EvView")
+  (c-name "ev_view_find_set_highlight_search")
+  (return-type "none")
+  (parameters
+    '("gboolean" "value")
+  )
+)
+
+(define-method find_changed
+  (of-object "EvView")
+  (c-name "ev_view_find_changed")
+  (return-type "none")
+  (parameters
+    '("GList**" "results")
+    '("gint" "page")
+  )
+)
+
+(define-method find_cancel
+  (of-object "EvView")
+  (c-name "ev_view_find_cancel")
+  (return-type "none")
+)
+
+(define-method hide_cursor
+  (of-object "EvView")
+  (c-name "ev_view_hide_cursor")
+  (return-type "none")
+)
+
+(define-method show_cursor
+  (of-object "EvView")
+  (c-name "ev_view_show_cursor")
+  (return-type "none")
+)
+
+(define-method scroll
+  (of-object "EvView")
+  (c-name "ev_view_scroll")
+  (return-type "none")
+  (parameters
+    '("GtkScrollType" "scroll")
+    '("gboolean" "horizontal")
+  )
+)
+
+;; XXX handle_link needs EvLink
+
+(define-method next_page
+  (of-object "EvView")
+  (c-name "ev_view_next_page")
+  (return-type "gboolean")
+)
+
+(define-method previous_page
+  (of-object "EvView")
+  (c-name "ev_view_previous_page")
+  (return-type "gboolean")
+)
+
+;; XXX page_label_from_dest needs EvLinkDest
+
+(define-method update_view_size
+  (of-object "EvView")
+  (c-name "ev_view_update_view_size")
+  (return-type "none")
+  (parameters
+    '("GtkScrolledWindow*" "scrolled_window")
+  )
+)
+
+(define-method autoscroll_start
+  (of-object "EvView")
+  (c-name "ev_view_autoscroll_start")
+  (return-type "none")
+)
+
+(define-method autoscroll_stop
+  (of-object "EvView")
+  (c-name "ev_view_autoscroll_stop")
+  (return-type "none")
+)
+
+;; From ev-document.h
+
+(define-interface Document
+  (in-module "Ev")
+  (c-name "EvDocument")
+  (gtype-id "EV_TYPE_DOCUMENT")
+  (prerequisite "GObject")
+)
+
+(define-function ev_document_get_type
+  (c-name "ev_document_get_type")
+  (return-type "GType")
+)
+
+;; XXX missing mutex functions
+
+(define-method get_info
+  (of-object "EvDocument")
+  (c-name "ev_document_get_info")
+  (return-type "EvDocumentInfo*")
+)
+
+(define-method load
+  (of-object "EvDocument")
+  (c-name "ev_document_load")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "uri")
+    '("GError**" "error")
+  )
+)
+
+;; XXX missing ev_document_save
+
+(define-method get_n_pages
+  (of-object "EvDocument")
+  (c-name "ev_document_get_n_pages")
+  (return-type "int")
+)
+
+;; XXX missing get_page, get_page_size, get_page_label,
+;; has_attachments, get_attachments, render
+
+;; From ev-document-factory.h
+
+(define-function factory_get_document
+  (c-name "ev_document_factory_get_document")
+  (return-type "EvDocument*")
+  (parameters
+    '("const-char*" "uri")
+    '("GError**" "error")
+  )
+)
+
+;; From ev-document-find.h
+
+(define-interface DocumentFind
+  (in-module "Ev")
+  (c-name "EvDocumentFind")
+  (gtype-id "EV_TYPE_DOCUMENT_FIND")
+  (prerequisite "GObject")
+)
+
+(define-function ev_document_find_get_type
+  (c-name "ev_document_find_get_type")
+  (return-type "GType")
+)
+
+(define-method find_text
+  (of-object "EvDocumentFind")
+  (c-name "ev_document_find_find_text")
+  (return-type "none")
+  (parameters
+    '("EvPage*" "page")
+    '("const-char*" "search_string")
+    '("gboolean" "case_sensitive")
+  )
+)
+
+;; From ev-page.h
+
+(define-interface Page
+  (in-module "Ev")
+  (c-name "EvPage")
+  (gtype-id "EV_TYPE_PAGE")
+  (prerequisite "GObject")
+)
+
+(define-function ev_page_get_type
+  (c-name "ev_page_get_type")
+  (return-type "GType")
+)
+
+;; XXX missing ev_page_new
+
+;; From ev-page-cache.h
+;; XXX missing lots of methods on PageCache
+
+(define-object PageCache
+  (in-module "Ev")
+  (c-name "EvPageCache")
+  (parent "GObject")
+  (gtype-id "EV_TYPE_PAGE_CACHE")
+)
+
+(define-method get_current_page
+  (of-object "EvPageCache")
+  (c-name "ev_page_cache_get_current_page")
+  (return-type "int")
+)
+
+(define-method set_current_page
+  (of-object "EvPageCache")
+  (c-name "ev_page_cache_set_current_page")
+  (return-type "none")
+  (parameters
+    '("int" "page")
+  )
+)
+
+;; XXX we stick this inside EvDocument??
+(define-method get_page_cache
+  (of-object "EvDocument")
+  (c-name "ev_page_cache_get")
+  (return-type "EvPageCache*")
+)
+
+;; From ev-document-info.c
+
+(define-enum DocumentLayout
+  (in-module "Ev")
+  (c-name "EvDocumentLayout")
+  (gtype-id "EV_TYPE_DOCUMENT_LAYOUT")
+  (values
+    '("single-page" "EV_DOCUMENT_LAYOUT_SINGLE_PAGE")
+    '("one-column" "EV_DOCUMENT_LAYOUT_ONE_COLUMN")
+    '("two-column-left" "EV_DOCUMENT_LAYOUT_TWO_COLUMN_LEFT")
+    '("two-column-right" "EV_DOCUMENT_LAYOUT_TWO_COLUMN_RIGHT")
+    '("two-page-left" "EV_DOCUMENT_LAYOUT_TWO_PAGE_LEFT")
+    '("two-page-right" "EV_DOCUMENT_LAYOUT_TWO_PAGE_RIGHT")
+  )
+)
+
+(define-enum DocumentMode
+  (in-module "Ev")
+  (c-name "EvDocumentMode")
+  (gtype-id "EV_TYPE_DOCUMENT_MODE")
+  (values
+    '("none" "EV_DOCUMENT_MODE_NONE")
+    '("use-oc" "EV_DOCUMENT_MODE_USE_OC")
+    '("use-thumbs" "EV_DOCUMENT_MODE_USE_THUMBS")
+    '("full-screen" "EV_DOCUMENT_MODE_FULL_SCREEN")
+    '("use-attachments" "EV_DOCUMENT_MODE_USE_ATTACHMENTS")
+    '("presentation" "EV_DOCUMENT_MODE_PRESENTATION")
+  )
+)
+
+(define-flags DocumentUIHints
+  (in-module "Ev")
+  (c-name "EvDocumentUIHints")
+  (gtype-id "EV_TYPE_DOCUMENT_UI_HINTS")
+  (values
+    '("hide-toolbar" "EV_DOCUMENT_UI_HINT_HIDE_TOOLBAR")
+    '("hide-menubar" "EV_DOCUMENT_UI_HINT_HIDE_MENUBAR")
+    '("hide-windowui" "EV_DOCUMENT_UI_HINT_HIDE_WINDOWUI")
+    '("fit-window" "EV_DOCUMENT_UI_HINT_FIT_WINDOW")
+    '("center-window" "EV_DOCUMENT_UI_HINT_CENTER_WINDOW")
+    '("display-doc-title" "EV_DOCUMENT_UI_HINT_DISPLAY_DOC_TITLE")
+    '("direction-rtl" "EV_DOCUMENT_UI_HINT_DIRECTION_RTL")
+  )
+)
+
+(define-flags DocumentPermissions
+  (in-module "Ev")
+  (c-name "EvDocumentPermissions")
+  (gtype-id "EV_TYPE_DOCUMENT_PERMISSIONS")
+  (values
+    '("ok-to-print" "EV_DOCUMENT_PERMISSIONS_OK_TO_PRINT")
+    '("ok-to-modify" "EV_DOCUMENT_PERMISSIONS_OK_TO_MODIFY")
+    '("ok-to-copy" "EV_DOCUMENT_PERMISSIONS_OK_TO_COPY")
+    '("ok-to-add-notes" "EV_DOCUMENT_PERMISSIONS_OK_TO_ADD_NOTES")
+    '("full" "EV_DOCUMENT_PERMISSIONS_FULL")
+  )
+)
+
+(define-flags DocumentInfoFields
+  (in-module "Ev")
+  (c-name "EvDocumentInfoFields")
+  (gtype-id "EV_TYPE_DOCUMENT_INFO_FIELDS")
+  (values
+    '("title" "EV_DOCUMENT_INFO_TITLE")
+    '("format" "EV_DOCUMENT_INFO_FORMAT")
+    '("author" "EV_DOCUMENT_INFO_AUTHOR")
+    '("subject" "EV_DOCUMENT_INFO_SUBJECT")
+    '("keywords" "EV_DOCUMENT_INFO_KEYWORDS")
+    '("layout" "EV_DOCUMENT_INFO_LAYOUT")
+    '("creator" "EV_DOCUMENT_INFO_CREATOR")
+    '("producer" "EV_DOCUMENT_INFO_PRODUCER")
+    '("creation-date" "EV_DOCUMENT_INFO_CREATION_DATE")
+    '("mod-date" "EV_DOCUMENT_INFO_MOD_DATE")
+    '("linearized" "EV_DOCUMENT_INFO_LINEARIZED")
+    '("start-mode" "EV_DOCUMENT_INFO_START_MODE")
+    '("ui-hints" "EV_DOCUMENT_INFO_UI_HINTS")
+    '("permissions" "EV_DOCUMENT_INFO_PERMISSIONS")
+    '("n-pages" "EV_DOCUMENT_INFO_N_PAGES")
+    '("security" "EV_DOCUMENT_INFO_SECURITY")
+  )
+)
+
+
+;; From ev-document-info.h
+
+(define-boxed DocumentInfo
+  (in-module "Ev")
+  (c-name "EvDocumentInfo")
+  (gtype-id "EV_TYPE_DOCUMENT_INFO")
+  (copy-func "ev_document_info_copy")
+  (release-func "ev_document_info_free")
+  (fields
+    '("char*" "title")
+    '("char*" "format")
+    '("char*" "author")
+    '("char*" "subject")
+    '("char*" "keywords")
+    '("char*" "creator")
+    '("char*" "producer")
+    '("char*" "linearized")
+    '("char*" "security")
+    '("GTime" "creation_date")
+    '("GTime" "modified_date")
+    '("EvDocumentLayout" "layout")
+    '("EvDocumentMode"   "mode")
+    '("guint" "ui_hints")
+    '("guint" "permissions")
+    '("int"   "n_pages")
+    '("double" "paper_height")
+    '("double" "paper_width")
+    '("guint" "fields_mask")
+  )
+)
+
+;; XXX missing get_type, _copy, _free
+
+;; From ev-jobs.h
+
+(define-object Job
+  (in-module "Ev")
+  (c-name "EvJob")
+  (gtype-id "EV_TYPE_JOB")
+  (parent "GObject")
+)
+
+(define-function ev_job_get_type
+  (c-name "ev_job_get_type")
+  (return-type "GType")
+)
+
+(define-method run
+  (of-object "EvJob")
+  (c-name "ev_job_run")
+  (return-type "gboolean")
+)
+
+(define-method cancel
+  (of-object "EvJob")
+  (c-name "ev_job_cancel")
+  (return-type "none")
+)
+
+(define-method succeeded
+  (of-object "EvJob")
+  (c-name "ev_job_succeeded")
+  (return-type "none")
+)
+
+(define-method is_finished
+  (of-object "EvJob")
+  (c-name "ev_job_is_finished")
+  (return-type "gboolean")
+)
+
+(define-method is_failed
+  (of-object "EvJob")
+  (c-name "ev_job_is_failed")
+  (return-type "gboolean")
+)
+
+(define-object JobFind
+  (in-module "Ev")
+  (c-name "EvJobFind")
+  (gtype-id "EV_TYPE_JOB_FIND")
+  (parent "EvJob")
+)
+
+(define-function ev_job_find_get_type
+  (c-name "ev_job_find_get_type")
+  (return-type "GType")
+)
+
+(define-function ev_job_find_new
+  (c-name "ev_job_find_new")
+  (is-constructor-of "EvJobFind")
+  (return-type "EvJob*")
+)
+
+(define-method get_n_results
+  (of-object "EvJobFind")
+  (c-name "ev_job_find_get_n_results")
+  (return-type "gint")
+  (parameters
+    '("gint" "pages")
+  )
+)
+
+(define-method get_progress
+  (of-object "EvJobFind")
+  (c-name "ev_job_find_get_progress")
+  (return-type "gdouble")
+)
+
+(define-method has_results
+  (of-object "EvJobFind")
+  (c-name "ev_job_find_has_results")
+  (return-type "gboolean")
+)
+
+;; XXX many missing methods
+
+;; From ev-job-scheduler.h
+
+(define-enum JobPriority
+  (in-module "Ev")
+  (c-name "EvJobPriority")
+  (gtype-id "EV_TYPE_JOB_PRIORITY")
+  (values
+    '("urgent" "EV_JOB_PRIORITY_URGENT")
+    '("high" "EV_JOB_PRIORITY_HIGH")
+    '("low" "EV_JOB_PRIORITY_LOW")
+    '("none" "EV_JOB_PRIORITY_NONE")
+    '("n_priorities" "EV_JOB_N_PRIORITIES")
+  )
+)
+
+(define-function job_scheduler_push_job
+  (c-name "ev_job_scheduler_push_job")
+  (return-type "none")
+  (parameters
+    '("EvJob*" "job")
+    '("EvJobPriority" "priority")
+  )
+)
+
+(define-function job_scheduler_update_job
+  (c-name "ev_job_scheduler_update_job")
+  (return-type "none")
+  (parameters
+    '("EvJob*" "job")
+    '("EvJobPriority" "priority")
+  )
+)
+
+;; From embed.c
+
+(define-function evince_embed_init
+  (c-name "evince_embed_init")
+  (return-type "none")
+)
