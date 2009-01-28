@@ -5,7 +5,10 @@
 /* include this first, before NO_IMPORT_PYGOBJECT is defined */
 #include <pygobject.h>
 
+#include <evince-document.h>
+
 void pyevince_register_classes (PyObject *d);
+void pyevince_add_constants(PyObject *module, const gchar *strip_prefix);
 
 extern PyMethodDef pyevince_functions[];
 
@@ -15,6 +18,15 @@ initevince(void)
     PyObject *m, *d;
 
     init_pygobject ();
+
+    /* Init glib threads asap */
+    if (!g_thread_supported ())
+       g_thread_init (NULL);
+
+    pyg_enable_threads ();
+
+    ev_file_helpers_init();
+    ev_backends_manager_init();
 
     m = Py_InitModule ("evince", pyevince_functions);
     d = PyModule_GetDict (m);
