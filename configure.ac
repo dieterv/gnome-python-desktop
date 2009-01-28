@@ -128,7 +128,7 @@ AC_ARG_ENABLE([gtk-doc],
 AM_CONDITIONAL(BUILD_DOCS, [test "$enable_gtk_doc" = "yes"])
 
 dnl default bindings to build:
-default_bindings_on="applet gnomeprint gnomeprintui gtksourceview wnck totem_plparser gtop nautilusburn mediaprofiles rsvg gnomekeyring gnomedesktop bugbuddy metacity evolution evolution_ecal"
+default_bindings_on="applet gnomeprint gnomeprintui gtksourceview wnck totem_plparser gtop nautilusburn mediaprofiles rsvg gnomekeyring gnomedesktop bugbuddy metacity evolution evolution_ecal evince"
 default_bindings_off="metacity"
 default_bindings_all="$default_bindings_on $default_bindings_off"
 
@@ -398,6 +398,19 @@ fi
 AM_CONDITIONAL(BUILD_EVOLUTION, $build_evolution)
 AM_CONDITIONAL(BUILD_EVOLUTION_ECAL, $build_evolution_ecal)
 
+dnl should we build the evince module
+AC_ARG_BINDING([evince],[YES])
+if $build_evince; then
+    PKG_CHECK_MODULES(EVINCE, [evince-document-2.25 evince-view-2.25],
+      build_evince=true,
+      build_evince=false)
+    if test -n "$export_dynamic"; then
+      EVINCE_LIBS=`echo $EVINCE_LIBS | sed -e "s/$export_dynamic//"`
+    fi
+fi
+AM_CONDITIONAL(BUILD_EVINCE, $build_evince)
+
+
 dnl add required cflags ...
 JH_ADD_CFLAG([-Wall])
 JH_ADD_CFLAG([-std=c9x])
@@ -418,6 +431,7 @@ AC_CONFIG_FILES(
   gnomekeyring/Makefile
   gnomedesktop/Makefile
   evolution/Makefile
+  evince/Makefile
   gnome-python-desktop-2.0.pc
   tests/Makefile
   docs/Makefile
@@ -446,6 +460,7 @@ $build_gnomedesktop      && echo     gnomedesktop
 $build_bugbuddy          && echo     bugbuddy
 $build_evolution         && echo     evolution
 $build_evolution_ecal    && echo     evolution ecal support
+$build_evince            && echo     evince
 echo
 
 echo "The following modules will NOT be built:"
@@ -466,6 +481,7 @@ $build_gnomedesktop      || echo     gnomedesktop
 $build_bugbuddy          || echo     bugbuddy
 $build_evolution         || echo     evolution
 $build_evolution_ecal    || echo     evolution ecal support
+$build_evince            || echo     evince
 
 
 echo "*****************************************************************************"

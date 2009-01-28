@@ -57,6 +57,10 @@ if BUILD_EVOLUTION
   SUBDIRS += evolution
 endif
 
+if BUILD_EVINCE
+  SUBDIRS += evince
+endif
+
 SUBDIRS +=  tests
 
 pkgconfigdir = $(libdir)/pkgconfig
