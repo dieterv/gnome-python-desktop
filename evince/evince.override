@@ -75,5 +75,3 @@ _wrap_ev_job_find_new(PyGObject *self, PyObject *args, PyObject *kwargs)
     return 0;
 }
 %%
-ignore
-    evince_embed_init

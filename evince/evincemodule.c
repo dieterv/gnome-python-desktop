@@ -17,16 +17,15 @@ initevince(void)
 {
     PyObject *m, *d;
 
-    init_pygobject ();
-
     /* Init glib threads asap */
     if (!g_thread_supported ())
        g_thread_init (NULL);
 
+    init_pygobject ();
+
     pyg_enable_threads ();
 
-    ev_file_helpers_init();
-    ev_backends_manager_init();
+    ev_init ();
 
     m = Py_InitModule ("evince", pyevince_functions);
     d = PyModule_GetDict (m);

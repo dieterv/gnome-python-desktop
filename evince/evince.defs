@@ -703,9 +703,3 @@
   )
 )
 
-;; From embed.c
-
-(define-function evince_embed_init
-  (c-name "evince_embed_init")
-  (return-type "none")
-)
