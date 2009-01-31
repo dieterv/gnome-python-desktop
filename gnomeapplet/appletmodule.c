@@ -26,7 +26,10 @@ initgnomeapplet(void)
     int argc, i;
     char **argv;
 	
-    init_pygobject ();
+    init_pygobject();
+    PyImport_ImportModule("bonobo.ui");
+    if (PyErr_Occurred())
+        return;
 
     m = Py_InitModule ("gnomeapplet", pyapplet_functions);
     d = PyModule_GetDict (m);
