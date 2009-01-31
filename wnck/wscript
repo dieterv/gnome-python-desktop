@@ -5,7 +5,7 @@ def configure(conf):
     conf.env.append_value('MODULES_AVAILABLE', 'wnck')
     if 'wnck' in conf.env['ENABLE_MODULES'] or 'all' in conf.env['ENABLE_MODULES']:
         if conf.pkg_check_modules('WNCK',
-                                  'libwnck-1.0 >= 2.20 pygobject-2.0',
+                                  'libwnck-1.0 >= 2.20 pygobject-2.0 pygtk-2.0',
                                   mandatory=False):
             conf.env.append_value('MODULES_TO_BUILD', 'wnck')
 
