@@ -12,6 +12,16 @@ void pyevince_add_constants(PyObject *module, const gchar *strip_prefix);
 
 extern PyMethodDef pyevince_functions[];
 
+PyObject *
+_wrap_ev_shutdown (void)
+{
+/*     g_message("ev_shutdown();"); */
+    ev_shutdown();
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+
 DL_EXPORT(void)
 initevince(void)
 {
@@ -35,5 +45,15 @@ initevince(void)
 
     if (PyErr_Occurred ()) {
         return;
+    }
+
+      /* Call ev_shutdown() on an atexit handler (bug #570622) */
+    {
+        // note: py_atexit_method_def has to be static, since python keeps a pointer to it
+        static PyMethodDef py_atexit_method_def = {NULL, (PyCFunction)_wrap_ev_shutdown, METH_NOARGS, NULL};
+        PyObject *py_atexit_func = PyCFunction_NewEx(&py_atexit_method_def, NULL, NULL);
+        PyObject *atexit = PyImport_ImportModule("atexit");
+        PyObject_CallMethod(atexit, "register", "N", py_atexit_func);
+        Py_DECREF(atexit);
     }
 }
