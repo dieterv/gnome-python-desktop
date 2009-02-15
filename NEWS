@@ -1,3 +1,7 @@
+Overview of Changes from 2.25.90 to 2.25.91
+==============================================================================
+* Call ev_shutdown() on a python atexit handler (bug #570622)
+
 Overview of Changes from 2.25.1 to 2.25.90
 ==============================================================================
 * New Evince bindings, by Tomeu Vizoso (#568287)
