@@ -58,20 +58,22 @@ _wrap_ev_job_find_new(PyGObject *self, PyObject *args, PyObject *kwargs)
     gint start_page, n_pages;
     const gchar *text;
     gboolean case_sensitive;
+    EvJob *job;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwargs, "O!iizi:EvJobFind.__init__",
             kwlist, &PyEvDocument_Type, &document, &start_page, &n_pages,
             &text, &case_sensitive))
-        return NULL;
+        return -1;
 
-    pygobject_construct(self, "document", EV_DOCUMENT(document->obj),
-        "start_page", start_page, "n_pages", n_pages, "text", text,
-        "case_sensitive", case_sensitive, NULL);
-    if (!self->obj) {
+    job = ev_job_find_new(EV_DOCUMENT(document->obj), start_page, n_pages, text,
+                          case_sensitive);
+    if (!job) {
         PyErr_SetString(PyExc_RuntimeError, "could not create JobFind object");
         return -1;
+    } else {
+        self->obj = (GObject*) job;
+        pygobject_register_wrapper((PyObject *)self);
+        return 0;
     }
-
-    return 0;
 }
 %%
