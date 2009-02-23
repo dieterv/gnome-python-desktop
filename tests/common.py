@@ -1,14 +1,16 @@
 import os
 import sys
+import gobject
+gobject.threads_init()
 
 
 modules = [
     "gnomeapplet",
     "gnomeprint",
-    ("gnomeprint.ui", "gnomeprint"),
+    ("ui", "gnomeprint"),
     "gtksourceview",
     "wnck",
-    ("totem.plparser", "totem"),
+    ("plparser", "totem"),
     "gtop",
     "nautilusburn",
     "mediaprofiles",
@@ -16,8 +18,8 @@ modules = [
     "rsvg",
     "gnomekeyring",
     "gnomedesktop",
-    ("evolution.ebook", "evolution"),
-    ("evolution.ecal", "evolution"),
+    ("ebook", "evolution"),
+    ("ecal", "evolution"),
     "evince",
     ]
 
@@ -35,7 +37,7 @@ def run_import_tests(builddir, no_import_hooks):
         sys.path.insert(0, os.path.join(builddir, dirname))
         print "Trying to import module %s... " % (module,),
         try:
-            __import__(module) # try to import the module to catch undefined symbols
+            mod = __import__(module) # try to import the module to catch undefined symbols
         except ImportError, ex:
             if ex.args[0].startswith("No module named"):
                 print "not found"
@@ -43,6 +45,7 @@ def run_import_tests(builddir, no_import_hooks):
                 raise
         else:
             print "ok."
+            globals()[module] = mod
 
     if not no_import_hooks:
         ltihooks.uninstall()

@@ -101,7 +101,7 @@ initplparser(void)
                         "could not import gnomevfs");
         return;
     }
-    m = Py_InitModule("totem.plparser", pyplparser_functions);
+    m = Py_InitModule("plparser", pyplparser_functions);
     d = PyModule_GetDict(m);
         
     pyplparser_register_classes(d);
