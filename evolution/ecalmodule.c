@@ -33,8 +33,11 @@ initecal(void)
     PyObject *m, *d;
 
     /* perform any initialisation required by the library here */
-	init_pygobject();
-	//init();
+    if (!pygobject_init(-1, -1, -1))
+        return;
+    PyImport_ImportModule("bonobo");
+    if (PyErr_Occurred())
+        return;    
 	
     m = Py_InitModule("ecal", pyecal_functions);
     d = PyModule_GetDict(m);
