@@ -43,7 +43,7 @@ def build(bld):
         pyext.add_objects = 'evolution_common'
         pyext.target = 'ebook'
         pyext.uselib = 'EVOLUTION_EBOOK'
-        pyext.install_path_var = '${PYTHONDIR}/gtk-2.0/evolution'
+        pyext.install_path = '${PYTHONDIR}/gtk-2.0/evolution'
 
     if 'evolution.ecal' in bld.env['MODULES_TO_BUILD']:
         bld.codegen('ecal', py_ssize_t_clean=False)
@@ -58,12 +58,12 @@ def build(bld):
         pyext.add_objects = 'evolution_common'
         pyext.target = 'ecal'
         pyext.uselib = 'EVOLUTION_ECAL'
-        pyext.install_path_var = '${PYTHONDIR}/gtk-2.0/evolution'
+        pyext.install_path = '${PYTHONDIR}/gtk-2.0/evolution'
 
     if 'evolution.ecal' in bld.env['MODULES_TO_BUILD'] \
             or 'evolution.ebook' in bld.env['MODULES_TO_BUILD']:
         py = bld.new_task_gen('py')
-        py.install_path_var = '${PYTHONDIR}/gtk-2.0/evolution'
+        py.install_path = '${PYTHONDIR}/gtk-2.0/evolution'
         py.source = "__init__.py"
 
     bld.install_files('${DATADIR}/pygtk/2.0/defs', ['ebook.defs', 'ecal.defs'])
