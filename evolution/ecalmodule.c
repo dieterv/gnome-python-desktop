@@ -50,8 +50,8 @@ initecal(void)
 #ifdef HAVE_CONFIG_H
                         Py_BuildValue("iii",
                             GNOME_PYTHON_DESKTOP_MAJOR_VERSION,
-                            GNOME_PYTHON_DESKTOP_MAJOR_VERSION,
-                            GNOME_PYTHON_DESKTOP_MAJOR_VERSION)
+                            GNOME_PYTHON_DESKTOP_MINOR_VERSION,
+                            GNOME_PYTHON_DESKTOP_MICRO_VERSION)
 #else
                         Py_BuildValue("iii",0,0,0)
 #endif
