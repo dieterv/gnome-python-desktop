@@ -101,6 +101,7 @@
 
 (define-function item_new_from_file
   (c-name "gnome_desktop_item_new_from_file")
+  (caller-owns-return #t)
   (return-type "GnomeDesktopItem*")
   (parameters
     '("const-char*" "file")
@@ -112,6 +113,7 @@
 (define-function item_new_from_uri
   (c-name "gnome_desktop_item_new_from_uri")
   (return-type "GnomeDesktopItem*")
+  (caller-owns-return #t)
   (parameters
     '("const-char*" "uri")
     '("int" "flags")
@@ -122,6 +124,7 @@
 (define-function item_new_from_string
   (c-name "gnome_desktop_item_new_from_string")
   (return-type "GnomeDesktopItem*")
+  (caller-owns-return #t)
   (parameters
     '("const-char*" "uri")
     '("const-char*" "string")
@@ -134,6 +137,7 @@
 (define-function item_new_from_basename
   (c-name "gnome_desktop_item_new_from_basename")
   (return-type "GnomeDesktopItem*")
+  (caller-owns-return #t)
   (parameters
     '("const-char*" "basename")
     '("int" "flags")
