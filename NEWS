@@ -1,3 +1,14 @@
+Overview of Changes from 2.25.91 to 2.26.0
+==============================================================================
+* evince
+  - Bug 572575: evince.JobFind() crashes caller (Tomeu Vizoso)
+* evolution
+  - Fix evolution modules installation issue
+  - Make sure bonobo is imported before evolution.* modules are used (#561354)
+  - Add __version__ to evolution modules (John Stowers)
+* gnomedesktop 
+  - Add missing caller-owns-return annotations (#570540)
+
 Overview of Changes from 2.25.90 to 2.25.91
 ==============================================================================
 * Call ev_shutdown() on a python atexit handler (bug #570622)
