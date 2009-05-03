@@ -61,10 +61,6 @@ if BUILD_EVINCE
   SUBDIRS += evince
 endif
 
-if BUILD_BRASEROMEDIA
-  SUBDIRS += braseromedia
-endif
-
 SUBDIRS +=  tests
 
 pkgconfigdir = $(libdir)/pkgconfig
@@ -110,8 +106,7 @@ EXTRA_DIST = \
   examples/keyring.py \
   examples/keyring-async.py \
   examples/rsvg/rsvg-cairo.py \
-  examples/wnck_example.py \
-  examples/braseromedia/drive_selection.py
+  examples/wnck_example.py
 
 
 
