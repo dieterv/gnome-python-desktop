@@ -22,6 +22,7 @@ m4_define(gtksourceview_required_version,     1.1.90)
 m4_define(wnck_required_version,              2.19.3)
 m4_define(libgtop_required_version,           2.13.0)
 m4_define(libnautilus_burn_required_version,  2.15.3)
+m4_define(libbrasero_media_required_version,  0.9.0)
 m4_define(mediaprofiles_required_version,     2.10.0)
 m4_define(gconf_required_version,             2.10.0)
 m4_define(metacity_required_version,          2.21.5)
@@ -128,7 +129,7 @@ AC_ARG_ENABLE([gtk-doc],
 AM_CONDITIONAL(BUILD_DOCS, [test "$enable_gtk_doc" = "yes"])
 
 dnl default bindings to build:
-default_bindings_on="applet gnomeprint gnomeprintui gtksourceview wnck totem_plparser gtop nautilusburn mediaprofiles rsvg gnomekeyring gnomedesktop bugbuddy metacity evolution evolution_ecal evince"
+default_bindings_on="applet gnomeprint gnomeprintui gtksourceview wnck totem_plparser gtop nautilusburn mediaprofiles rsvg gnomekeyring gnomedesktop bugbuddy metacity evolution evolution_ecal evince braseromedia"
 default_bindings_off="metacity"
 default_bindings_all="$default_bindings_on $default_bindings_off"
 
@@ -273,6 +274,18 @@ if test -n "$export_dynamic"; then
   NAUTILUSBURN_LIBS=`echo $NAUTILUSBURN_LIBS | sed -e "s/$export_dynamic//"`
 fi
 
+dnl should we build the braseromedia module?
+AC_ARG_BINDING([braseromedia],[YES])
+if $build_braseromedia; then
+	PKG_CHECK_MODULES(BRASEROMEDIA, [libbrasero-media >= libbrasero_media_required_version
+					 pygtk-2.0 >= pygtk_required_version],
+	  build_braseromedia=true,
+	  build_braseromedia=false)
+fi
+AM_CONDITIONAL(BUILD_BRASEROMEDIA, $build_braseromedia)
+if test -n "$export_dynamic"; then
+  BRASEROMEDIA_LIBS=`echo $BRASEROMEDIA_LIBS | sed -e "s/$export_dynamic//"`
+fi
 
 dnl should we build the mediaprofiles module?
 AC_ARG_BINDING([mediaprofiles],[YES])
@@ -425,6 +438,7 @@ AC_CONFIG_FILES(
   totem/Makefile
   gtop/Makefile
   nautilusburn/Makefile
+  braseromedia/Makefile
   mediaprofiles/Makefile
   metacity/Makefile
   rsvg/Makefile
@@ -452,6 +466,7 @@ $build_wnck              && echo     wnck
 $build_totem_plparser    && echo     totem.plparser
 $build_gtop              && echo     gtop
 $build_nautilusburn      && echo     nautilusburn
+$build_braseromedia      && echo     braseromedia
 $build_mediaprofiles     && echo     mediaprofiles
 $build_metacity          && echo     metacity
 $build_rsvg              && echo     rsvg
@@ -473,6 +488,7 @@ $build_wnck              || echo     wnck
 $build_totem_plparser    || echo     totem.plparser
 $build_gtop              || echo     gtop
 $build_nautilusburn      || echo     nautilusburn
+$build_braseromedia      || echo     braseromedia
 $build_mediaprofiles     || echo     mediaprofiles
 $build_metacity          || echo     metacity
 $build_rsvg              || echo     rsvg
