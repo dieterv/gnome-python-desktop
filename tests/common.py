@@ -21,6 +21,7 @@ modules = [
     ("ebook", "evolution"),
     ("ecal", "evolution"),
     "evince",
+    "braseromedia",
     ]
 
 def run_import_tests(builddir, no_import_hooks):
