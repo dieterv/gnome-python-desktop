@@ -321,14 +321,14 @@
 
 ;; XXX page_label_from_dest needs EvLinkDest
 
-(define-method update_view_size
-  (of-object "EvView")
-  (c-name "ev_view_update_view_size")
-  (return-type "none")
-  (parameters
-    '("GtkScrolledWindow*" "scrolled_window")
-  )
-)
+;; (define-method update_view_size
+;;   (of-object "EvView")
+;;   (c-name "ev_view_update_view_size")
+;;   (return-type "none")
+;;   (parameters
+;;     '("GtkScrolledWindow*" "scrolled_window")
+;;   )
+;; )
 
 (define-method autoscroll_start
   (of-object "EvView")
