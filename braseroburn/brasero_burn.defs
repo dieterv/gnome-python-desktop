@@ -1,0 +1,218 @@
+;; -*- scheme -*-
+; object definitions ...
+(define-object Burn
+  (in-module "Brasero")
+  (parent "GObject")
+  (c-name "BraseroBurn")
+  (gtype-id "BRASERO_TYPE_BURN")
+)
+
+(define-object BurnDialog
+  (in-module "Brasero")
+  (parent "GtkDialog")
+  (c-name "BraseroBurnDialog")
+  (gtype-id "BRASERO_TYPE_BURN_DIALOG")
+)
+
+(define-object BurnOptions
+  (in-module "Brasero")
+  (parent "GtkDialog")
+  (c-name "BraseroBurnOptions")
+  (gtype-id "BRASERO_TYPE_BURN_OPTIONS")
+)
+
+;; Enumerations and flags ...
+
+
+;; From brasero-burn-dialog.h
+
+(define-function dialog_get_type
+  (c-name "brasero_burn_dialog_get_type")
+  (return-type "GType")
+  (parameters
+  )
+)
+
+(define-function dialog_new
+  (c-name "brasero_burn_dialog_new")
+  (is-constructor-of "BraseroBurnDialog")
+  (return-type "GtkWidget*")
+)
+
+(define-method run
+  (of-object "BraseroBurnDialog")
+  (c-name "brasero_burn_dialog_run")
+  (return-type "gboolean")
+  (parameters
+    '("BraseroBurnSession*" "session")
+  )
+)
+
+(define-method cancel
+  (of-object "BraseroBurnDialog")
+  (c-name "brasero_burn_dialog_cancel")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "force_cancellation")
+  )
+)
+
+
+
+;; From brasero-burn.h
+
+(define-function get_type
+  (c-name "brasero_burn_get_type")
+  (return-type "GType")
+  (parameters
+  )
+)
+
+(define-function new
+  (c-name "brasero_burn_new")
+  (is-constructor-of "BraseroBurn")
+  (return-type "BraseroBurn*")
+  (parameters
+  )
+)
+
+(define-method record
+  (of-object "BraseroBurn")
+  (c-name "brasero_burn_record")
+  (return-type "BraseroBurnResult")
+  (parameters
+    '("BraseroBurnSession*" "session")
+    '("GError**" "error")
+  )
+)
+
+(define-method check
+  (of-object "BraseroBurn")
+  (c-name "brasero_burn_check")
+  (return-type "BraseroBurnResult")
+  (parameters
+    '("BraseroBurnSession*" "session")
+    '("GError**" "error")
+  )
+)
+
+(define-method blank
+  (of-object "BraseroBurn")
+  (c-name "brasero_burn_blank")
+  (return-type "BraseroBurnResult")
+  (parameters
+    '("BraseroBurnSession*" "session")
+    '("GError**" "error")
+  )
+)
+
+(define-method cancel
+  (of-object "BraseroBurn")
+  (c-name "brasero_burn_cancel")
+  (return-type "BraseroBurnResult")
+  (parameters
+    '("gboolean" "protect")
+  )
+)
+
+(define-method status
+  (of-object "BraseroBurn")
+  (c-name "brasero_burn_status")
+  (return-type "BraseroBurnResult")
+  (parameters
+    '("BraseroMedia*" "info")
+    '("goffset*" "isosize")
+    '("goffset*" "written")
+    '("guint64*" "rate")
+  )
+)
+
+(define-method get_action_string
+  (of-object "BraseroBurn")
+  (c-name "brasero_burn_get_action_string")
+  (return-type "none")
+  (parameters
+    '("BraseroBurnAction" "action")
+    '("gchar**" "string")
+  )
+)
+
+
+
+;; From brasero-burn-lib.h
+
+(define-function library_start
+  (c-name "brasero_burn_library_start")
+  (return-type "gboolean")
+)
+
+(define-function library_stop
+  (c-name "brasero_burn_library_stop")
+  (return-type "none")
+)
+
+(define-function library_get_option_group
+  (c-name "brasero_burn_library_get_option_group")
+  (return-type "GOptionGroup*")
+)
+
+(define-function library_get_plugins_list
+  (c-name "brasero_burn_library_get_plugins_list")
+  (return-type "GSList*")
+)
+
+(define-function library_can_checksum
+  (c-name "brasero_burn_library_can_checksum")
+  (return-type "gboolean")
+)
+
+(define-function library_input_supported
+  (c-name "brasero_burn_library_input_supported")
+  (return-type "BraseroBurnResult")
+  (parameters
+    '("BraseroTrackType*" "type")
+  )
+)
+
+(define-function library_get_media_capabilities
+  (c-name "brasero_burn_library_get_media_capabilities")
+  (return-type "BraseroMedia")
+  (parameters
+    '("BraseroMedia" "media")
+  )
+)
+
+
+
+;; From brasero-burn-options.h
+
+(define-function options_get_type
+  (c-name "brasero_burn_options_get_type")
+  (return-type "GType")
+)
+
+(define-function options_new
+  (c-name "brasero_burn_options_new")
+  (is-constructor-of "BraseroBurnOptions")
+  (return-type "GtkWidget*")
+  (parameters
+    '("BraseroSessionCfg*" "session")
+  )
+)
+
+(define-method get_session
+  (of-object "BraseroBurnOptions")
+  (c-name "brasero_burn_options_get_session")
+  (return-type "BraseroBurnSession*")
+)
+
+(define-method add_options
+  (of-object "BraseroBurnOptions")
+  (c-name "brasero_burn_options_add_options")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "options")
+  )
+)
+
+

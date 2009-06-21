@@ -1,0 +1,22 @@
+/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 4; tab-width: 8 -*- */
+%%
+headers
+#define NO_IMPORT_PYGOBJECT
+#include "pygobject.h"
+#include <brasero-burn.h>
+#include <brasero-burn-lib.h>
+#include <brasero-burn-dialog.h>
+#include <brasero-burn-options.h>
+
+#include "config.h"
+
+%%
+modulename braseroburn
+%%
+import gobject.GObject as PyGObject_Type
+import gtk.Widget as PyGtkWidget_Type
+import gtk.Dialog as PyGtkDialog_Type
+%%
+ignore-glob
+  *_get_type
+

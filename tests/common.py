@@ -22,6 +22,7 @@ modules = [
     ("ecal", "evolution"),
     "evince",
     "braseromedia",
+    "braseroburn",
     ]
 
 def run_import_tests(builddir, no_import_hooks):
