@@ -144,6 +144,10 @@
 (define-function library_start
   (c-name "brasero_burn_library_start")
   (return-type "gboolean")
+  (parameters
+    '("int" "argc")
+    '("char**", "argv")
+  )
 )
 
 (define-function library_stop
