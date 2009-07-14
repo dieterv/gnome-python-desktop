@@ -129,7 +129,7 @@ AC_ARG_ENABLE([gtk-doc],
 AM_CONDITIONAL(BUILD_DOCS, [test "$enable_gtk_doc" = "yes"])
 
 dnl default bindings to build:
-default_bindings_on="applet gnomeprint gnomeprintui gtksourceview wnck totem_plparser gtop nautilusburn mediaprofiles rsvg gnomekeyring gnomedesktop bugbuddy metacity evolution evolution_ecal evince braseromedia"
+default_bindings_on="applet gnomeprint gnomeprintui gtksourceview wnck totem_plparser gtop nautilusburn mediaprofiles rsvg gnomekeyring gnomedesktop bugbuddy metacity evolution evolution_ecal evince braseromedia braseroburn"
 default_bindings_off="metacity"
 default_bindings_all="$default_bindings_on $default_bindings_off"
 
@@ -287,6 +287,21 @@ if test -n "$export_dynamic"; then
   BRASEROMEDIA_LIBS=`echo $BRASEROMEDIA_LIBS | sed -e "s/$export_dynamic//"`
 fi
 
+
+dnl should we build the braseroburn module?
+AC_ARG_BINDING([braseroburn],[YES])
+if $build_braseroburn; then
+	PKG_CHECK_MODULES(BRASEROBURN, [libbrasero-burn
+					 pygtk-2.0 >= pygtk_required_version],
+	  build_braseroburn=true,
+	  build_braseroburn=false)
+fi
+AM_CONDITIONAL(BUILD_BRASEROBURN, $build_braseroburn)
+if test -n "$export_dynamic"; then
+  BRASEROBURN_LIBS=`echo $BRASEROBURN_LIBS | sed -e "s/$export_dynamic//"`
+fi
+
+
 dnl should we build the mediaprofiles module?
 AC_ARG_BINDING([mediaprofiles],[YES])
 if $build_mediaprofiles; then
@@ -439,6 +454,7 @@ AC_CONFIG_FILES(
   gtop/Makefile
   nautilusburn/Makefile
   braseromedia/Makefile
+  braseroburn/Makefile
   mediaprofiles/Makefile
   metacity/Makefile
   rsvg/Makefile
@@ -467,6 +483,7 @@ $build_totem_plparser    && echo     totem.plparser
 $build_gtop              && echo     gtop
 $build_nautilusburn      && echo     nautilusburn
 $build_braseromedia      && echo     braseromedia
+$build_braseroburn       && echo     braseroburn
 $build_mediaprofiles     && echo     mediaprofiles
 $build_metacity          && echo     metacity
 $build_rsvg              && echo     rsvg
@@ -489,6 +506,7 @@ $build_totem_plparser    || echo     totem.plparser
 $build_gtop              || echo     gtop
 $build_nautilusburn      || echo     nautilusburn
 $build_braseromedia      || echo     braseromedia
+$build_braseroburn       || echo     braseroburn
 $build_mediaprofiles     || echo     mediaprofiles
 $build_metacity          || echo     metacity
 $build_rsvg              || echo     rsvg

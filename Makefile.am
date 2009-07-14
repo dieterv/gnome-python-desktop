@@ -65,6 +65,10 @@ if BUILD_BRASEROMEDIA
   SUBDIRS += braseromedia
 endif
 
+if BUILD_BRASEROBURN
+  SUBDIRS += braseroburn
+endif
+
 SUBDIRS +=  tests
 
 pkgconfigdir = $(libdir)/pkgconfig
