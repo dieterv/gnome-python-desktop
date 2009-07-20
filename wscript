@@ -145,6 +145,15 @@ def configure(conf):
 
     conf.write_config_header('config.h')
 
+    for docs_module in ['gnomeprint', 'gnomeprintui', 'gtksourceview']:
+        d = os.path.join('docs', docs_module, 'html')
+        try:
+            os.mkdir(d)
+        except OSError:
+            pass
+        #    print "* Directory %r already exists." % (d,)
+        #else:
+        #    print "* Creating directory %r." % (d,)
 
 def codegen(bld, module, local_load_types=(), register=(), local_register=(), prefix=None, py_ssize_t_clean=True):
     cmd = bld.new_task_gen('command',
