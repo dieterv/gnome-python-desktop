@@ -24,6 +24,7 @@ brasero_media.c: brasero_media.defs brasero_media.override
 	 && $(PYGTK_CODEGEN) \
 	    --override $*.override \
 	    --py_ssize_t-clean \
+	    --register $(PYGOBJECT_DEFSDIR)/gio-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gtk-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gdk-types.defs \
 	    --prefix $* $*.defs) > gen-$*.c \

@@ -91,6 +91,11 @@ case $pygtk_version in
         ;;
 esac
 
+AC_MSG_CHECKING(for pygobject defs)
+PYGOBJECT_DEFSDIR=`$PKG_CONFIG --variable=defsdir pygobject-2.0`
+AC_SUBST(PYGOBJECT_DEFSDIR)
+AC_MSG_RESULT($PYGOBJECT_DEFSDIR)
+
 AC_MSG_CHECKING(for pygtk defs)
 PYGTK_DEFSDIR=`$PKG_CONFIG --variable=defsdir pygtk-2.0`
 AC_SUBST(PYGTK_DEFSDIR)

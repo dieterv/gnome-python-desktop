@@ -14,7 +14,7 @@ def build(bld):
     if 'braseroburn' in bld.env['MODULES_TO_BUILD']:
         bld.codegen('brasero_burn', prefix='brasero_burn')
         pyext = bld.create_pyext()
-        pyext.source = 'brasero_burn_module.c brasero_burn.c'
+        pyext.source = 'brasero_burn_module.c brasero_burn.c brasero-types.c'
         pyext.includes = '.'
         pyext.target = 'braseroburn'
         pyext.uselib = 'BRASEROBURN'

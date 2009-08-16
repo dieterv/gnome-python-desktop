@@ -20,7 +20,31 @@
 
 #include <Python.h>
 #include <pygobject.h>
+#include <brasero-tags.h>
+#include <brasero-enums.h>
+#include <brasero-error.h>
+#include <brasero-status.h>
+#include <brasero-burn-lib.h>
+#include <brasero-track-type.h>
+#include <brasero-track.h>
+#include <brasero-track-data.h>
+#include <brasero-track-data-cfg.h>
+#include <brasero-track-disc.h>
+#include <brasero-track-stream.h>
+#include <brasero-track-stream-cfg.h>
+#include <brasero-track-image.h>
+#include <brasero-track-image-cfg.h>
+#include <brasero-session.h>
+#include <brasero-session-span.h>
+#include <brasero-session-cfg.h>
 #include <brasero-burn.h>
+#include <brasero-burn-options.h>
+#include <brasero-burn-dialog.h>
+#include <brasero-tool-dialog.h>
+#include <brasero-sum-dialog.h>
+#include <brasero-blank-dialog.h>
+
+#include "brasero-types.h"
 
 void brasero_burn_register_classes (PyObject *d);
 void brasero_burn_add_constants(PyObject *module, const gchar *strip_prefix);
@@ -38,7 +62,11 @@ initbraseroburn(void)
 	d = PyModule_GetDict (m);
 	if (PyErr_Occurred())
 		return;
-	
+
+	/* init (mainly GraftPoint) brasero specific classes */
+	if (py_brasero_types_init (m))
+		return;
+
 	/* init auto-gened classes */
 	brasero_burn_register_classes (d);
 /* 	brasero_burn_add_constants (m, "BRASERO_BURN_"); */

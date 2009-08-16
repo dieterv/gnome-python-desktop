@@ -5,6 +5,17 @@ sys.path.append ('..')
 import gtk, gobject
 import braseromedia
 
+# Test listing of drives as they are overriden */
+monitor = braseromedia.MediumMonitor ()
+
+media = monitor.get_media (braseromedia.TYPE_ALL)
+for medium in media:
+  print "Medium " + medium.get_name ()
+
+drives = monitor.get_drives (braseromedia.TYPE_ALL)
+for drive in drives:
+  print "Drive " + drive.get_display_name ()
+
 s = braseromedia.DriveSelection()
 
 def foo ():

@@ -12,20 +12,29 @@ pkgpyexec_LTLIBRARIES = braseroburn.la
 braseroburn_la_CFLAGS = $(BRASEROBURN_CFLAGS)
 braseroburn_la_LDFLAGS = -module -avoid-version -export-symbols-regex initbraseroburn
 braseroburn_la_LIBADD = $(BRASEROBURN_LIBS)
-braseroburn_la_SOURCES = brasero_burn_module.c
+braseroburn_la_SOURCES = 		\
+		brasero_burn_module.c	\
+		brasero-types.h		\
+		brasero-types.c
 
 nodist_braseroburn_la_SOURCES = brasero_burn.c
 CLEANFILES = brasero_burn.c
-EXTRA_DIST += brasero_burn.override  
-brasero_burn.c: brasero_burn.defs brasero_burn.override
+
+LIBBRASERO_BURN_OVERRIDES=	brasero_burn.override
+
+EXTRA_DIST += $(LIBBRASERO_BURN_OVERRIDES)
+brasero_burn.c: brasero_burn.defs $(LIBBRASERO_BURN_OVERRIDES)
+
 
 .defs.c:
 	(cd $(srcdir) \
 	 && $(PYGTK_CODEGEN) \
 	    --override $*.override \
 	    --py_ssize_t-clean \
+	    --register $(PYGOBJECT_DEFSDIR)/gio-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gtk-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gdk-types.defs \
+	    --register $(top_srcdir)/braseromedia/brasero_media.defs \
 	    --prefix $* $*.defs) > gen-$*.c \
 	&& cp gen-$*.c $*.c \
 	&& rm -f gen-$*.c
