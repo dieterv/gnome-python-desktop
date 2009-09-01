@@ -746,3 +746,96 @@ _wrap_gnome_keyring_item_get_info(PyObject *self, PyObject *args, PyObject *kwar
     return Py_None;
 }
 
+%%
+override gnome_keyring_find_items kwargs
+
+typedef struct _GetItemsData
+{
+    GnomeKeyringAttributeList *attributes;
+    PyObject *func;
+    PyObject *data;
+} GetItemsData;
+
+void
+GetItemsData__free (GetItemsData *data)
+{
+    gnome_keyring_attribute_list_free(data->attributes);
+    Py_XDECREF(data->func);
+    Py_XDECREF(data->data);
+    g_free(data);
+}
+
+static void
+_wrap_GnomeKeyringOperationGetListCallback(GnomeKeyringResult result,
+                                           GList             *found,
+                                           gpointer           data)
+{
+    GetItemsData *cb_data = data;
+    PyObject *py_found;
+    PyObject *ret;
+    PyGILState_STATE state;
+    GList *l;
+
+    state = pyg_gil_state_ensure();
+
+    py_found = PyList_New(0);
+    for (l = found; l; l = l->next)
+    {
+        PyObject *item = pyg_boxed_new(GNOME_KEYRING_TYPE_FOUND, l->data, TRUE, TRUE);
+        PyList_Append(py_found, item);
+        Py_DECREF(item);
+    }
+    if (cb_data->data)
+        ret = PyEval_CallFunction(cb_data->func, "NNO", pygnomekeyring_result_to_exception(result),
+                                  py_found, cb_data->data);
+    else
+        ret = PyEval_CallFunction(cb_data->func, "NN", pygnomekeyring_result_to_exception(result),
+                                  py_found);
+    Py_XDECREF(ret);
+    if (PyErr_Occurred())
+        PyErr_Print();
+    pyg_gil_state_release(state);
+}
+
+static PyObject *
+_wrap_gnome_keyring_find_items(PyObject *self, PyObject *args, PyObject *kwargs)
+{
+    static char *kwlist[] = { "type", "attributes", "callback", "user_data", NULL };
+
+    PyObject *py_type;
+    GnomeKeyringItemType type;
+
+    PyObject *py_attributes;
+    GnomeKeyringAttributeList *attributes;
+
+    PyObject *func, *data = NULL;
+    GetItemsData *cb_data;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"OOO|O:find_items", kwlist,
+                                     &py_type, &py_attributes, &func, &data))
+        return NULL;
+
+    if (pyg_enum_get_value(G_TYPE_NONE, py_type, (gint *)&type))
+        return NULL;
+
+    attributes = pygnome_keyring_attribute_list_from_pyobject(py_attributes);
+    if (!attributes)
+        return NULL;
+
+    if (!PyCallable_Check(func)) {
+        PyErr_SetString(PyExc_TypeError, "callback function not callable");
+        return NULL;
+    }
+    cb_data = g_new(GetItemsData, 1);
+    cb_data->func = func; Py_INCREF(func);
+    cb_data->data = data; Py_XINCREF(data);
+    cb_data->attributes = attributes;
+
+    gnome_keyring_find_items(type, attributes,
+                             _wrap_GnomeKeyringOperationGetListCallback,
+                             cb_data, (GDestroyNotify) GetItemsData__free);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
