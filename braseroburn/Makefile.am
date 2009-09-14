@@ -34,7 +34,7 @@ brasero_burn.c: brasero_burn.defs $(LIBBRASERO_BURN_OVERRIDES)
 	    --register $(PYGOBJECT_DEFSDIR)/gio-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gtk-types.defs \
 	    --register $(PYGTK_DEFSDIR)/gdk-types.defs \
-	    --register $(top_srcdir)/braseromedia/brasero_media.defs \
+	    --register $(abs_top_srcdir)/braseromedia/brasero_media.defs \
 	    --prefix $* $*.defs) > gen-$*.c \
 	&& cp gen-$*.c $*.c \
 	&& rm -f gen-$*.c
