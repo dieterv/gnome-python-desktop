@@ -18,6 +18,7 @@ modulename ev
 import gobject.GObject as PyGObject_Type
 import gtk.Widget as PyGtkWidget_Type
 import gtk.ScrolledWindow as PyGtkScrolledWindow_Type
+import gtk.TreeModel as PyGtkTreeModel_Type
 %%
 override ev_view_find_changed kwargs
 /* This function usually takes a GList of search results and hence must be

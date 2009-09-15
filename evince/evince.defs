@@ -342,6 +342,31 @@
   (return-type "none")
 )
 
+(define-method handle_link
+  (of-object "EvView")
+  (c-name "ev_view_handle_link")
+  (return-type "none")
+  (parameters
+    '("EvLink*" "link")
+  )
+)
+
+;; From ev-link.h
+
+(define-object Link
+  (in-module "Ev")
+    (c-name "EvLink")
+    (parent "GObject")
+    (gtype-id "EV_TYPE_LINK")
+)
+
+(define-method get_page
+  (of-object "EvLink")
+    (c-name "ev_link_get_page")
+    (return-type "gint")
+)
+
+
 ;; From ev-document.h
 
 (define-interface Document
@@ -436,6 +461,32 @@
 )
 
 ;; XXX missing ev_page_new
+
+;; From ev-document-links.h
+
+(define-interface DocumentLinks
+  (in-module "Ev")
+  (c-name "EvDocumentLinks")
+  (gtype-id "EV_TYPE_DOCUMENT_LINKS")
+  (prerequisite "GObject")
+)
+
+(define-function ev_document_links_get_type
+  (c-name "ev_document_links_get_type")
+  (return-type "GType")
+)
+
+(define-method has_document_links
+  (of-object "EvDocumentLinks")
+  (c-name "ev_document_links_has_document_links")
+  (return-type "gboolean")
+)
+
+(define-method get_links_model
+  (of-object "EvDocumentLinks")
+  (c-name "ev_document_links_get_links_model")
+  (return-type "GtkTreeModel*")
+)
 
 ;; From ev-page-cache.h
 ;; XXX missing lots of methods on PageCache
