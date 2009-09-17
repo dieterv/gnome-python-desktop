@@ -3,6 +3,7 @@ import sys
 sys.path.append ('..')
 
 import gtk, gobject
+gobject.threads_init() # see https://bugzilla.gnome.org/show_bug.cgi?id=595342
 import braseromedia
 
 # Test listing of drives as they are overriden */
