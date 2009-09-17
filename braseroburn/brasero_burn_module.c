@@ -69,6 +69,6 @@ initbraseroburn(void)
 
 	/* init auto-gened classes */
 	brasero_burn_register_classes (d);
-/* 	brasero_burn_add_constants (m, "BRASERO_BURN_"); */
+	brasero_burn_add_constants (m, "BRASERO_BURN_");
 }
 
