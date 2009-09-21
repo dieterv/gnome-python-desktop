@@ -115,7 +115,10 @@ EXTRA_DIST = \
   examples/keyring-async.py \
   examples/rsvg/rsvg-cairo.py \
   examples/wnck_example.py \
-  examples/braseromedia/drive_selection.py
+  examples/braseromedia/drive_selection.py \
+  examples/braseroburn/write-audio-video.py \
+  examples/braseroburn/write-image.py \
+  examples/braseroburn/write-data.py
 
 
 $(srcdir)/ChangeLog:
