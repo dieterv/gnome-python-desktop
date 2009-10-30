@@ -60,7 +60,7 @@ def _bug_buddy_check(conf):
     conf.env.append_value('MODULES_AVAILABLE', 'bugbuddy')
     if conf.find_program('bug-buddy', var='BUG_BUDDY'):
         ver_string = Utils.cmd_output("%s --version" % (conf.env['BUG_BUDDY'],))
-        ver = ver_string.split()[2]
+        ver = ver_string.split()[-1]
         ver = [int(x) for x in ver.split('.')]
         if ver >= [2,16]:
             conf.env.append_value('MODULES_TO_BUILD', 'bugbuddy')
