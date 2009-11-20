@@ -296,10 +296,11 @@ _wrap_gnome_keyring_item_get_attributes_sync(PyObject *self, PyObject *args, PyO
     ret = gnome_keyring_item_get_attributes_sync(keyring, id, &attrlist);
     pyg_end_allow_threads;
 
+    if (pygnomekeyring_result_check(ret))
+        return NULL;
+
     py_attrlist = pygnome_keyring_attribute_list_as_pyobject(attrlist);
     if (!py_attrlist)
-        return NULL;
-    if (pygnomekeyring_result_check(ret))
         return NULL;
     return py_attrlist;
 }
