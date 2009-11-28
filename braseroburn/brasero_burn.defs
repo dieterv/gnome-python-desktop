@@ -337,19 +337,6 @@
   )
 )
 
-(define-enum TrackDataType
-  (in-module "Brasero")
-  (c-name "BraseroTrackDataType")
-  (values
-    '("none" "BRASERO_TRACK_TYPE_NONE")
-    '("stream" "BRASERO_TRACK_TYPE_STREAM")
-    '("data" "BRASERO_TRACK_TYPE_DATA")
-    '("image" "BRASERO_TRACK_TYPE_IMAGE")
-    '("disc" "BRASERO_TRACK_TYPE_DISC")
-  )
-)
-
-
 ;; From brasero-blank-dialog.h
 
 (define-function brasero_blank_dialog_get_type
@@ -1484,15 +1471,6 @@
   (parameters
     '("goffset*" "blocks")
     '("goffset*" "bytes")
-  )
-)
-
-(define-method get_track_type
-  (of-object "BraseroTrack")
-  (c-name "brasero_track_get_track_type")
-  (return-type "BraseroTrackDataType")
-  (parameters
-    '("BraseroTrackType*" "type")
   )
 )
 
