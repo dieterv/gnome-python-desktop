@@ -32,6 +32,7 @@ initbraseromedia(void)
 	PyObject *m, *d;
 	
 	init_pygobject ();
+	pyg_enable_threads ();
 	
 	m = Py_InitModule ("braseromedia", brasero_media_functions);
 	d = PyModule_GetDict (m);
