@@ -4,8 +4,13 @@
 
 /* include this first, before NO_IMPORT_PYGOBJECT is defined */
 #include <pygobject.h>
+#include <pygtk/pygtk.h>
 
 #include <evince-document.h>
+#include <pycairo/pycairo.h>
+
+Pycairo_CAPI_t *Pycairo_CAPI;
+
 
 void pyevince_register_classes (PyObject *d);
 void pyevince_add_constants(PyObject *module, const gchar *strip_prefix);
@@ -34,6 +39,8 @@ initevince(void)
     init_pygobject ();
 
     pyg_enable_threads ();
+
+    Pycairo_IMPORT;
 
     ev_init ();
 

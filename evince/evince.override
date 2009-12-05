@@ -8,17 +8,45 @@ headers
 
 #include <pygobject.h>
 #include <pygtk/pygtk.h>
+#include <pycairo/pycairo.h>
 
 #include <evince-document.h>
 #include <evince-view.h>
 
+extern Pycairo_CAPI_t *Pycairo_CAPI;
+
+/* A boxed type for GdkRegion until one gets into gtk+ itself. */
+#ifdef GDK_TYPE_REGION
+# define PYGDK_TYPE_REGION  GDK_TYPE_REGION 
+#else
+GType pygdk_region_get_type (void) G_GNUC_CONST;
+GType pygdk_region_get_type (void)
+{
+  static GType our_type = 0;
+  
+  if (our_type == 0)
+    our_type = g_boxed_type_register_static ("GdkRegion",
+					     (GBoxedCopyFunc)gdk_region_copy,
+					     (GBoxedFreeFunc)gdk_region_destroy);
+  return our_type;
+}
+# define PYGDK_TYPE_REGION (pygdk_region_get_type ())
+#endif /* GDK_TYPE_REGION */
+
+
+
 %%
 modulename ev
+
 %%
 import gobject.GObject as PyGObject_Type
 import gtk.Widget as PyGtkWidget_Type
 import gtk.ScrolledWindow as PyGtkScrolledWindow_Type
 import gtk.TreeModel as PyGtkTreeModel_Type
+import gtk.gdk.Screen as PyGdkScreen_Type
+import gtk.gdk.Pixbuf as PyGdkPixbuf_Type
+import gtk.gdk.Drawable as PyGdkDrawable_Type
+
 %%
 override ev_view_find_changed kwargs
 /* This function usually takes a GList of search results and hence must be

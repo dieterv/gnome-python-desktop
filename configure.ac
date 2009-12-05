@@ -434,7 +434,7 @@ AM_CONDITIONAL(BUILD_EVOLUTION_ECAL, $build_evolution_ecal)
 dnl should we build the evince module
 AC_ARG_BINDING([evince],[YES])
 if $build_evince; then
-    PKG_CHECK_MODULES(EVINCE, [evince-document-2.25 evince-view-2.25],
+    PKG_CHECK_MODULES(EVINCE, [evince-document-2.29 evince-view-2.29],
       build_evince=true,
       build_evince=false)
     if test -n "$export_dynamic"; then
