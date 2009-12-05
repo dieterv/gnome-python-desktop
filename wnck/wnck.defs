@@ -100,7 +100,7 @@
   )
 )
 
-(define-flags WindowState
+(define-enum WindowState
   (in-module "Wnck")
   (c-name "WnckWindowState")
   (gtype-id "WNCK_TYPE_WINDOW_STATE")
@@ -121,7 +121,7 @@
   )
 )
 
-(define-flags WindowActions
+(define-enum WindowActions
   (in-module "Wnck")
   (c-name "WnckWindowActions")
   (gtype-id "WNCK_TYPE_WINDOW_ACTIONS")
@@ -184,7 +184,7 @@
   )
 )
 
-(define-flags WindowMoveResizeMask
+(define-enum WindowMoveResizeMask
   (in-module "Wnck")
   (c-name "WnckWindowMoveResizeMask")
   (gtype-id "WNCK_TYPE_WINDOW_MOVE_RESIZE_MASK")
