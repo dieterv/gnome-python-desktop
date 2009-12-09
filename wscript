@@ -213,11 +213,12 @@ def build_docs_for_module(bld, module_name):
                 ' --stringparam chunker.output.encoding UTF-8'
                 ' ${SRC[0]} ${SRC[1]}' % module_name))
 
-        cmd = bld.new_task_gen('command',
-                               target=('html/%s-class-reference.html' % module_name),
-                               source='html/index.html',
-                               command='gtkdoc-fixxref --module-dir=${TGT[0].parent} --html-dir=${HTMLDIR}',
-                               variables=dict(HTMLDIR=html_dir))
+        #cmd = bld.new_task_gen('command',
+        #                       target=('html/%s-class-reference.html' % module_name),
+        #                       source='html/index.html',
+        #                       command='gtkdoc-fixxref --module=${MODULE} --module-dir=${TGT[0].parent} --html-dir=${HTMLDIR}',
+        #                       variables=dict(HTMLDIR=html_dir,
+        #                                      MODULE=module_name))
 
     html_files = glob.glob(os.path.join(bld.path.find_dir('html').abspath(bld.env), '*'))
     html_files += glob.glob(os.path.join(bld.path.find_dir('html').abspath(), '*'))
