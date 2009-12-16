@@ -20,67 +20,80 @@
   (gtype-id "EV_TYPE_DOCUMENT")
 )
 
-(define-object DocumentFind
+(define-interface DocumentAttachments
+  (in-module "Ev")
+  (c-name "EvDocumentAttachments")
+  (gtype-id "EV_TYPE_DOCUMENT_ATTACHMENTS")
+)
+
+(define-interface DocumentFind
   (in-module "Ev")
   (c-name "EvDocumentFind")
   (gtype-id "EV_TYPE_DOCUMENT_FIND")
 )
 
-(define-object DocumentFonts
+(define-interface DocumentFonts
   (in-module "Ev")
   (c-name "EvDocumentFonts")
   (gtype-id "EV_TYPE_DOCUMENT_FONTS")
 )
 
-(define-object DocumentForms
+(define-interface DocumentForms
   (in-module "Ev")
   (c-name "EvDocumentForms")
   (gtype-id "EV_TYPE_DOCUMENT_FORMS")
 )
 
-(define-object DocumentImages
+(define-interface DocumentImages
   (in-module "Ev")
   (c-name "EvDocumentImages")
   (gtype-id "EV_TYPE_DOCUMENT_IMAGES")
 )
 
-(define-object DocumentLayers
+(define-interface DocumentLayers
   (in-module "Ev")
   (c-name "EvDocumentLayers")
   (gtype-id "EV_TYPE_DOCUMENT_LAYERS")
 )
 
-(define-object DocumentLinks
+(define-interface DocumentLinks
   (in-module "Ev")
   (c-name "EvDocumentLinks")
   (gtype-id "EV_TYPE_DOCUMENT_LINKS")
 )
 
-(define-object DocumentPrint
+(define-object DocumentModel
+  (in-module "Ev")
+  (parent "GObject")
+  (c-name "EvDocumentModel")
+  (gtype-id "EV_TYPE_DOCUMENT_MODEL")
+)
+
+(define-interface DocumentPrint
   (in-module "Ev")
   (c-name "EvDocumentPrint")
   (gtype-id "EV_TYPE_DOCUMENT_PRINT")
 )
 
-(define-object DocumentSecurity
+(define-interface DocumentSecurity
   (in-module "Ev")
   (c-name "EvDocumentSecurity")
   (gtype-id "EV_TYPE_DOCUMENT_SECURITY")
 )
 
-(define-object DocumentThumbnails
+(define-interface DocumentThumbnails
   (in-module "Ev")
   (c-name "EvDocumentThumbnails")
   (gtype-id "EV_TYPE_DOCUMENT_THUMBNAILS")
 )
 
-(define-object DocumentTransition
+(define-interface DocumentTransition
   (in-module "Ev")
   (c-name "EvDocumentTransition")
   (gtype-id "EV_TYPE_DOCUMENT_TRANSITION")
 )
 
-(define-object FileExporter
+(define-interface FileExporter
   (in-module "Ev")
   (c-name "EvFileExporter")
   (gtype-id "EV_TYPE_FILE_EXPORTER")
@@ -184,6 +197,13 @@
   (gtype-id "EV_TYPE_JOB_LOAD")
 )
 
+(define-object JobPageData
+  (in-module "Ev")
+  (parent "EvJob")
+  (c-name "EvJobPageData")
+  (gtype-id "EV_TYPE_JOB_PAGE_DATA")
+)
+
 (define-object JobPrint
   (in-module "Ev")
   (parent "EvJob")
@@ -226,6 +246,13 @@
   (gtype-id "EV_TYPE_PAGE")
 )
 
+(define-object PrintOperation
+  (in-module "Ev")
+  (parent "GObject")
+  (c-name "EvPrintOperation")
+  (gtype-id "EV_TYPE_PRINT_OPERATION")
+)
+
 (define-object RenderContext
   (in-module "Ev")
   (parent "GObject")
@@ -233,10 +260,17 @@
   (gtype-id "EV_TYPE_RENDER_CONTEXT")
 )
 
-(define-object Selection
+(define-interface Selection
   (in-module "Ev")
   (c-name "EvSelection")
   (gtype-id "EV_TYPE_SELECTION")
+)
+
+(define-object View
+  (in-module "Ev")
+  (parent "GtkLayout")
+  (c-name "EvView")
+  (gtype-id "EV_TYPE_VIEW")
 )
 
 ;; Enumerations and flags ...
@@ -519,19 +553,18 @@
   )
 )
 
-(define-flags RenderFlags
+(define-flags JobPageDataFlags
   (in-module "Ev")
-  (c-name "EvRenderFlags")
-  (gtype-id "EV_TYPE_RENDER_FLAGS")
+  (c-name "EvJobPageDataFlags")
+  (gtype-id "EV_TYPE_JOB_PAGE_DATA_FLAGS")
   (values
-    '("none" "EV_RENDER_INCLUDE_NONE")
-    '("links" "EV_RENDER_INCLUDE_LINKS")
-    '("text" "EV_RENDER_INCLUDE_TEXT")
-    '("selection" "EV_RENDER_INCLUDE_SELECTION")
-    '("images" "EV_RENDER_INCLUDE_IMAGES")
-    '("forms" "EV_RENDER_INCLUDE_FORMS")
-    '("annots" "EV_RENDER_INCLUDE_ANNOTS")
-    '("all" "EV_RENDER_INCLUDE_ALL")
+    '("none" "EV_PAGE_DATA_INCLUDE_NONE")
+    '("links" "EV_PAGE_DATA_INCLUDE_LINKS")
+    '("text" "EV_PAGE_DATA_INCLUDE_TEXT")
+    '("images" "EV_PAGE_DATA_INCLUDE_IMAGES")
+    '("forms" "EV_PAGE_DATA_INCLUDE_FORMS")
+    '("annots" "EV_PAGE_DATA_INCLUDE_ANNOTS")
+    '("all" "EV_PAGE_DATA_INCLUDE_ALL")
   )
 )
 
@@ -673,6 +706,26 @@
 
 (define-function backends_manager_get_all_types_info
   (c-name "ev_backends_manager_get_all_types_info")
+  (return-type "GList*")
+)
+
+
+;; From ev-document-attachments.h
+
+(define-function document_attachments_get_type
+  (c-name "ev_document_attachments_get_type")
+  (return-type "GType")
+)
+
+(define-method has_attachments
+  (of-object "EvDocumentAttachments")
+  (c-name "ev_document_attachments_has_attachments")
+  (return-type "gboolean")
+)
+
+(define-method get_attachments
+  (of-object "EvDocumentAttachments")
+  (c-name "ev_document_attachments_get_attachments")
   (return-type "GList*")
 )
 
@@ -1110,7 +1163,7 @@
   (c-name "ev_document_images_get_image_mapping")
   (return-type "GList*")
   (parameters
-    '("gint" "page")
+    '("EvPage*" "page")
   )
 )
 
@@ -1259,7 +1312,7 @@
   (c-name "ev_document_links_get_links")
   (return-type "GList*")
   (parameters
-    '("gint" "page")
+    '("EvPage*" "page")
   )
 )
 
@@ -2207,6 +2260,136 @@
 )
 
 
+;; From ev-print-operation.h
+
+(define-function ev_print_operation_get_type
+  (c-name "ev_print_operation_get_type")
+  (return-type "GType")
+)
+
+(define-function ev_print_operation_exists_for_document
+  (c-name "ev_print_operation_exists_for_document")
+  (return-type "gboolean")
+  (parameters
+    '("EvDocument*" "document")
+  )
+)
+
+(define-function ev_print_operation_new
+  (c-name "ev_print_operation_new")
+  (is-constructor-of "EvPrintOperation")
+  (return-type "EvPrintOperation*")
+  (parameters
+    '("EvDocument*" "document")
+  )
+)
+
+(define-method set_current_page
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_current_page")
+  (return-type "none")
+  (parameters
+    '("gint" "current_page")
+  )
+)
+
+(define-method set_print_settings
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_print_settings")
+  (return-type "none")
+  (parameters
+    '("GtkPrintSettings*" "print_settings")
+  )
+)
+
+(define-method get_print_settings
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_print_settings")
+  (return-type "GtkPrintSettings*")
+)
+
+(define-method set_default_page_setup
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_default_page_setup")
+  (return-type "none")
+  (parameters
+    '("GtkPageSetup*" "page_setup")
+  )
+)
+
+(define-method get_default_page_setup
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_default_page_setup")
+  (return-type "GtkPageSetup*")
+)
+
+(define-method set_job_name
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_job_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "job_name")
+  )
+)
+
+(define-method get_job_name
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_job_name")
+  (return-type "const-gchar*")
+)
+
+(define-method run
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_run")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "parent")
+  )
+)
+
+(define-method cancel
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_cancel")
+  (return-type "none")
+)
+
+(define-method get_error
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_error")
+  (return-type "none")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-method set_embed_page_setup
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_embed_page_setup")
+  (return-type "none")
+  (parameters
+    '("gboolean" "embed")
+  )
+)
+
+(define-method get_embed_page_setup
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_embed_page_setup")
+  (return-type "gboolean")
+)
+
+(define-method get_status
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_status")
+  (return-type "const-gchar*")
+)
+
+(define-method get_progress
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_progress")
+  (return-type "gdouble")
+)
+
+
 
 ;; From ev-render-context.h
 
@@ -2293,7 +2476,7 @@
   (c-name "ev_selection_get_selection_map")
   (return-type "GdkRegion*")
   (parameters
-    '("EvRenderContext*" "rc")
+    '("EvPage*" "page")
   )
 )
 
@@ -2668,7 +2851,6 @@
     '("gdouble" "scale")
     '("gint" "width")
     '("gint" "height")
-    '("EvRenderFlags" "flags")
   )
 )
 
@@ -2681,6 +2863,22 @@
     '("EvSelectionStyle" "selection_style")
     '("GdkColor*" "text")
     '("GdkColor*" "base")
+  )
+)
+
+(define-function job_page_data_get_type
+  (c-name "ev_job_page_data_get_type")
+  (return-type "GType")
+)
+
+(define-function job_page_data_new
+  (c-name "ev_job_page_data_new")
+  (is-constructor-of "EvJobPageData")
+  (return-type "EvJob*")
+  (parameters
+    '("EvDocument*" "document")
+    '("gint" "page")
+    '("EvJobPageDataFlags" "flags")
   )
 )
 
@@ -2965,51 +3163,6 @@
   (return-type "gboolean")
 )
 
-(define-method get_continuous
-  (of-object "EvView")
-  (c-name "ev_view_get_continuous")
-  (return-type "gboolean")
-)
-
-(define-method set_continuous
-  (of-object "EvView")
-  (c-name "ev_view_set_continuous")
-  (return-type "none")
-  (parameters
-    '("gboolean" "continuous")
-  )
-)
-
-(define-method get_dual_page
-  (of-object "EvView")
-  (c-name "ev_view_get_dual_page")
-  (return-type "gboolean")
-)
-
-(define-method set_dual_page
-  (of-object "EvView")
-  (c-name "ev_view_set_dual_page")
-  (return-type "none")
-  (parameters
-    '("gboolean" "dual_page")
-  )
-)
-
-(define-method set_fullscreen
-  (of-object "EvView")
-  (c-name "ev_view_set_fullscreen")
-  (return-type "none")
-  (parameters
-    '("gboolean" "fullscreen")
-  )
-)
-
-(define-method get_fullscreen
-  (of-object "EvView")
-  (c-name "ev_view_get_fullscreen")
-  (return-type "gboolean")
-)
-
 (define-method set_presentation
   (of-object "EvView")
   (c-name "ev_view_set_presentation")
@@ -3023,21 +3176,6 @@
   (of-object "EvView")
   (c-name "ev_view_get_presentation")
   (return-type "gboolean")
-)
-
-(define-method set_sizing_mode
-  (of-object "EvView")
-  (c-name "ev_view_set_sizing_mode")
-  (return-type "none")
-  (parameters
-    '("EvSizingMode" "mode")
-  )
-)
-
-(define-method get_sizing_mode
-  (of-object "EvView")
-  (c-name "ev_view_get_sizing_mode")
-  (return-type "EvSizingMode")
 )
 
 (define-method can_zoom_in
@@ -3062,48 +3200,6 @@
   (of-object "EvView")
   (c-name "ev_view_zoom_out")
   (return-type "none")
-)
-
-(define-method set_zoom
-  (of-object "EvView")
-  (c-name "ev_view_set_zoom")
-  (return-type "none")
-  (parameters
-    '("double" "factor")
-  )
-)
-
-(define-method get_zoom
-  (of-object "EvView")
-  (c-name "ev_view_get_zoom")
-  (return-type "double")
-)
-
-(define-method rotate_left
-  (of-object "EvView")
-  (c-name "ev_view_rotate_left")
-  (return-type "none")
-)
-
-(define-method rotate_right
-  (of-object "EvView")
-  (c-name "ev_view_rotate_right")
-  (return-type "none")
-)
-
-(define-method set_rotation
-  (of-object "EvView")
-  (c-name "ev_view_set_rotation")
-  (return-type "none")
-  (parameters
-    '("int" "rotation")
-  )
-)
-
-(define-method get_rotation
-  (of-object "EvView")
-  (c-name "ev_view_get_rotation")
-  (return-type "int")
 )
 
 (define-method find_next
@@ -3227,8 +3323,8 @@
   (return-type "GType")
 )
 
-(define-function render_flags_get_type
-  (c-name "ev_render_flags_get_type")
+(define-function job_page_data_flags_get_type
+  (c-name "ev_job_page_data_flags_get_type")
   (return-type "GType")
 )
 
@@ -3241,5 +3337,4 @@
   (c-name "ev_view_selection_mode_get_type")
   (return-type "GType")
 )
-
 
