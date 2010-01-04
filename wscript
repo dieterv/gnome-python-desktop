@@ -1,6 +1,6 @@
 # -*- python -*-
 
-VERSION = '2.28.0'
+VERSION = '2.29.1'
 APPNAME = 'gnome-python-desktop'
 srcdir = '.'
 blddir = 'build'

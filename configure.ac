@@ -3,8 +3,8 @@ AC_PREREQ(2.52)
 
 dnl the gnome-python version number
 m4_define(gnome_python_desktop_major_version, 2)
-m4_define(gnome_python_desktop_minor_version, 28)
-m4_define(gnome_python_desktop_micro_version, 0)
+m4_define(gnome_python_desktop_minor_version, 29)
+m4_define(gnome_python_desktop_micro_version, 1)
 m4_define(gnome_python_desktop_version, gnome_python_desktop_major_version.gnome_python_desktop_minor_version.gnome_python_desktop_micro_version)
 
 dnl required versions of other packages
@@ -22,7 +22,7 @@ m4_define(gtksourceview_required_version,     1.1.90)
 m4_define(wnck_required_version,              2.19.3)
 m4_define(libgtop_required_version,           2.13.0)
 m4_define(libnautilus_burn_required_version,  2.15.3)
-m4_define(libbrasero_media_required_version,  0.9.0)
+m4_define(libbrasero_media_required_version,  2.29)
 m4_define(mediaprofiles_required_version,     2.10.0)
 m4_define(gconf_required_version,             2.10.0)
 m4_define(metacity_required_version,          2.21.5)
@@ -296,7 +296,7 @@ fi
 dnl should we build the braseroburn module?
 AC_ARG_BINDING([braseroburn],[YES])
 if $build_braseroburn; then
-	PKG_CHECK_MODULES(BRASEROBURN, [libbrasero-burn
+	PKG_CHECK_MODULES(BRASEROBURN, [libbrasero-burn >= 2.29
 					 pygtk-2.0 >= pygtk_required_version],
 	  build_braseroburn=true,
 	  build_braseroburn=false)
