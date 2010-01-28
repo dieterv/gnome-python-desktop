@@ -5,7 +5,7 @@ headers
 #include "pygobject.h"
 #include "totem-pl-parser.h"
 #include "totem-pl-parser-builtins.h"
-#include <gtk/gtk.h>
+#include "totem-pl-parser-mini.h"
 #include <glib.h>
 
 #include "config.h"
@@ -14,108 +14,8 @@ headers
 modulename totem.plparser
 %%
 import gobject.GObject as PyGObject_Type
-import gtk.TreeModel as PyGtkTreeModel_Type
 %%
 ignore-glob
   *_get_type
   *_error_quark
-%%
-override totem_pl_parser_write kwargs
 
-typedef struct {
-	PyObject *func;
-	PyObject *data;
-	gboolean has_error;
-} PyPlParserIterFuncData;
-
-static void
-_pl_parser_iter_func (GtkTreeModel *model, GtkTreeIter *iter, char **uri, char **title,
-		      gboolean *custom_title, gpointer user_data)
-{
-	PyObject *args = NULL;
-	PyObject *result = NULL;
-	char *tmp_uri = NULL, *tmp_title = NULL;
-	PyPlParserIterFuncData *data = user_data;
-	PyObject *py_custom_title = NULL;
-
-	if (data->has_error)
-		return;
-
-	if (data->data)
-		args = Py_BuildValue ("(NNO)",
-				      pygobject_new((GObject *)model),
-				      pyg_boxed_new(GTK_TYPE_TREE_ITER, iter, TRUE, TRUE),
-				      data->data);
-	else
-		args = Py_BuildValue ("(NN)",
-				      pygobject_new((GObject *)model),
-				      pyg_boxed_new(GTK_TYPE_TREE_ITER, iter, TRUE, TRUE));
-	result = PyEval_CallObject (data->func, args);
-	Py_DECREF (args);
-	
-	if (result == NULL) {
-		data->has_error = TRUE;
-		return;
-	}
-	  /* ?! */
-	/* PyObject_Print (result, stdout, 0); */
-
-	if (PyString_Check (result)) {
-		tmp_uri = PyString_AsString (result);
-		if (tmp_uri == NULL) {
-			PyErr_SetString (PyExc_TypeError,
-					 "Callback function must return one"
-					 " string or a tuple of two strings.");
-			data->has_error = TRUE;
-		}
-	} else if (!PyTuple_Check (result) ||
-		   !PyArg_ParseTuple (result, "ss|O", &tmp_uri, &tmp_title, &py_custom_title))
-	{
-		PyErr_SetString (PyExc_TypeError,
-				 "Callback function must return one "
-				 "string or a tuple of two strings,"
-				 " or two strings and a boolean.");
-		data->has_error = TRUE;
-	}
-	
-	/* g_strdup handles NULL case for us */
-	*uri = g_strdup (tmp_uri);
-	*title = g_strdup (tmp_title);
-	*custom_title = py_custom_title? PyObject_IsTrue(py_custom_title) : FALSE;
-	
-	Py_DECREF (result);
-}
-
-static PyObject *
-_wrap_totem_pl_parser_write (PyGObject *self, PyObject *args, PyObject *kwargs)
-{
-	static char *kwlist[] = {"model", "iter_func", "output", "type", NULL};
-	PyGObject *model;
-	char *output;
-	TotemPlParserType type;
-	GError *error = NULL;
-	PyPlParserIterFuncData data = {0, };
-	
-	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "O!Osi|O:Parser.write",
-					 kwlist, &PyGtkTreeModel_Type, &model,
-					 &data.func, &output, &type, &data.data))
-		return NULL;
-	/* verify arguments' integrity */
-	if (!PyCallable_Check (data.func)) {
-		PyErr_SetString (PyExc_TypeError, "iter_func must be callable");
-		return NULL;
-	}
-	if (!totem_pl_parser_write (TOTEM_PL_PARSER(self->obj),
-	                            GTK_TREE_MODEL(model->obj),
-	                            _pl_parser_iter_func,
-	                            output,type, &data, &error))
-	{
-		/* return an GError */
-		pyg_error_check(&error);
-		return NULL;
-	}
-	if (data.has_error)
-		return NULL;
-	Py_INCREF(Py_None);
-	return Py_None;
-}
