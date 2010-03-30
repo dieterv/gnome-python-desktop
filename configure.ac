@@ -384,7 +384,7 @@ if $build_bugbuddy; then
 	AC_PATH_PROG(BUG_BUDDY, bug-buddy)
 	if test "x$BUG_BUDDY" != "x"; then 
 	  AC_MSG_CHECKING([whether bug-buddy >= 2.16])
-	  if $BUG_BUDDY --version | $PYTHON -c ["import sys; sys.exit([int(s) for s in sys.stdin.read().split()[2].split('.')] < [2,16])"]; then
+	  if $BUG_BUDDY --version | $PYTHON -c ["import sys; sys.exit([int(s) for s in sys.stdin.read().split()[-1].split('.')] < [2,16])"]; then
 	    AC_MSG_RESULT([yes])
 	    build_bugbuddy=true
 	  else
