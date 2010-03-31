@@ -48,6 +48,7 @@ def set_options(opt):
     opt.tool_options('compiler_cc')
     opt.tool_options('gnome')
     opt.tool_options('gnu_dirs')
+    opt.tool_options('cflags')
 
     opt.sub_options('metacity')
 
@@ -73,6 +74,7 @@ def configure(conf):
     conf.check_tool('python')
     conf.check_tool('command')
     conf.check_tool('pkgconfig')
+    conf.check_tool('cflags')
     conf.check_python_version((2,4))
     conf.check_python_headers()
     conf.find_program('xsltproc', var='XSLTPROC')
