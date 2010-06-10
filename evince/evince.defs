@@ -1358,6 +1358,7 @@
     '("GdkRectangle*" "area")
     '("GtkBorder*" "border")
     '("gboolean" "highlight")
+    '("gboolean" "inverted_colors")
   )
 )
 
