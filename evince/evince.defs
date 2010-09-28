@@ -1,11 +1,5 @@
 ;; -*- scheme -*-
 ; object definitions ...
-(define-object AsyncRenderer
-  (in-module "Ev")
-  (c-name "EvAsyncRenderer")
-  (gtype-id "EV_TYPE_ASYNC_RENDERER")
-)
-
 (define-object Attachment
   (in-module "Ev")
   (parent "GObject")
@@ -18,85 +12,6 @@
   (parent "GObject")
   (c-name "EvDocument")
   (gtype-id "EV_TYPE_DOCUMENT")
-)
-
-(define-interface DocumentAttachments
-  (in-module "Ev")
-  (c-name "EvDocumentAttachments")
-  (gtype-id "EV_TYPE_DOCUMENT_ATTACHMENTS")
-)
-
-(define-interface DocumentFind
-  (in-module "Ev")
-  (c-name "EvDocumentFind")
-  (gtype-id "EV_TYPE_DOCUMENT_FIND")
-)
-
-(define-interface DocumentFonts
-  (in-module "Ev")
-  (c-name "EvDocumentFonts")
-  (gtype-id "EV_TYPE_DOCUMENT_FONTS")
-)
-
-(define-interface DocumentForms
-  (in-module "Ev")
-  (c-name "EvDocumentForms")
-  (gtype-id "EV_TYPE_DOCUMENT_FORMS")
-)
-
-(define-interface DocumentImages
-  (in-module "Ev")
-  (c-name "EvDocumentImages")
-  (gtype-id "EV_TYPE_DOCUMENT_IMAGES")
-)
-
-(define-interface DocumentLayers
-  (in-module "Ev")
-  (c-name "EvDocumentLayers")
-  (gtype-id "EV_TYPE_DOCUMENT_LAYERS")
-)
-
-(define-interface DocumentLinks
-  (in-module "Ev")
-  (c-name "EvDocumentLinks")
-  (gtype-id "EV_TYPE_DOCUMENT_LINKS")
-)
-
-(define-object DocumentModel
-  (in-module "Ev")
-  (parent "GObject")
-  (c-name "EvDocumentModel")
-  (gtype-id "EV_TYPE_DOCUMENT_MODEL")
-)
-
-(define-interface DocumentPrint
-  (in-module "Ev")
-  (c-name "EvDocumentPrint")
-  (gtype-id "EV_TYPE_DOCUMENT_PRINT")
-)
-
-(define-interface DocumentSecurity
-  (in-module "Ev")
-  (c-name "EvDocumentSecurity")
-  (gtype-id "EV_TYPE_DOCUMENT_SECURITY")
-)
-
-(define-interface DocumentThumbnails
-  (in-module "Ev")
-  (c-name "EvDocumentThumbnails")
-  (gtype-id "EV_TYPE_DOCUMENT_THUMBNAILS")
-)
-
-(define-interface DocumentTransition
-  (in-module "Ev")
-  (c-name "EvDocumentTransition")
-  (gtype-id "EV_TYPE_DOCUMENT_TRANSITION")
-)
-
-(define-interface FileExporter
-  (in-module "Ev")
-  (c-name "EvFileExporter")
-  (gtype-id "EV_TYPE_FILE_EXPORTER")
 )
 
 (define-object FormField
@@ -146,6 +61,13 @@
   (parent "GObject")
   (c-name "EvJob")
   (gtype-id "EV_TYPE_JOB")
+)
+
+(define-object JobAnnots
+  (in-module "Ev")
+  (parent "EvJob")
+  (c-name "EvJobAnnots")
+  (gtype-id "EV_TYPE_JOB_ANNOTS")
 )
 
 (define-object JobAttachments
@@ -246,13 +168,6 @@
   (gtype-id "EV_TYPE_PAGE")
 )
 
-(define-object PrintOperation
-  (in-module "Ev")
-  (parent "GObject")
-  (c-name "EvPrintOperation")
-  (gtype-id "EV_TYPE_PRINT_OPERATION")
-)
-
 (define-object RenderContext
   (in-module "Ev")
   (parent "GObject")
@@ -260,20 +175,55 @@
   (gtype-id "EV_TYPE_RENDER_CONTEXT")
 )
 
-(define-interface Selection
-  (in-module "Ev")
-  (c-name "EvSelection")
-  (gtype-id "EV_TYPE_SELECTION")
-)
-
-(define-object View
-  (in-module "Ev")
-  (parent "GtkLayout")
-  (c-name "EvView")
-  (gtype-id "EV_TYPE_VIEW")
-)
-
 ;; Enumerations and flags ...
+
+(define-enum AnnotationType
+  (in-module "Ev")
+  (c-name "EvAnnotationType")
+  (gtype-id "EV_TYPE_ANNOTATION_TYPE")
+  (values
+    '("unknown" "EV_ANNOTATION_TYPE_UNKNOWN")
+    '("text" "EV_ANNOTATION_TYPE_TEXT")
+    '("attachment" "EV_ANNOTATION_TYPE_ATTACHMENT")
+  )
+)
+
+(define-enum AnnotationTextIcon
+  (in-module "Ev")
+  (c-name "EvAnnotationTextIcon")
+  (gtype-id "EV_TYPE_ANNOTATION_TEXT_ICON")
+  (values
+    '("note" "EV_ANNOTATION_TEXT_ICON_NOTE")
+    '("comment" "EV_ANNOTATION_TEXT_ICON_COMMENT")
+    '("key" "EV_ANNOTATION_TEXT_ICON_KEY")
+    '("help" "EV_ANNOTATION_TEXT_ICON_HELP")
+    '("new-paragraph" "EV_ANNOTATION_TEXT_ICON_NEW_PARAGRAPH")
+    '("paragraph" "EV_ANNOTATION_TEXT_ICON_PARAGRAPH")
+    '("insert" "EV_ANNOTATION_TEXT_ICON_INSERT")
+    '("cross" "EV_ANNOTATION_TEXT_ICON_CROSS")
+    '("circle" "EV_ANNOTATION_TEXT_ICON_CIRCLE")
+    '("unknown" "EV_ANNOTATION_TEXT_ICON_UNKNOWN")
+  )
+)
+
+(define-flags AnnotationsSaveMask
+  (in-module "Ev")
+  (c-name "EvAnnotationsSaveMask")
+  (gtype-id "EV_TYPE_ANNOTATIONS_SAVE_MASK")
+  (values
+    '("none" "EV_ANNOTATIONS_SAVE_NONE")
+    '("contents" "EV_ANNOTATIONS_SAVE_CONTENTS")
+    '("color" "EV_ANNOTATIONS_SAVE_COLOR")
+    '("label" "EV_ANNOTATIONS_SAVE_LABEL")
+    '("opacity" "EV_ANNOTATIONS_SAVE_OPACITY")
+    '("popup-rect" "EV_ANNOTATIONS_SAVE_POPUP_RECT")
+    '("popup-is-open" "EV_ANNOTATIONS_SAVE_POPUP_IS_OPEN")
+    '("text-is-open" "EV_ANNOTATIONS_SAVE_TEXT_IS_OPEN")
+    '("text-icon" "EV_ANNOTATIONS_SAVE_TEXT_ICON")
+    '("attachment" "EV_ANNOTATIONS_SAVE_ATTACHMENT")
+    '("all" "EV_ANNOTATIONS_SAVE_ALL")
+  )
+)
 
 (define-enum DocumentError
   (in-module "Ev")
@@ -561,6 +511,8 @@
     '("none" "EV_PAGE_DATA_INCLUDE_NONE")
     '("links" "EV_PAGE_DATA_INCLUDE_LINKS")
     '("text" "EV_PAGE_DATA_INCLUDE_TEXT")
+    '("text-mapping" "EV_PAGE_DATA_INCLUDE_TEXT_MAPPING")
+    '("text-layout" "EV_PAGE_DATA_INCLUDE_TEXT_LAYOUT")
     '("images" "EV_PAGE_DATA_INCLUDE_IMAGES")
     '("forms" "EV_PAGE_DATA_INCLUDE_FORMS")
     '("annots" "EV_PAGE_DATA_INCLUDE_ANNOTS")
@@ -577,6 +529,279 @@
     '("rectangle" "EV_VIEW_SELECTION_RECTANGLE")
   )
 )
+
+
+;; From evince-document.h
+
+
+
+;; From evince-view.h
+
+
+
+;; From ev-annotation.h
+
+(define-function annotation_get_type
+  (c-name "ev_annotation_get_type")
+  (return-type "GType")
+)
+
+(define-method get_annotation_type
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_get_annotation_type")
+  (return-type "EvAnnotationType")
+)
+
+(define-method get_page
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_get_page")
+  (return-type "EvPage*")
+)
+
+(define-method get_page_index
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_get_page_index")
+  (return-type "guint")
+)
+
+(define-method equal
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_equal")
+  (return-type "gboolean")
+  (parameters
+    '("EvAnnotation*" "other")
+  )
+)
+
+(define-method get_contents
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_get_contents")
+  (return-type "const-gchar*")
+)
+
+(define-method set_contents
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_set_contents")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "contents")
+  )
+)
+
+(define-method get_name
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method set_name
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_set_name")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_modified
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_get_modified")
+  (return-type "const-gchar*")
+)
+
+(define-method set_modified
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_set_modified")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "modified")
+  )
+)
+
+(define-method set_modified_from_time
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_set_modified_from_time")
+  (return-type "gboolean")
+  (parameters
+    '("GTime" "utime")
+  )
+)
+
+(define-method get_color
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_get_color")
+  (return-type "none")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method set_color
+  (of-object "EvAnnotation")
+  (c-name "ev_annotation_set_color")
+  (return-type "gboolean")
+  (parameters
+    '("const-GdkColor*" "color")
+  )
+)
+
+(define-function annotation_markup_get_type
+  (c-name "ev_annotation_markup_get_type")
+  (return-type "GType")
+)
+
+(define-method get_label
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_get_label")
+  (return-type "const-gchar*")
+)
+
+(define-method set_label
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_set_label")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method get_opacity
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_get_opacity")
+  (return-type "gdouble")
+)
+
+(define-method set_opacity
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_set_opacity")
+  (return-type "gboolean")
+  (parameters
+    '("gdouble" "opacity")
+  )
+)
+
+(define-method has_popup
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_has_popup")
+  (return-type "gboolean")
+)
+
+(define-method set_has_popup
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_set_has_popup")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "has_popup")
+  )
+)
+
+(define-method get_rectangle
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_get_rectangle")
+  (return-type "none")
+  (parameters
+    '("EvRectangle*" "ev_rect")
+  )
+)
+
+(define-method set_rectangle
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_set_rectangle")
+  (return-type "gboolean")
+  (parameters
+    '("const-EvRectangle*" "ev_rect")
+  )
+)
+
+(define-method get_popup_is_open
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_get_popup_is_open")
+  (return-type "gboolean")
+)
+
+(define-method set_popup_is_open
+  (of-object "EvAnnotationMarkup")
+  (c-name "ev_annotation_markup_set_popup_is_open")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "is_open")
+  )
+)
+
+(define-function annotation_text_get_type
+  (c-name "ev_annotation_text_get_type")
+  (return-type "GType")
+)
+
+(define-function annotation_text_new
+  (c-name "ev_annotation_text_new")
+  (is-constructor-of "EvAnnotationText")
+  (return-type "EvAnnotation*")
+  (parameters
+    '("EvPage*" "page")
+  )
+)
+
+(define-method get_icon
+  (of-object "EvAnnotationText")
+  (c-name "ev_annotation_text_get_icon")
+  (return-type "EvAnnotationTextIcon")
+)
+
+(define-method set_icon
+  (of-object "EvAnnotationText")
+  (c-name "ev_annotation_text_set_icon")
+  (return-type "gboolean")
+  (parameters
+    '("EvAnnotationTextIcon" "icon")
+  )
+)
+
+(define-method get_is_open
+  (of-object "EvAnnotationText")
+  (c-name "ev_annotation_text_get_is_open")
+  (return-type "gboolean")
+)
+
+(define-method set_is_open
+  (of-object "EvAnnotationText")
+  (c-name "ev_annotation_text_set_is_open")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "is_open")
+  )
+)
+
+(define-function annotation_attachment_get_type
+  (c-name "ev_annotation_attachment_get_type")
+  (return-type "GType")
+)
+
+(define-function annotation_attachment_new
+  (c-name "ev_annotation_attachment_new")
+  (is-constructor-of "EvAnnotationAttachment")
+  (return-type "EvAnnotation*")
+  (parameters
+    '("EvPage*" "page")
+    '("EvAttachment*" "attachment")
+  )
+)
+
+(define-method get_attachment
+  (of-object "EvAnnotationAttachment")
+  (c-name "ev_annotation_attachment_get_attachment")
+  (return-type "EvAttachment*")
+)
+
+(define-method set_attachment
+  (of-object "EvAnnotationAttachment")
+  (c-name "ev_annotation_attachment_set_attachment")
+  (return-type "gboolean")
+  (parameters
+    '("EvAttachment*" "attachment")
+  )
+)
+
 
 
 ;; From ev-async-renderer.h
@@ -710,6 +935,57 @@
 )
 
 
+
+;; From ev-document-annotations.h
+
+(define-function document_annotations_get_type
+  (c-name "ev_document_annotations_get_type")
+  (return-type "GType")
+)
+
+(define-method get_annotations
+  (of-object "EvDocumentAnnotations")
+  (c-name "ev_document_annotations_get_annotations")
+  (return-type "EvMappingList*")
+  (parameters
+    '("EvPage*" "page")
+  )
+)
+
+(define-method document_is_modified
+  (of-object "EvDocumentAnnotations")
+  (c-name "ev_document_annotations_document_is_modified")
+  (return-type "gboolean")
+)
+
+(define-method add_annotation
+  (of-object "EvDocumentAnnotations")
+  (c-name "ev_document_annotations_add_annotation")
+  (return-type "none")
+  (parameters
+    '("EvAnnotation*" "annot")
+    '("EvRectangle*" "rect")
+  )
+)
+
+(define-method save_annotation
+  (of-object "EvDocumentAnnotations")
+  (c-name "ev_document_annotations_save_annotation")
+  (return-type "none")
+  (parameters
+    '("EvAnnotation*" "annot")
+    '("EvAnnotationsSaveMask" "mask")
+  )
+)
+
+(define-method can_add_annotation
+  (of-object "EvDocumentAnnotations")
+  (c-name "ev_document_annotations_can_add_annotation")
+  (return-type "gboolean")
+)
+
+
+
 ;; From ev-document-attachments.h
 
 (define-function document_attachments_get_type
@@ -816,10 +1092,16 @@
 (define-method get_form_fields
   (of-object "EvDocumentForms")
   (c-name "ev_document_forms_get_form_fields")
-  (return-type "GList*")
+  (return-type "EvMappingList*")
   (parameters
     '("EvPage*" "page")
   )
+)
+
+(define-method document_is_modified
+  (of-object "EvDocumentForms")
+  (c-name "ev_document_forms_document_is_modified")
+  (return-type "gboolean")
 )
 
 (define-method form_field_text_get_text
@@ -997,6 +1279,15 @@
   (return-type "EvDocumentInfo*")
 )
 
+(define-method get_backend_info
+  (of-object "EvDocument")
+  (c-name "ev_document_get_backend_info")
+  (return-type "gboolean")
+  (parameters
+    '("EvDocumentBackendInfo*" "info")
+  )
+)
+
 (define-method load
   (of-object "EvDocument")
   (c-name "ev_document_load")
@@ -1089,6 +1380,16 @@
   )
 )
 
+(define-method get_min_page_size
+  (of-object "EvDocument")
+  (c-name "ev_document_get_min_page_size")
+  (return-type "none")
+  (parameters
+    '("gdouble*" "width")
+    '("gdouble*" "height")
+  )
+)
+
 (define-method check_dimensions
   (of-object "EvDocument")
   (c-name "ev_document_check_dimensions")
@@ -1114,6 +1415,32 @@
   (parameters
     '("const-gchar*" "page_label")
     '("gint*" "page_index")
+  )
+)
+
+(define-method has_synctex
+  (of-object "EvDocument")
+  (c-name "ev_document_has_synctex")
+  (return-type "gboolean")
+)
+
+(define-method synctex_backward_search
+  (of-object "EvDocument")
+  (c-name "ev_document_synctex_backward_search")
+  (return-type "EvSourceLink*")
+  (parameters
+    '("gint" "page_index")
+    '("gfloat" "x")
+    '("gfloat" "y")
+  )
+)
+
+(define-method synctex_forward_search
+  (of-object "EvDocument")
+  (c-name "ev_document_synctex_forward_search")
+  (return-type "EvMapping*")
+  (parameters
+    '("EvSourceLink*" "source_link")
   )
 )
 
@@ -1161,7 +1488,7 @@
 (define-method get_image_mapping
   (of-object "EvDocumentImages")
   (c-name "ev_document_images_get_image_mapping")
-  (return-type "GList*")
+  (return-type "EvMappingList*")
   (parameters
     '("EvPage*" "page")
   )
@@ -1310,7 +1637,7 @@
 (define-method get_links
   (of-object "EvDocumentLinks")
   (c-name "ev_document_links_get_links")
-  (return-type "GList*")
+  (return-type "EvMappingList*")
   (parameters
     '("EvPage*" "page")
   )
@@ -1322,6 +1649,24 @@
   (return-type "EvLinkDest*")
   (parameters
     '("const-gchar*" "link_name")
+  )
+)
+
+(define-method get_dest_page
+  (of-object "EvDocumentLinks")
+  (c-name "ev_document_links_get_dest_page")
+  (return-type "gint")
+  (parameters
+    '("EvLinkDest*" "dest")
+  )
+)
+
+(define-method get_dest_page_label
+  (of-object "EvDocumentLinks")
+  (c-name "ev_document_links_get_dest_page_label")
+  (return-type "gchar*")
+  (parameters
+    '("EvLinkDest*" "dest")
   )
 )
 
@@ -1339,6 +1684,16 @@
   )
 )
 
+(define-function document_misc_get_loading_thumbnail
+  (c-name "ev_document_misc_get_loading_thumbnail")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("int" "width")
+    '("int" "height")
+    '("gboolean" "inverted_colors")
+  )
+)
+
 (define-function document_misc_get_page_border_size
   (c-name "ev_document_misc_get_page_border_size")
   (return-type "none")
@@ -1353,7 +1708,7 @@
   (c-name "ev_document_misc_paint_one_page")
   (return-type "none")
   (parameters
-    '("GdkDrawable*" "drawable")
+    '("cairo_t*" "cr")
     '("GtkWidget*" "widget")
     '("GdkRectangle*" "area")
     '("GtkBorder*" "border")
@@ -1405,6 +1760,22 @@
   )
 )
 
+(define-function document_misc_get_screen_dpi
+  (c-name "ev_document_misc_get_screen_dpi")
+  (return-type "gdouble")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-function document_misc_format_date
+  (c-name "ev_document_misc_format_date")
+  (return-type "gchar*")
+  (parameters
+    '("GTime" "utime")
+  )
+)
+
 
 
 ;; From ev-document-print.h
@@ -1445,6 +1816,44 @@
   (return-type "none")
   (parameters
     '("const-char*" "password")
+  )
+)
+
+
+
+;; From ev-document-text.h
+
+(define-function document_text_get_type
+  (c-name "ev_document_text_get_type")
+  (return-type "GType")
+)
+
+(define-method get_text
+  (of-object "EvDocumentText")
+  (c-name "ev_document_text_get_text")
+  (return-type "gchar*")
+  (parameters
+    '("EvPage*" "page")
+  )
+)
+
+(define-method get_text_layout
+  (of-object "EvDocumentText")
+  (c-name "ev_document_text_get_text_layout")
+  (return-type "gboolean")
+  (parameters
+    '("EvPage*" "page")
+    '("EvRectangle**" "areas")
+    '("guint*" "n_areas")
+  )
+)
+
+(define-method get_text_mapping
+  (of-object "EvDocumentText")
+  (c-name "ev_document_text_get_text_mapping")
+  (return-type "cairo_region_t*")
+  (parameters
+    '("EvPage*" "page")
   )
 )
 
@@ -1508,6 +1917,21 @@
 
 
 ;; From ev-document-type-builtins.h
+
+(define-function annotation_type_get_type
+  (c-name "ev_annotation_type_get_type")
+  (return-type "GType")
+)
+
+(define-function annotation_text_icon_get_type
+  (c-name "ev_annotation_text_icon_get_type")
+  (return-type "GType")
+)
+
+(define-function annotations_save_mask_get_type
+  (c-name "ev_annotations_save_mask_get_type")
+  (return-type "GType")
+)
 
 (define-function document_error_get_type
   (c-name "ev_document_error_get_type")
@@ -1706,6 +2130,14 @@
   )
 )
 
+(define-function file_is_temp
+  (c-name "ev_file_is_temp")
+  (return-type "gboolean")
+  (parameters
+    '("GFile*" "file")
+  )
+)
+
 (define-function xfer_uri_simple
   (c-name "ev_xfer_uri_simple")
   (return-type "gboolean")
@@ -1877,6 +2309,11 @@
 
 
 ;; From ev-init.h
+
+(define-function get_locale_dir
+  (c-name "ev_get_locale_dir")
+  (return-type "const-gchar*")
+)
 
 (define-function init
   (c-name "ev_init")
@@ -2202,43 +2639,69 @@
 
 
 
-;; From ev-mapping.h
+;; From ev-mapping-list.h
 
-(define-function mapping_list_find
+(define-function mapping_list_new
+  (c-name "ev_mapping_list_new")
+  (is-constructor-of "EvMappingList")
+  (return-type "EvMappingList*")
+  (parameters
+    '("guint" "page")
+    '("GList*" "list")
+    '("GDestroyNotify" "data_destroy_func")
+  )
+)
+
+(define-method ref
+  (of-object "EvMappingList")
+  (c-name "ev_mapping_list_ref")
+  (return-type "EvMappingList*")
+)
+
+(define-method unref
+  (of-object "EvMappingList")
+  (c-name "ev_mapping_list_unref")
+  (return-type "none")
+)
+
+(define-method get_page
+  (of-object "EvMappingList")
+  (c-name "ev_mapping_list_get_page")
+  (return-type "guint")
+)
+
+(define-method get_list
+  (of-object "EvMappingList")
+  (c-name "ev_mapping_list_get_list")
+  (return-type "GList*")
+)
+
+(define-method find
+  (of-object "EvMappingList")
   (c-name "ev_mapping_list_find")
   (return-type "EvMapping*")
   (parameters
-    '("GList*" "mapping_list")
     '("gconstpointer" "data")
   )
 )
 
-(define-function mapping_list_find_custom
+(define-method find_custom
+  (of-object "EvMappingList")
   (c-name "ev_mapping_list_find_custom")
   (return-type "EvMapping*")
   (parameters
-    '("GList*" "mapping_list")
     '("gconstpointer" "data")
     '("GCompareFunc" "func")
   )
 )
 
-(define-function mapping_list_get_data
+(define-method get_data
+  (of-object "EvMappingList")
   (c-name "ev_mapping_list_get_data")
   (return-type "gpointer")
   (parameters
-    '("GList*" "mapping_list")
     '("gdouble" "x")
     '("gdouble" "y")
-  )
-)
-
-(define-function mapping_list_free
-  (c-name "ev_mapping_list_free")
-  (return-type "none")
-  (parameters
-    '("GList*" "mapping_list")
-    '("GDestroyNotify" "destroy_func")
   )
 )
 
@@ -2258,136 +2721,6 @@
   (parameters
     '("gint" "index")
   )
-)
-
-
-;; From ev-print-operation.h
-
-(define-function ev_print_operation_get_type
-  (c-name "ev_print_operation_get_type")
-  (return-type "GType")
-)
-
-(define-function ev_print_operation_exists_for_document
-  (c-name "ev_print_operation_exists_for_document")
-  (return-type "gboolean")
-  (parameters
-    '("EvDocument*" "document")
-  )
-)
-
-(define-function ev_print_operation_new
-  (c-name "ev_print_operation_new")
-  (is-constructor-of "EvPrintOperation")
-  (return-type "EvPrintOperation*")
-  (parameters
-    '("EvDocument*" "document")
-  )
-)
-
-(define-method set_current_page
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_set_current_page")
-  (return-type "none")
-  (parameters
-    '("gint" "current_page")
-  )
-)
-
-(define-method set_print_settings
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_set_print_settings")
-  (return-type "none")
-  (parameters
-    '("GtkPrintSettings*" "print_settings")
-  )
-)
-
-(define-method get_print_settings
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_get_print_settings")
-  (return-type "GtkPrintSettings*")
-)
-
-(define-method set_default_page_setup
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_set_default_page_setup")
-  (return-type "none")
-  (parameters
-    '("GtkPageSetup*" "page_setup")
-  )
-)
-
-(define-method get_default_page_setup
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_get_default_page_setup")
-  (return-type "GtkPageSetup*")
-)
-
-(define-method set_job_name
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_set_job_name")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "job_name")
-  )
-)
-
-(define-method get_job_name
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_get_job_name")
-  (return-type "const-gchar*")
-)
-
-(define-method run
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_run")
-  (return-type "none")
-  (parameters
-    '("GtkWindow*" "parent")
-  )
-)
-
-(define-method cancel
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_cancel")
-  (return-type "none")
-)
-
-(define-method get_error
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_get_error")
-  (return-type "none")
-  (parameters
-    '("GError**" "error")
-  )
-)
-
-(define-method set_embed_page_setup
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_set_embed_page_setup")
-  (return-type "none")
-  (parameters
-    '("gboolean" "embed")
-  )
-)
-
-(define-method get_embed_page_setup
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_get_embed_page_setup")
-  (return-type "gboolean")
-)
-
-(define-method get_status
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_get_status")
-  (return-type "const-gchar*")
-)
-
-(define-method get_progress
-  (of-object "EvPrintOperation")
-  (c-name "ev_print_operation_get_progress")
-  (return-type "gdouble")
 )
 
 
@@ -2466,25 +2799,16 @@
   (c-name "ev_selection_get_selected_text")
   (return-type "gchar*")
   (parameters
-    '("EvRenderContext*" "rc")
+    '("EvPage*" "page")
     '("EvSelectionStyle" "style")
     '("EvRectangle*" "points")
-  )
-)
-
-(define-method get_selection_map
-  (of-object "EvSelection")
-  (c-name "ev_selection_get_selection_map")
-  (return-type "GdkRegion*")
-  (parameters
-    '("EvPage*" "page")
   )
 )
 
 (define-method get_selection_region
   (of-object "EvSelection")
   (c-name "ev_selection_get_selection_region")
-  (return-type "GdkRegion*")
+  (return-type "cairo_region_t*")
   (parameters
     '("EvRenderContext*" "rc")
     '("EvSelectionStyle" "style")
@@ -2836,6 +3160,20 @@
   )
 )
 
+(define-function job_annots_get_type
+  (c-name "ev_job_annots_get_type")
+  (return-type "GType")
+)
+
+(define-function job_annots_new
+  (c-name "ev_job_annots_new")
+  (is-constructor-of "EvJobAnnots")
+  (return-type "EvJob*")
+  (parameters
+    '("EvDocument*" "document")
+  )
+)
+
 (define-function job_render_get_type
   (c-name "ev_job_render_get_type")
   (return-type "GType")
@@ -3078,6 +3416,137 @@
 
 
 
+;; From ev-print-operation.h
+
+(define-function print_operation_get_type
+  (c-name "ev_print_operation_get_type")
+  (return-type "GType")
+)
+
+(define-function print_operation_exists_for_document
+  (c-name "ev_print_operation_exists_for_document")
+  (return-type "gboolean")
+  (parameters
+    '("EvDocument*" "document")
+  )
+)
+
+(define-function print_operation_new
+  (c-name "ev_print_operation_new")
+  (is-constructor-of "EvPrintOperation")
+  (return-type "EvPrintOperation*")
+  (parameters
+    '("EvDocument*" "document")
+  )
+)
+
+(define-method set_current_page
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_current_page")
+  (return-type "none")
+  (parameters
+    '("gint" "current_page")
+  )
+)
+
+(define-method set_print_settings
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_print_settings")
+  (return-type "none")
+  (parameters
+    '("GtkPrintSettings*" "print_settings")
+  )
+)
+
+(define-method get_print_settings
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_print_settings")
+  (return-type "GtkPrintSettings*")
+)
+
+(define-method set_default_page_setup
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_default_page_setup")
+  (return-type "none")
+  (parameters
+    '("GtkPageSetup*" "page_setup")
+  )
+)
+
+(define-method get_default_page_setup
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_default_page_setup")
+  (return-type "GtkPageSetup*")
+)
+
+(define-method set_job_name
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_job_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "job_name")
+  )
+)
+
+(define-method get_job_name
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_job_name")
+  (return-type "const-gchar*")
+)
+
+(define-method run
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_run")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "parent")
+  )
+)
+
+(define-method cancel
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_cancel")
+  (return-type "none")
+)
+
+(define-method get_error
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_error")
+  (return-type "none")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-method set_embed_page_setup
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_set_embed_page_setup")
+  (return-type "none")
+  (parameters
+    '("gboolean" "embed")
+  )
+)
+
+(define-method get_embed_page_setup
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_embed_page_setup")
+  (return-type "gboolean")
+)
+
+(define-method get_status
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_status")
+  (return-type "const-gchar*")
+)
+
+(define-method get_progress
+  (of-object "EvPrintOperation")
+  (c-name "ev_print_operation_get_progress")
+  (return-type "gdouble")
+)
+
+
+
 ;; From ev-stock-icons.h
 
 (define-function stock_icons_init
@@ -3137,6 +3606,15 @@
   (return-type "none")
 )
 
+(define-method set_page_cache_size
+  (of-object "EvView")
+  (c-name "ev_view_set_page_cache_size")
+  (return-type "none")
+  (parameters
+    '("gsize" "cache_size")
+  )
+)
+
 (define-method copy
   (of-object "EvView")
   (c-name "ev_view_copy")
@@ -3163,21 +3641,6 @@
   (c-name "ev_view_get_has_selection")
   (return-type "gboolean")
 )
-
-;; (define-method set_presentation
-;;   (of-object "EvView")
-;;   (c-name "ev_view_set_presentation")
-;;   (return-type "none")
-;;   (parameters
-;;     '("gboolean" "presentation")
-;;   )
-;; )
-
-;; (define-method get_presentation
-;;   (of-object "EvView")
-;;   (c-name "ev_view_get_presentation")
-;;   (return-type "gboolean")
-;; )
 
 (define-method can_zoom_in
   (of-object "EvView")
@@ -3246,6 +3709,15 @@
   (return-type "none")
 )
 
+(define-method highlight_forward_search
+  (of-object "EvView")
+  (c-name "ev_view_highlight_forward_search")
+  (return-type "none")
+  (parameters
+    '("EvSourceLink*" "link")
+  )
+)
+
 (define-method hide_cursor
   (of-object "EvView")
   (c-name "ev_view_hide_cursor")
@@ -3289,15 +3761,6 @@
   (return-type "gboolean")
 )
 
-(define-method page_label_from_dest
-  (of-object "EvView")
-  (c-name "ev_view_page_label_from_dest")
-  (return-type "gchar*")
-  (parameters
-    '("EvLinkDest*" "dest")
-  )
-)
-
 (define-method autoscroll_start
   (of-object "EvView")
   (c-name "ev_view_autoscroll_start")
@@ -3308,6 +3771,68 @@
   (of-object "EvView")
   (c-name "ev_view_autoscroll_stop")
   (return-type "none")
+)
+
+(define-method get_page_extents
+  (of-object "EvView")
+  (c-name "ev_view_get_page_extents")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "page")
+    '("GdkRectangle*" "page_area")
+    '("GtkBorder*" "border")
+  )
+)
+
+(define-method focus_annotation
+  (of-object "EvView")
+  (c-name "ev_view_focus_annotation")
+  (return-type "none")
+  (parameters
+    '("EvMapping*" "annot_mapping")
+  )
+)
+
+(define-method begin_add_annotation
+  (of-object "EvView")
+  (c-name "ev_view_begin_add_annotation")
+  (return-type "none")
+  (parameters
+    '("EvAnnotationType" "annot_type")
+  )
+)
+
+(define-method cancel_add_annotation
+  (of-object "EvView")
+  (c-name "ev_view_cancel_add_annotation")
+  (return-type "none")
+)
+
+
+
+;; From ev-view-presentation.h
+
+(define-function view_presentation_get_type
+  (c-name "ev_view_presentation_get_type")
+  (return-type "GType")
+)
+
+(define-function view_presentation_new
+  (c-name "ev_view_presentation_new")
+  (is-constructor-of "EvViewPresentation")
+  (return-type "GtkWidget*")
+  (parameters
+    '("EvDocument*" "document")
+    '("guint" "current_page")
+    '("guint" "rotation")
+    '("gboolean" "inverted_colors")
+  )
+)
+
+(define-method get_current_page
+  (of-object "EvViewPresentation")
+  (c-name "ev_view_presentation_get_current_page")
+  (return-type "guint")
 )
 
 
@@ -3338,4 +3863,5 @@
   (c-name "ev_view_selection_mode_get_type")
   (return-type "GType")
 )
+
 
