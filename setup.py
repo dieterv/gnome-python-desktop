@@ -53,16 +53,16 @@ PYGTK_SUFFIX = '2.0'
 PYGTK_SUFFIX_LONG = 'gtk-' + PYGTK_SUFFIX
 PYGTK_DEFS_DIR = pkgc_get_defs_dir('pygtk-%s' % PYGTK_SUFFIX)
 
+RSVG_REQUIRED      = get_m4_define('rsvg_required_version')
+PYCAIRO_REQUIRED   = '1.8.10' # configure.ac does not define pycairo_required_version
+PYGTK_REQUIRED     = '%s.%s.%s' % (get_m4_define('pygtk_required_major_version'),
+                                   get_m4_define('pygtk_required_minor_version'),
+                                   get_m4_define('pygtk_required_micro_version'))
+
 MAJOR_VERSION = int(get_m4_define('gnome_python_desktop_major_version'))
 MINOR_VERSION = int(get_m4_define('gnome_python_desktop_minor_version'))
 MICRO_VERSION = int(get_m4_define('gnome_python_desktop_micro_version'))
 VERSION = '%d.%d.%d' % (MAJOR_VERSION, MINOR_VERSION, MICRO_VERSION)
-
-RSVG_REQUIRED      = get_m4_define('rsvg_required_version')
-PYCAIRO_REQUIRED   = '1.8.10'
-PYGTK_REQUIRED     = '%s.%s.%s' % (get_m4_define('pygtk_required_major_version'),
-                                   get_m4_define('pygtk_required_minor_version'),
-                                   get_m4_define('pygtk_required_micro_version'))
 
 GLOBAL_INC += ['.']
 GLOBAL_MACROS += [('PYRSVG_MAJOR_VERSION', MAJOR_VERSION),
