@@ -39,7 +39,7 @@ build
 dist
 
 # Codegen output.
-goocanvas.c
+rsvg/rsvg.c
 
 # Eclipse files.
 .settings
